@@ -1,0 +1,41 @@
+@use '../../../styles/mixins' as *;
+
+:host {
+  display: inline-block;
+}
+
+.theme-toggle {
+  @include reset-button;
+  @include flex-center;
+
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+  padding: var(--spacing-sm);
+
+  background: var(--gradient-bg-card);
+  border: var(--border-thin) solid var(--border-color);
+  border-radius: var(--radius-md);
+
+  color: var(--text-primary);
+  cursor: pointer;
+
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: var(--gradient-primary);
+    color: var(--color-white);
+    border-color: transparent;
+    transform: rotate(15deg) scale(1.05);
+    box-shadow: var(--shadow-lg);
+  }
+
+  &:active {
+    transform: rotate(15deg) scale(0.95);
+  }
+
+  .icon {
+    width: calc(var(--icon-size-md) / 2);
+    height: calc(var(--icon-size-md) / 2);
+    transition: transform var(--transition-base);
+  }
+}

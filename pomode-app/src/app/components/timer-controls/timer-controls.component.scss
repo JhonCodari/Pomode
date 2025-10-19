@@ -1,0 +1,179 @@
+@use '../../../styles/mixins' as *;
+@use '../../../styles/breakpoints' as *;
+
+:host {
+  display: block;
+}
+
+// ============================================================================
+// TIMER CONTROLS - MOBILE FIRST APPROACH
+// ============================================================================
+
+.controls-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  // Mobile base
+  gap: var(--spacing-xs);
+  padding: 0 var(--spacing-sm);
+
+  @include tablet-up {
+    gap: var(--spacing-sm);
+    padding: 0 var(--spacing-md);
+    max-width: var(--container-controls);
+  }
+
+  @include desktop-up {
+    gap: var(--spacing-sm);
+    padding: 0;
+  }
+
+  // Ajustes para mobile landscape
+  @include mobile-landscape {
+    gap: var(--spacing-xs);
+    padding: 0 var(--spacing-xs);
+
+    .control-btn ::ng-deep .btn {
+      padding: var(--spacing-xs) var(--spacing-sm);
+      font-size: var(--font-size-xs);
+      min-height: 2.25rem; // Reduzir altura em landscape
+    }
+  }
+
+  // Ajustes para telas baixas
+  @include short-screen(600px) {
+    gap: var(--spacing-xs);
+
+    .control-btn ::ng-deep .btn {
+      min-height: 2.5rem; // Altura menor para telas baixas
+      font-size: var(--font-size-xs);
+    }
+  }
+
+  .control-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 12.5rem; // Limita largura máxima em telas grandes
+
+    ::ng-deep .btn {
+      width: 100%;
+      @include flex-center;
+      gap: var(--spacing-xs);
+
+      // Melhor responsividade para texto
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      // Mobile base styles
+      padding: var(--spacing-sm) var(--spacing-xs);
+      font-size: clamp(0.625rem, 3vw, var(--font-size-xs));
+      min-height: var(--button-min-height-mobile);
+      border-radius: var(--radius-sm);
+
+      @include tablet-up {
+        padding: var(--spacing-sm) var(--spacing-sm);
+        font-size: var(--font-size-sm);
+        min-height: var(--button-min-height-tablet);
+        gap: var(--spacing-sm);
+        border-radius: var(--radius-md);
+      }
+
+      @include desktop-up {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+        min-height: var(--button-min-height-tablet);
+        border-radius: var(--radius-md);
+      }
+
+      @include mobile-only {
+        // Em mobile muito pequeno, mostrar apenas emoji
+        .btn-text {
+          display: none;
+
+          @media (min-width: 350px) {
+            display: inline;
+          }
+        }
+      }
+    }
+
+    &:hover:not(:disabled) {
+      transform: translateY(calc(-1 * var(--spacing-xs) / 2));
+
+      ::ng-deep .btn {
+        box-shadow: var(--shadow-lg);
+      }
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    // Estados de loading/disabled
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// OPTIMIZAÇÕES PARA TELAS MUITO PEQUENAS
+// ============================================================================
+
+@media (max-width: 320px) {
+  .controls-container {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+
+    .control-btn {
+      flex: none;
+      max-width: none;
+
+      ::ng-deep .btn {
+        justify-content: center;
+        min-height: var(--button-min-height-mobile);
+      }
+    }
+  }
+}
+
+// ============================================================================
+// MELHORIAS DE ACESSIBILIDADE
+// ============================================================================
+
+// Modo de alto contraste
+@media (prefers-contrast: high) {
+  .controls-container .control-btn ::ng-deep .btn {
+    border-width: 2px;
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
+// Reduzir movimento para usuários sensíveis
+@media (prefers-reduced-motion: reduce) {
+  .controls-container .control-btn {
+    &:hover:not(:disabled) {
+      transform: none;
+    }
+
+    &:active:not(:disabled) {
+      transform: none;
+    }
+
+    ::ng-deep .btn {
+      transition: background-color var(--transition-fast);
+    }
+  }
+}

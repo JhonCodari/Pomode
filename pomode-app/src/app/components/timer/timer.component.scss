@@ -1,0 +1,202 @@
+@use '../../../styles/mixins' as *;
+@use '../../../styles/breakpoints' as *;
+
+:host {
+  display: block;
+}
+
+// ============================================================================
+// TIMER COMPONENT - MOBILE FIRST
+// ============================================================================
+
+.timer-container {
+  @include flex-center-column;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+
+  // Mobile base
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+
+  @include tablet-up {
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+
+  @include desktop-up {
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+}
+
+// ============================================================================
+// MODE INDICATOR
+// ============================================================================
+
+.mode-indicator {
+  @include flex-center;
+  gap: var(--spacing-xs);
+  animation: fadeIn var(--transition-base) ease-in-out;
+
+  @include tablet-up {
+    gap: var(--spacing-sm);
+  }
+
+  .mode-emoji {
+    font-size: var(--font-size-xl);
+
+    @include tablet-up {
+      font-size: var(--font-size-2xl);
+    }
+
+    @include desktop-up {
+      font-size: var(--font-size-2xl);
+    }
+  }
+
+  .mode-text {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+
+    @include tablet-up {
+      font-size: var(--font-size-lg);
+    }
+
+    @include desktop-up {
+      font-size: var(--font-size-lg);
+    }
+  }
+}
+
+// ============================================================================
+// TIMER DISPLAY - RESPONSIVO E OTIMIZADO
+// ============================================================================
+
+.timer-display {
+  @include flex-center;
+  gap: var(--spacing-xs);
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  user-select: none;
+  @include slide-up;
+
+  @include tablet-up {
+    gap: var(--spacing-sm);
+  }
+
+  // Ajustar para mobile landscape (tela baixa)
+  @include mobile-landscape {
+    gap: var(--spacing-xs);
+  }
+
+  // Ajustar para telas muito baixas
+  @include short-screen(600px) {
+    gap: var(--spacing-xs);
+  }
+
+  .time-number {
+    // Aplicar gradiente apenas nos números
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(var(--primary-rgb), 0.2));
+
+    // Mobile first font sizes
+    font-size: clamp(2.5rem, 15vw, 4rem);
+
+    // Tamanho menor em telas baixas para garantir que cabe
+    @include short-screen(600px) {
+      font-size: clamp(2rem, 12vw, 3rem);
+    }
+
+    // Mobile landscape - reduzir ainda mais
+    @include mobile-landscape {
+      font-size: clamp(1.8rem, 10vw, 2.5rem);
+    }
+
+    @include tablet-up {
+      font-size: clamp(4rem, 12vw, 6rem);
+    }
+
+    @include desktop-up {
+      font-size: clamp(5rem, 8vw, 6.5rem);
+    }
+  }
+
+  .time-separator {
+    // Cor sólida para o separador (não herda gradiente)
+    color: var(--primary);
+    animation: blink 2s infinite;
+
+    // Mobile first font sizes
+    font-size: clamp(2rem, 12vw, 3rem);
+
+    @include tablet-up {
+      font-size: clamp(3rem, 10vw, 4.5rem);
+    }
+
+    @include desktop-up {
+      font-size: clamp(3.75rem, 6vw, 5rem);
+    }
+  }
+}
+
+// ============================================================================
+// PROGRESS BAR
+// ============================================================================
+
+.progress-bar {
+  width: 100%;
+  max-width: calc(100% - var(--spacing-md));
+  height: 4px;
+  background-color: rgba(var(--primary-rgb), 0.2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin: 0 auto;
+
+  @include tablet-up {
+    height: 6px;
+    max-width: calc(100% - var(--spacing-lg));
+  }
+
+  @include desktop-up {
+    height: 6px;
+    max-width: calc(100% - var(--spacing-xl));
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: inherit;
+    transition: width var(--transition-base) ease-out;
+    box-shadow: 0 0 8px rgba(var(--primary-rgb), 0.3);
+  }
+}
+
+// ============================================================================
+// ANIMAÇÕES
+// ============================================================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-var(--spacing-sm));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0.3;
+  }
+}

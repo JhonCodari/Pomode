@@ -1,0 +1,165 @@
+﻿<app-container [size]="'lg'">
+  <article class="sobre-pomodoro" itemscope itemtype="https://schema.org/Article">
+    <header class="page-header">
+      <h1 itemprop="headline" [innerHTML]="'ABOUT.TITLE' | translate"></h1>
+      <p class="subtitle" itemprop="description">
+        {{ 'ABOUT.SUBTITLE' | translate }}
+      </p>
+    </header>
+
+    <div class="article-content" itemprop="articleBody">
+      <app-section
+        [title]="'ABOUT.WHAT_IS.TITLE' | translate"
+        id="o-que-e">
+        <p [innerHTML]="'ABOUT.WHAT_IS.P1' | translate"></p>
+        <p [innerHTML]="'ABOUT.WHAT_IS.P2' | translate"></p>
+      </app-section>
+
+      <app-section
+        [title]="'ABOUT.HISTORY.TITLE' | translate"
+        id="historia">
+        <p [innerHTML]="'ABOUT.HISTORY.P1' | translate"></p>
+        <p [innerHTML]="'ABOUT.HISTORY.P2' | translate"></p>
+      </app-section>
+
+      <app-section
+        [title]="'ABOUT.SCIENCE.TITLE' | translate"
+        id="ciencia">
+        <p [innerHTML]="'ABOUT.SCIENCE.INTRO' | translate"></p>
+        <app-list
+          [variant]="'bulleted'"
+          [items]="[
+            { text: 'ABOUT.SCIENCE.BENEFITS.FATIGUE' },
+            { text: 'ABOUT.SCIENCE.BENEFITS.PRODUCTIVITY' },
+            { text: 'ABOUT.SCIENCE.BENEFITS.GRADES' },
+            { text: 'ABOUT.SCIENCE.BENEFITS.BALANCE' }
+          ]">
+        </app-list>
+        <p [innerHTML]="'ABOUT.SCIENCE.CONCLUSION' | translate"></p>
+      </app-section>
+
+      <app-section
+        [title]="'ABOUT.HOW_IT_WORKS.TITLE' | translate"
+        id="como-funciona">
+        <app-list
+          [variant]="'numbered'"
+          [items]="[
+            { text: 'ABOUT.HOW_IT_WORKS.STEPS.STEP1' },
+            { text: 'ABOUT.HOW_IT_WORKS.STEPS.STEP2' },
+            { text: 'ABOUT.HOW_IT_WORKS.STEPS.STEP3' },
+            { text: 'ABOUT.HOW_IT_WORKS.STEPS.STEP4' },
+            { text: 'ABOUT.HOW_IT_WORKS.STEPS.STEP5' }
+          ]">
+        </app-list>
+      </app-section>
+
+      <app-section
+        [title]="'ABOUT.BENEFITS.TITLE' | translate"
+        id="beneficios">
+        <app-list
+          [variant]="'bulleted'"
+          [items]="[
+            { text: 'ABOUT.BENEFITS.ITEMS.START' },
+            { text: 'ABOUT.BENEFITS.ITEMS.MOTIVATION' },
+            { text: 'ABOUT.BENEFITS.ITEMS.STRUCTURE' },
+            { text: 'ABOUT.BENEFITS.ITEMS.BURNOUT' },
+            { text: 'ABOUT.BENEFITS.ITEMS.CREATIVITY' },
+            { text: 'ABOUT.BENEFITS.ITEMS.AWARENESS' }
+          ]">
+        </app-list>
+      </app-section>
+
+      <app-section
+        [title]="'ABOUT.AUDIENCE.TITLE' | translate"
+        id="para-quem-serve">
+        <p>{{ 'ABOUT.AUDIENCE.INTRO' | translate }}</p>
+        <app-list
+          [variant]="'bulleted'"
+          [items]="[
+            { text: 'ABOUT.AUDIENCE.ITEMS.STUDENTS' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.DEVELOPERS' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.REMOTE' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.CREATIVES' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.ADHD' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.FREELANCERS' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.ANYONE' }
+          ]">
+        </app-list>
+      </app-section>
+
+      <app-section
+        [title]="'ABOUT.MISTAKES.TITLE' | translate"
+        id="erros-comuns">
+        <app-list
+          [variant]="'bulleted'"
+          [items]="[
+            { text: 'ABOUT.MISTAKES.ITEMS.BIG_TASK' },
+            { text: 'ABOUT.MISTAKES.ITEMS.MULTITASK' },
+            { text: 'ABOUT.MISTAKES.ITEMS.SOCIAL_MEDIA' },
+            { text: 'ABOUT.MISTAKES.ITEMS.NO_REFLECTION' }
+          ]">
+        </app-list>
+      </app-section>
+
+      <app-section
+        [title]="'ABOUT.ADVANCED.TITLE' | translate"
+        id="dicas-avancadas">
+        <p>{{ 'ABOUT.ADVANCED.INTRO' | translate }}</p>
+        <app-list
+          [variant]="'bulleted'"
+          [items]="[
+            { text: 'ABOUT.ADVANCED.ITEMS.RECALL' },
+            { text: 'ABOUT.ADVANCED.ITEMS.SPACED' },
+            { text: 'ABOUT.ADVANCED.ITEMS.FLEXIBLE' },
+            { text: 'ABOUT.ADVANCED.ITEMS.DISTRACTIONS' }
+          ]">
+        </app-list>
+      </app-section>
+
+      <app-section
+        [title]="'ABOUT.REFERENCES.TITLE' | translate"
+        id="referencias">
+        <p>{{ 'ABOUT.REFERENCES.INTRO' | translate }}</p>
+        <app-list
+          [variant]="'referenced'"
+          [items]="[
+            {
+              text: 'ABOUT.REFERENCES.ITEMS.PUBMED',
+              link: {
+                url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12532815/',
+                text: 'ABOUT.REFERENCES.ACCESS',
+                external: true
+              }
+            },
+            {
+              text: 'ABOUT.REFERENCES.ITEMS.NATGEO',
+              link: {
+                url: 'https://www.nationalgeographic.com/health/article/attention-spans-shrinking-how-to-regain',
+                text: 'ABOUT.REFERENCES.ACCESS_ARTICLE',
+                external: true
+              }
+            },
+            { text: 'ABOUT.REFERENCES.ITEMS.HARVARD' },
+            { text: 'ABOUT.REFERENCES.ITEMS.APA' },
+            { text: 'ABOUT.REFERENCES.ITEMS.JOURNAL' }
+          ]">
+        </app-list>
+      </app-section>
+
+      <app-section
+        [title]="'ABOUT.CTA.TITLE' | translate"
+        [variant]="'cta'"
+        id="comece-agora">
+        <p [innerHTML]="'ABOUT.CTA.P1' | translate"></p>
+        <p [innerHTML]="'ABOUT.CTA.P2' | translate"></p>
+        <app-button
+          [variant]="'primary'"
+          [size]="'lg'"
+          routerLink="/"
+        >
+          {{ 'ABOUT.CTA.BUTTON' | translate }}
+        </app-button>
+      </app-section>
+    </div>
+  </article>
+</app-container>

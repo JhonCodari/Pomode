@@ -1,0 +1,223 @@
+{
+  "APP": {
+    "TITLE": "Pomode",
+    "SUBTITLE": "Timer Pomodoro",
+    "SKIP_TO_CONTENT": "Pular para o conteúdo principal",
+    "COPYRIGHT": "© 2025 Pomode | Desenvolvido por Jhon Codari",
+    "VERSION": "v1.0.1",
+    "VISITORS": "visitas"
+  },
+  "NAV": {
+    "WHAT_IS_POMODORO": "O que é Pomodoro?",
+    "HOME": "Início",
+    "SETTINGS": "Configurações",
+    "GO_HOME": "Voltar para a página inicial",
+    "MAIN_NAVIGATION": "Navegação principal",
+    "MOBILE_MENU": "Menu mobile",
+    "OPEN_MENU": "Abrir menu",
+    "CLOSE_MENU": "Fechar menu",
+    "APP_SETTINGS": "Configurações do app"
+  },
+  "TIMER": {
+    "MODES": {
+      "WORK": "Tempo de Foco",
+      "SHORT_BREAK": "Pausa Curta",
+      "LONG_BREAK": "Pausa Longa"
+    },
+    "CYCLES_COMPLETED": "Ciclos completados:",
+    "CONTROLS": {
+      "TITLE": "Controles do timer",
+      "START": "Iniciar",
+      "CONTINUE": "Continuar",
+      "PAUSE": "Pausar",
+      "RESET": "Resetar",
+      "SKIP": "Pular"
+    }
+  },
+  "STATS": {
+    "TITLE": "Estatísticas",
+    "TODAY_SESSIONS": "Sessões hoje",
+    "TOTAL_HOURS": "Total de horas",
+    "WEEKLY_SESSIONS": "Sessões (7 dias)"
+  },
+  "SETTINGS": {
+    "TITLE": "Configurações",
+    "SAVED": "Configurações salvas com sucesso!",
+    "RESTORED": "Configurações restauradas para o padrão",
+    "TIMES": {
+      "SECTION": "Tempos",
+      "WORK_TIME": "Tempo de Foco (minutos)",
+      "SHORT_BREAK": "Pausa Curta (minutos)",
+      "LONG_BREAK": "Pausa Longa (minutos)",
+      "CYCLES": "Ciclos antes da pausa longa",
+      "BETWEEN": "Entre {{min}} e {{max}}",
+      "BETWEEN_CYCLES": "Entre {{min}} e {{max}} ciclos"
+    },
+    "SOUND": {
+      "SECTION": "Som",
+      "ENABLED": "Som de alerta",
+      "VOLUME": "Volume",
+      "TEST": "Testar"
+    },
+    "NOTIFICATIONS": {
+      "SECTION": "Notificações",
+      "ENABLED": "Notificações do navegador",
+      "NOT_SUPPORTED": "Seu navegador não suporta notificações",
+      "ENABLED_SUCCESS": "Notificações habilitadas!",
+      "DENIED": "Permissão de notificações negada"
+    },
+    "LANGUAGE": {
+      "SECTION": "Idioma",
+      "SELECT": "Selecionar idioma"
+    },
+    "ACTIONS": {
+      "DEFAULT": "Padrão",
+      "CANCEL": "Cancelar",
+      "SAVE": "Salvar"
+    }
+  },
+  "NOTIFICATIONS": {
+    "WORK_COMPLETE": {
+      "TITLE": "🍅 Parabéns! Ciclo completo!",
+      "BODY": "Hora de fazer uma pausa. Você merece!"
+    },
+    "SHORT_BREAK_COMPLETE": {
+      "TITLE": "☕ Pausa terminada!",
+      "BODY": "Vamos voltar ao trabalho?"
+    },
+    "LONG_BREAK_COMPLETE": {
+      "TITLE": "🌴 Pausa longa terminada!",
+      "BODY": "Pronto para um novo ciclo de produtividade!"
+    }
+  },
+  "TOAST": {
+    "CLOSE": "Fechar notificação"
+  },
+  "ABOUT": {
+    "TITLE": "🍅 O que é a Técnica Pomodoro?",
+    "SUBTITLE": "Descubra como essa técnica simples pode revolucionar sua produtividade — comprovada por estudos científicos",
+    "WHAT_IS": {
+      "TITLE": "O que é?",
+      "P1": "A <strong>Técnica Pomodoro</strong> é um método de gerenciamento de tempo baseado em intervalos claros de trabalho e pausa. Você se concentra por <strong>25 minutos</strong>, faz uma pausa de <strong>5 minutos</strong> e inicia a próxima rodada. Após quatro rodadas, você faz uma pausa mais longa de <strong>15 a 30 minutos</strong>.",
+      "P2": "Dessa forma, seu cérebro permanece alerta mesmo durante longas sessões de trabalho ou estudo — seja revisando anotações, se preparando para provas ou trabalhando em projetos complexos."
+    },
+    "HISTORY": {
+      "TITLE": "📜 História",
+      "P1": "O método foi criado no final da década de 1980 pelo estudante italiano <strong>Francesco Cirillo</strong>, utilizando um cronômetro de cozinha em formato de tomate (daí o nome: <em>pomodoro</em> = tomate em italiano).",
+      "P2": "Frustrado com as distrações e a procrastinação, Cirillo começou a dividir suas sessões de estudo em blocos cronometrados. O que começou como um experimento pessoal se transformou em um método mundialmente reconhecido, adotado por milhões de pessoas em diversas áreas profissionais."
+    },
+    "SCIENCE": {
+      "TITLE": "🔬 O que a Ciência Diz?",
+      "INTRO": "As evidências sobre a eficácia da técnica Pomodoro baseiam-se em estudos de <strong>neurociência cognitiva</strong> e <strong>psicologia comportamental</strong> que analisam o impacto de pausas estruturadas no cérebro.",
+      "BENEFITS": {
+        "FATIGUE": "<strong>Redução de 20% na fadiga mental:</strong> Estudos mostram que intervalos estruturados resultam em menor cansaço em comparação com pausas feitas por conta própria.",
+        "PRODUCTIVITY": "<strong>Aumento de 25% na produtividade:</strong> Profissionais que utilizam o método relatam ganhos significativos de produtividade, pois a técnica ajuda a combater o \"esgotamento da atenção\".",
+        "GRADES": "<strong>Notas até 12% superiores:</strong> Pesquisas acadêmicas indicam que estudantes usando a técnica apresentam melhor desempenho em exames.",
+        "BALANCE": "<strong>Melhora no equilíbrio vida-trabalho:</strong> Indivíduos que adotaram pausas estruturadas relataram um aumento de 15% na satisfação com o equilíbrio entre vida pessoal e profissional."
+      },
+      "CONCLUSION": "A técnica se alinha perfeitamente aos ritmos naturais do nosso cérebro, melhorando o funcionamento cognitivo e maximizando a produção."
+    },
+    "HOW_IT_WORKS": {
+      "TITLE": "✨ Como Funciona?",
+      "STEPS": {
+        "STEP1": "<strong>Anote suas metas:</strong> Defina de 1 a 3 tarefas para realizar",
+        "STEP2": "<strong>Configure o timer:</strong> Defina para 25 minutos (1 pomodoro)",
+        "STEP3": "<strong>Trabalhe com foco total:</strong> Concentre-se em uma única tarefa, sem interrupções",
+        "STEP4": "<strong>Faça uma pausa curta:</strong> Descanse 5 minutos — levante-se, beba água, descanse os olhos",
+        "STEP5": "<strong>Repita o ciclo:</strong> A cada 4 pomodoros, faça uma pausa longa de 15-30 minutos"
+      }
+    },
+    "BENEFITS": {
+      "TITLE": "🎯 Benefícios Comprovados",
+      "ITEMS": {
+        "START": "<strong>Facilita o início:</strong> \"Só 25 minutos\" parece muito menos assustador do que \"estudar por 3 horas\" — adeus, procrastinação!",
+        "MOTIVATION": "<strong>Mantém a motivação:</strong> O progresso visível a cada ciclo mantém você engajado",
+        "STRUCTURE": "<strong>Cria estrutura:</strong> Organiza seu tempo sem ser opressor",
+        "BURNOUT": "<strong>Previne burnout:</strong> Pausas regulares mantêm a mente fresca e descansada",
+        "CREATIVITY": "<strong>Melhora a criatividade:</strong> Pausas regulares aprimoram a criatividade e as habilidades de resolução de problemas",
+        "AWARENESS": "<strong>Aumenta a consciência:</strong> Você se torna mais consciente de como usa seu tempo e aprende a estimar melhor a duração das tarefas"
+      }
+    },
+    "AUDIENCE": {
+      "TITLE": "👥 Para Quem Serve?",
+      "INTRO": "A Técnica Pomodoro é ideal para:",
+      "ITEMS": {
+        "STUDENTS": "<strong>Estudantes:</strong> Que precisam manter o foco durante longas sessões de estudo e época de provas",
+        "DEVELOPERS": "<strong>Desenvolvedores:</strong> Que trabalham com tarefas complexas que exigem concentração profunda",
+        "REMOTE": "<strong>Trabalhadores remotos:</strong> Que frequentemente se veem às voltas com distrações em casa",
+        "CREATIVES": "<strong>Escritores e Criativos:</strong> Que buscam manter a criatividade fluindo sem se esgotar",
+        "ADHD": "<strong>Pessoas com TDAH:</strong> Estudos mostram que a técnica reduz significativamente o estresse ao oferecer uma estrutura que substitui a difícil tarefa de autorregulação constante",
+        "FREELANCERS": "<strong>Freelancers:</strong> Que precisam autogerenciar seu tempo e produtividade",
+        "ANYONE": "<strong>Qualquer pessoa:</strong> Que busca melhorar seu foco, produtividade e bem-estar no trabalho"
+      }
+    },
+    "MISTAKES": {
+      "TITLE": "⚠️ Erros Comuns (e Como Evitá-los)",
+      "ITEMS": {
+        "BIG_TASK": "<strong>Tarefa muito grande?</strong> Divida em etapas menores que caibam em 1 a 4 ciclos Pomodoro",
+        "MULTITASK": "<strong>Multitarefa?</strong> Alternar entre abas e aplicativos acaba com a concentração — foque em uma tarefa por vez",
+        "SOCIAL_MEDIA": "<strong>Pausas = redes sociais?</strong> Rolar o feed não é descanso! Mexa-se, alongue-se, respire, beba água — longe das telas",
+        "NO_REFLECTION": "<strong>Sem reflexão?</strong> Reserve 1 minuto após cada sessão para anotar o que funcionou — isso melhora a técnica com o tempo"
+      }
+    },
+    "ADVANCED": {
+      "TITLE": "💡 Dicas Avançadas",
+      "INTRO": "Combine a técnica Pomodoro com estratégias de aprendizado inteligentes:",
+      "ITEMS": {
+        "RECALL": "<strong>Recordação ativa:</strong> Após cada rodada, faça a si mesmo 3 a 5 perguntas sobre o que aprendeu",
+        "SPACED": "<strong>Repetição espaçada:</strong> Revisite os tópicos mais difíceis em várias rodadas ao longo do tempo",
+        "FLEXIBLE": "<strong>Intervalos flexíveis:</strong> Experimente 20-5 para iniciantes, 40-10 para trabalho profundo — a consistência importa mais que os números exatos",
+        "DISTRACTIONS": "<strong>Monitore as distrações:</strong> Anote as interrupções e corrija os gatilhos — você notará melhora significativa semana após semana"
+      }
+    },
+    "REFERENCES": {
+      "TITLE": "📚 Referências Científicas",
+      "INTRO": "Os dados apresentados neste artigo são baseados em pesquisas publicadas em fontes confiáveis:",
+      "ITEMS": {
+        "PUBMED": "<strong>PubMed Central (2025):</strong> Metanálise sobre intervalos estruturados e fadiga mental",
+        "NATGEO": "<strong>National Geographic (2024):</strong> Pesquisa sobre capacidade de atenção e como recuperá-la",
+        "HARVARD": "<strong>Harvard Business Review (2020):</strong> Análise sobre impacto da gestão de tempo no desempenho profissional",
+        "APA": "<strong>American Psychological Association (2021):</strong> Estudos sobre pausas regulares e criatividade",
+        "JOURNAL": "<strong>Journal of Management:</strong> Pesquisa sobre produtividade com a Técnica Pomodoro (Karpicke et al., 2014)"
+      },
+      "ACCESS": "Acessar estudo",
+      "ACCESS_ARTICLE": "Acessar artigo"
+    },
+    "CTA": {
+      "TITLE": "🚀 Pronto para começar?",
+      "P1": "Agora que você conhece a Técnica Pomodoro e seus benefícios comprovados pela ciência, que tal experimentar? Use o <strong>Pomode</strong> e descubra como pequenos blocos de foco podem gerar grandes resultados!",
+      "P2": "Comece hoje mesmo com apenas três rodadas — observe onde você se distrai e ajuste os intervalos. Você encontrará rapidamente o ritmo ideal para o seu cérebro.",
+      "BUTTON": "Começar agora"
+    }
+  },
+  "LANGUAGES": {
+    "EN": "Inglês",
+    "PT": "Português",
+    "ES": "Espanhol"
+  },
+  "MUSIC_PLAYER": {
+    "LABEL": "Player de música ambiente",
+    "EXPAND": "Expandir player de música",
+    "MINIMIZE": "Minimizar player",
+    "PLAY": "Reproduzir",
+    "PAUSE": "Pausar",
+    "MUTE": "Silenciar",
+    "UNMUTE": "Ativar som",
+    "VOLUME": "Volume",
+    "AUTO_PLAY": "Auto-play ao iniciar foco",
+    "SELECT_TRACK": "Selecionar faixa",
+    "NEXT_TRACK": "Próxima faixa",
+    "NO_TRACK": "Nenhuma faixa",
+    "TRACKLIST": "Lista de faixas",
+    "CATEGORIES": {
+      "LABEL": "Categorias de som",
+      "LOFI": "Lofi",
+      "INSTRUMENTAL": "Instrumental"
+    },
+    "TRACKS": {
+      "GROOVE_SALAD": "Groove Salad",
+      "DRONE_ZONE": "Drone Zone",
+      "DIGITALIS": "Digitalis"
+    }
+  }
+}

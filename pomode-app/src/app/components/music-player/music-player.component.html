@@ -1,0 +1,143 @@
+<!-- Player minimizado: apenas FAB -->
+@if (isMinimized()) {
+  <button
+    class="player-fab"
+    (click)="toggleMinimize()"
+    [class.player-fab--playing]="isPlaying()"
+    [attr.aria-label]="'MUSIC_PLAYER.EXPAND' | translate"
+    type="button"
+  >
+    <app-icon name="music" [size]="'sm'" [ariaHidden]="true"></app-icon>
+    @if (isPlaying()) {
+      <span class="player-fab__waves" aria-hidden="true">
+        <span class="wave"></span>
+        <span class="wave"></span>
+        <span class="wave"></span>
+      </span>
+    }
+  </button>
+}
+
+<!-- Player expandido: barra na parte inferior -->
+@if (!isMinimized()) {
+  <div class="music-player" [class.music-player--playing]="isPlaying()" role="region" [attr.aria-label]="'MUSIC_PLAYER.LABEL' | translate">
+
+    <!-- Barra de controle principal -->
+    <div class="player-controls">
+
+      <!-- Info da faixa atual (abre dropdown) -->
+      <button
+        class="player-track"
+        (click)="toggleTracks()"
+        [attr.aria-expanded]="showTracks()"
+        [attr.aria-label]="'MUSIC_PLAYER.SELECT_TRACK' | translate"
+        type="button"
+        title="{{ 'MUSIC_PLAYER.SELECT_TRACK' | translate }}"
+      >
+        <app-icon name="music" [size]="'xs'" [ariaHidden]="true" class="player-track__icon"></app-icon>
+        <span class="player-track__name">{{ (currentTrack()?.nameKey ?? 'MUSIC_PLAYER.NO_TRACK') | translate }}</span>
+        <app-icon [name]="showTracks() ? 'chevron-up' : 'chevron-down'" [size]="'xs'" [ariaHidden]="true" class="player-track__chevron"></app-icon>
+      </button>
+
+      <!-- Visualizador de ondas (quando tocando) -->
+      @if (isPlaying()) {
+        <div class="sound-waves" aria-hidden="true">
+          <span class="sound-waves__bar"></span>
+          <span class="sound-waves__bar"></span>
+          <span class="sound-waves__bar"></span>
+          <span class="sound-waves__bar"></span>
+          <span class="sound-waves__bar"></span>
+        </div>
+      }
+
+      <!-- Botão Play/Pause (principal) -->
+      <button
+        class="player-play-btn"
+        (click)="toggle()"
+        [attr.aria-label]="(isPlaying() ? 'MUSIC_PLAYER.PAUSE' : 'MUSIC_PLAYER.PLAY') | translate"
+        type="button"
+      >
+        <app-icon [name]="isPlaying() ? 'pause' : 'play'" [size]="'sm'" [ariaHidden]="true"></app-icon>
+      </button>
+
+      <!-- Botão próxima faixa -->
+      <button
+        class="player-next-btn"
+        (click)="nextTrack()"
+        [attr.aria-label]="'MUSIC_PLAYER.NEXT_TRACK' | translate"
+        type="button"
+        title="{{ 'MUSIC_PLAYER.NEXT_TRACK' | translate }}"
+      >
+        <app-icon name="skip-forward" [size]="'xs'" [ariaHidden]="true"></app-icon>
+      </button>
+
+      <!-- Volume -->
+      <div class="player-volume">
+        <button
+          class="player-volume__icon-btn"
+          (click)="toggleMute()"
+          [attr.aria-label]="(isMuted() ? 'MUSIC_PLAYER.UNMUTE' : 'MUSIC_PLAYER.MUTE') | translate"
+          type="button"
+        >
+          <app-icon [name]="volumeIconName()" [size]="'xs'" [ariaHidden]="true"></app-icon>
+        </button>
+        <div class="player-volume__panel">
+          <input
+            class="player-volume__slider"
+            type="range"
+            min="0"
+            max="100"
+            [value]="isMuted() ? 0 : volume()"
+            (input)="onVolumeChange($event)"
+            [attr.aria-label]="'MUSIC_PLAYER.VOLUME' | translate"
+            [attr.aria-valuenow]="isMuted() ? 0 : volume()"
+          />
+        </div>
+      </div>
+
+      <!-- Auto-play toggle + minimizar -->
+      <div class="player-extras">
+        <button
+          class="player-extras__btn"
+          [class.player-extras__btn--active]="autoPlayOnFocus()"
+          (click)="toggleAutoPlay()"
+          [attr.aria-label]="'MUSIC_PLAYER.AUTO_PLAY' | translate"
+          [attr.aria-pressed]="autoPlayOnFocus()"
+          title="{{ 'MUSIC_PLAYER.AUTO_PLAY' | translate }}"
+          type="button"
+        >
+          <app-icon name="repeat" [size]="'xs'" [ariaHidden]="true"></app-icon>
+        </button>
+
+        <button
+          class="player-extras__btn"
+          (click)="toggleMinimize()"
+          [attr.aria-label]="'MUSIC_PLAYER.MINIMIZE' | translate"
+          type="button"
+        >
+          <app-icon name="minimize" [size]="'xs'" [ariaHidden]="true"></app-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dropdown: seletor de categorias -->
+    @if (showTracks()) {
+      <div class="player-dropdown" role="radiogroup" [attr.aria-label]="'MUSIC_PLAYER.CATEGORIES.LABEL' | translate">
+        @for (cat of categories; track cat.id) {
+          <button
+            class="category-chip"
+            [class.category-chip--active]="selectedCategory() === cat.id"
+            (click)="selectCategory(cat.id)"
+            role="radio"
+            [attr.aria-checked]="selectedCategory() === cat.id"
+            [attr.aria-label]="cat.labelKey | translate"
+            type="button"
+          >
+            <span class="category-chip__icon" aria-hidden="true">{{ cat.icon }}</span>
+            <span class="category-chip__label">{{ cat.labelKey | translate }}</span>
+          </button>
+        }
+      </div>
+    }
+  </div>
+}
