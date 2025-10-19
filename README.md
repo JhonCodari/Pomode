@@ -108,13 +108,13 @@ Pomode/
 ### Fases Futuras
 - Configurações e temas
 - Persistência local
-- Back-end Java (opcional)
-- Integração Front/Back
-- Deploy final
+- Relatórios de produtividade
+- Integração com Google Tasks
+
 
 ## 📝 Licença
 
-Este projeto é de código aberto e está disponível para uso pessoal e aprendizado.
+
 
 ## 👤 Autor
 
