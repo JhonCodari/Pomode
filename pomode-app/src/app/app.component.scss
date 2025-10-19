@@ -1,0 +1,366 @@
+@use '../styles/mixins' as *;
+@use '../styles/breakpoints' as *;
+
+// ============================================================================
+// APP CONTAINER - MOBILE FIRST APPROACH
+// ============================================================================
+
+.app-container {
+  min-height: 100vh;
+  @include flex-column;
+  background: var(--gradient-bg-light);
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+
+
+  // Gradiente sutil de overlay para profundidade
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-bg-subtle);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > .app-main {
+    position: relative;
+    z-index: var(--z-base);
+  }
+
+  > .app-footer {
+    position: relative;
+    z-index: var(--z-base);
+  }
+}
+
+// ============================================================================
+// HEADER - MOBILE FIRST
+// ============================================================================
+
+.app-header {
+  background-color: rgba(var(--bg-primary-rgb), 0.95);
+  border-bottom: var(--border-thin) solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-modal);
+  backdrop-filter: blur(var(--blur-sm));
+
+  // Mobile base styles
+  padding: var(--spacing-sm) 0;
+
+  // Suporte para dispositivos com notch
+  padding-top: max(var(--spacing-sm), var(--safe-area-inset-top));
+  padding-left: var(--safe-area-inset-left);
+  padding-right: var(--safe-area-inset-right);
+
+  @include tablet-up {
+    padding: var(--spacing-md) 0;
+    padding-top: max(var(--spacing-md), var(--safe-area-inset-top));
+  }
+
+  @include desktop-up {
+    padding: var(--spacing-md) 0;
+    padding-top: max(var(--spacing-md), var(--safe-area-inset-top));
+  }
+}
+
+.header-content {
+  @include flex-between;
+  align-items: center;
+  width: 100%;
+  gap: var(--spacing-sm);
+}
+
+.logo {
+  @include flex-column;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  flex: 1;
+
+  @include tablet-up {
+    align-items: center;
+    flex-direction: row;
+    gap: var(--spacing-sm);
+  }
+
+  h1 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1;
+
+    @include tablet-up {
+      font-size: var(--font-size-xl);
+    }
+
+    @include desktop-up {
+      font-size: var(--font-size-2xl);
+    }
+  }
+
+  .subtitle {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    margin: 0;
+    display: none;
+
+    @include tablet-up {
+      display: block;
+      font-size: var(--font-size-sm);
+    }
+
+    @include desktop-up {
+      font-size: var(--font-size-base);
+    }
+  }
+}
+
+// ============================================================================
+// NAVIGATION - RESPONSIVE
+// ============================================================================
+
+.desktop-nav {
+  display: none;
+
+  @include tablet-up {
+    @include flex-center;
+    gap: var(--spacing-md);
+  }
+
+  .nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+
+    @include desktop-up {
+      font-size: var(--font-size-base);
+      padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    &:hover {
+      color: var(--text-primary);
+      background-color: var(--bg-secondary);
+    }
+
+    &.active {
+      color: var(--primary);
+      background-color: rgba(var(--primary-rgb), 0.1);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+  }
+}
+
+// ============================================================================
+// HEADER ACTIONS - DESKTOP/TABLET ONLY
+// ============================================================================
+
+.header-actions {
+  display: none;
+
+  @include tablet-up {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+  }
+
+  @include desktop-up {
+    gap: var(--spacing-md);
+  }
+
+  .header-action-btn {
+    ::ng-deep .btn {
+      width: var(--icon-size-sm);
+      height: var(--icon-size-sm);
+      min-height: var(--icon-size-sm);
+      padding: var(--spacing-xs);
+      font-size: var(--font-size-base);
+
+      background: var(--gradient-bg-card);
+      border: var(--border-thin) solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+
+      @include desktop-up {
+        width: var(--icon-size-sm);
+        height: var(--icon-size-sm);
+        min-height: var(--icon-size-sm);
+        padding: var(--spacing-xs);
+        font-size: var(--font-size-base);
+      }
+
+      // Estilo para ícone SVG
+      .btn-icon {
+        width: 16px;
+        height: 16px;
+        display: block;
+        color: currentColor;
+
+        @include desktop-up {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      &:hover {
+        background: var(--gradient-primary);
+        color: var(--text-inverse);
+        border-color: transparent;
+        transform: scale(1.05);
+        box-shadow: var(--shadow-lg);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+
+  ::ng-deep {
+    app-language-selector,
+    app-theme-toggle {
+      .btn {
+        width: var(--icon-size-sm);
+        height: var(--icon-size-sm);
+        min-height: var(--icon-size-sm);
+
+        @include desktop-up {
+          width: var(--icon-size-sm);
+          height: var(--icon-size-sm);
+          min-height: var(--icon-size-sm);
+        }
+      }
+    }
+  }
+}
+
+// ============================================================================
+// MOBILE MENU TRIGGER - MOBILE ONLY
+// ============================================================================
+
+.mobile-menu-trigger {
+  @include flex-center;
+  flex-direction: column;
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+  padding: var(--spacing-xs);
+  background: var(--gradient-bg-card);
+  border: var(--border-thin) solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  gap: 3px;
+
+  // Flexbox - fica no final do header-content
+  flex-shrink: 0;
+  margin-left: auto;
+
+  @include tablet-up {
+    display: none;
+  }
+
+  .hamburger-line {
+    width: 16px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 1px;
+    transition: all var(--transition-fast);
+  }
+
+  &:hover {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+
+    .hamburger-line {
+      background: var(--text-inverse);
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &[aria-expanded="true"] {
+    .hamburger-line {
+      &:nth-child(1) {
+        transform: rotate(45deg) translate(4px, 4px);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: rotate(-45deg) translate(4px, -4px);
+      }
+    }
+  }
+}
+
+// ============================================================================
+// SKIP LINK - ACESSIBILIDADE
+// ============================================================================
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--primary);
+  color: var(--text-inverse);
+  border-radius: var(--radius-md);
+  z-index: var(--z-tooltip);
+  transition: top var(--transition-fast);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+
+  &:focus {
+    top: var(--spacing-md);
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
+// ============================================================================
+// MAIN CONTENT
+// ============================================================================
+
+.app-main {
+  flex: 1;
+  @include flex-center;
+
+  // Mobile base
+  padding: var(--spacing-md) 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  @include tablet-up {
+    padding: var(--spacing-lg) 0;
+  }
+
+  @include desktop-up {
+    padding: var(--spacing-lg) 0;
+  }
+}

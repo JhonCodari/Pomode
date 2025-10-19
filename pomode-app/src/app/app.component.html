@@ -1,0 +1,78 @@
+﻿<a class="skip-link" href="#main-content">{{ 'APP.SKIP_TO_CONTENT' | translate }}</a>
+
+<div class="app-container">
+  <header class="app-header">
+    <app-container [size]="'xl'">
+      <div class="header-content">
+        <!-- Logo -->
+        <app-logo [linkToHome]="false"></app-logo>
+
+        <!-- Navigation Desktop -->
+        <nav class="desktop-nav" role="navigation">
+          <a routerLink="/sobre-pomodoro" routerLinkActive="active" class="nav-link">
+            {{ 'NAV.WHAT_IS_POMODORO' | translate }}
+          </a>
+        </nav>
+
+        <!-- Header Actions - Desktop/Tablet -->
+        <div class="header-actions">
+          <app-button
+            routerLink="/"
+            [attr.aria-label]="'NAV.GO_HOME' | translate"
+            [title]="'NAV.HOME' | translate"
+            class="header-action-btn"
+          >
+            <app-icon name="home" [size]="'sm'" [ariaHidden]="true"></app-icon>
+          </app-button>
+          <app-button
+            (click)="openSettings()"
+            [attr.aria-label]="'NAV.SETTINGS' | translate"
+            [title]="'NAV.SETTINGS' | translate"
+            class="header-action-btn"
+          >
+            <app-icon name="settings" [size]="'sm'" [ariaHidden]="true"></app-icon>
+          </app-button>
+          <app-language-selector></app-language-selector>
+          <app-theme-toggle></app-theme-toggle>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          class="mobile-menu-trigger"
+          (click)="toggleMobileMenu()"
+          [attr.aria-label]="'NAV.OPEN_MENU' | translate"
+          [attr.aria-expanded]="showMobileMenu()"
+          type="button"
+        >
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </app-container>
+  </header>
+
+  <main id="main-content" class="app-main" tabindex="-1">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Music Player ambiente (sticky acima do footer) -->
+  <app-music-player></app-music-player>
+
+  <app-footer></app-footer>
+</div>
+
+<!-- Mobile Menu -->
+<app-mobile-menu
+  [isOpen]="showMobileMenu"
+  (close)="closeMobileMenu()"
+  (settingsOpen)="openSettings()"
+></app-mobile-menu>
+
+<!-- Modal de Configurações -->
+@if (showSettings()) {
+  <app-settings-modal (close)="closeSettings()"></app-settings-modal>
+}
+
+<!-- Toast para notificações -->
+<app-toast></app-toast>

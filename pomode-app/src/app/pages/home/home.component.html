@@ -1,0 +1,19 @@
+<app-container [size]="'xl'">
+  <div class="home-layout">
+    <main class="home-main">
+      <!-- Timer Section -->
+      <section class="timer-section">
+        <app-timer></app-timer>
+        <app-timer-controls></app-timer-controls>
+
+        <!-- Cycles Info -->
+        <div class="cycles-info">
+          <span class="cycles-text">{{ 'TIMER.CYCLES_COMPLETED' | translate }} {{ completedCycles() }}</span>
+        </div>
+      </section>
+    </main>
+
+    <!-- Sidebar com estatísticas -->
+    <app-stats-sidebar [stats]="stats()"></app-stats-sidebar>
+  </div>
+</app-container>

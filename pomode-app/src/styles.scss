@@ -1,0 +1,191 @@
+/* ========================================
+   Pomode - Sistema de Design Global
+   Nova Identidade Visual - Leveza, Tranquilidade e Concentração
+   ======================================== */
+
+// 1. Design Tokens e Temas (Nova estrutura reutilizável)
+@use 'styles/design-tokens' as tokens;
+@use 'styles/theme';
+@use 'styles/breakpoints' as *;
+@use 'styles/mixins' as *;
+@use 'styles/utilities';
+
+// 2. Reset e base
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  @include smooth-scroll;
+  // Previne scroll horizontal
+  overflow-x: hidden;
+
+  // ============================================================================
+  // SUPORTE A DISPOSITIVOS COM NOTCH (iPhone X+)
+  // ============================================================================
+
+  // Definir padding seguro para área do notch
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-right: env(safe-area-inset-right);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
+
+  // Fallbacks para dispositivos sem notch
+  --safe-area-inset-top: 0px;
+  --safe-area-inset-right: 0px;
+  --safe-area-inset-bottom: 0px;
+  --safe-area-inset-left: 0px;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-base), color var(--transition-base);
+  min-height: 100vh;
+  // Previne scroll horizontal
+  overflow-x: hidden;
+  position: relative;
+
+  // ============================================================================
+  // CLASSES RESPONSIVAS DINÂMICAS
+  // ============================================================================
+
+  // Classes baseadas no tamanho da tela (aplicadas dinamicamente via JS)
+  &.screen-mobile {
+    font-size: var(--font-size-sm);
+
+    // Otimizações para mobile
+    * {
+      // Melhora a performance de scroll em dispositivos móveis
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  &.screen-tablet {
+    font-size: var(--font-size-base);
+  }
+
+  &.screen-desktop {
+    font-size: var(--font-size-base);
+  }
+
+  // Classes baseadas no tipo de dispositivo
+  &.touch-device {
+    // Aumentar áreas de toque para melhor usabilidade
+    button, a, [role="button"] {
+      min-height: 44px; // Recomendação Apple/Google para área de toque mínima
+      min-width: 44px;
+    }
+
+    // Remover hover states em dispositivos touch
+    *:hover {
+      /* Remover todos os hovers por padrão em touch */
+    }
+  }
+
+  &.mouse-device {
+    // Habilitar hover states apenas para dispositivos com mouse
+    button, a, [role="button"] {
+      &:hover {
+        // Estados de hover serão aplicados pelos componentes individuais
+      }
+    }
+  }
+}
+
+// 3. Tipografia base
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+}
+
+h1 { font-size: var(--font-size-4xl); }
+h2 { font-size: var(--font-size-3xl); }
+h3 { font-size: var(--font-size-2xl); }
+h4 { font-size: var(--font-size-xl); }
+h5 { font-size: var(--font-size-lg); }
+h6 { font-size: var(--font-size-base); }
+
+p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--primary-hover);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// 4. Elementos de formulário base
+button {
+  font-family: inherit;
+  cursor: pointer;
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// 5. Scrollbar personalizada
+body {
+  @include custom-scrollbar;
+}
+
+// 6. Responsivo - ajustes de tipografia
+@media (max-width: 768px) {
+  h1 { font-size: var(--font-size-3xl); }
+  h2 { font-size: var(--font-size-2xl); }
+  h3 { font-size: var(--font-size-xl); }
+}
+
+// 8. Animações de entrada para a página
+body {
+  @include fade-in;
+}
+
+// 9. Acessibilidade - reduzir movimento se preferido
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

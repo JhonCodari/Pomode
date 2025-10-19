@@ -1,0 +1,27 @@
+// ============================================================================
+// VARIÁVEIS SCSS - Compatibilidade com sistema antigo
+// ============================================================================
+// NOTA: Este arquivo mantém compatibilidade com o sistema antigo.
+// Para novos projetos, use _design-tokens.scss e _theme.scss
+// ============================================================================
+
+// As variáveis CSS agora são definidas dinamicamente através do sistema de temas
+// em _theme.scss. Este arquivo existe apenas para compatibilidade.
+
+// Para acessar as variáveis, use var(--nome-da-variavel) no CSS
+// Exemplo: color: var(--primary);
+
+// ============================================================================
+// VARIÁVEIS SCSS ESTÁTICAS (para uso em mixins e cálculos)
+// ============================================================================
+
+@use './design-tokens' as tokens;
+
+// Re-exporta variáveis para uso em SCSS
+$primary: tokens.$teal-500;
+$secondary: tokens.$blue-500;
+$success: tokens.$green-500;
+$spacing-md: tokens.$spacing-md;
+$spacing-lg: tokens.$spacing-lg;
+$radius-md: tokens.$radius-md;
+$radius-lg: tokens.$radius-lg;
