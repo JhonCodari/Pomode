@@ -1,0 +1,59 @@
+<app-container [size]="'md'">
+  <div class="home">
+    <div class="welcome-section">
+      <h2 class="title">Bem-vindo ao Pomode</h2>
+      <p class="description">
+        Um timer Pomodoro minimalista e eficiente para aumentar sua produtividade.
+      </p>
+    </div>
+
+    <app-card [elevated]="true" class="info-card">
+      <div class="card-content">
+        <h3>🎯 Como funciona?</h3>
+        <ul class="features-list">
+          <li>
+            <strong>Foco:</strong> 25 minutos de trabalho concentrado
+          </li>
+          <li>
+            <strong>Pausa curta:</strong> 5 minutos de descanso
+          </li>
+          <li>
+            <strong>Pausa longa:</strong> 15 minutos após 4 ciclos
+          </li>
+        </ul>
+      </div>
+    </app-card>
+
+    <div class="cta-section">
+      <app-button [variant]="'primary'" [size]="'lg'" [fullWidth]="true">
+        Iniciar Pomodoro
+      </app-button>
+      <app-button [variant]="'outline'" [size]="'md'">
+        Configurações
+      </app-button>
+    </div>
+
+    <div class="stats-grid">
+      <app-card class="stat-card">
+        <div class="stat">
+          <span class="stat-value">0</span>
+          <span class="stat-label">Sessões hoje</span>
+        </div>
+      </app-card>
+
+      <app-card class="stat-card">
+        <div class="stat">
+          <span class="stat-value">0</span>
+          <span class="stat-label">Total de horas</span>
+        </div>
+      </app-card>
+
+      <app-card class="stat-card">
+        <div class="stat">
+          <span class="stat-value">0</span>
+          <span class="stat-label">Sequência</span>
+        </div>
+      </app-card>
+    </div>
+  </div>
+</app-container>

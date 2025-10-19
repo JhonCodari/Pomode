@@ -1,0 +1,27 @@
+﻿<div class="app-container">
+  <header class="app-header">
+    <app-container [size]="'xl'">
+      <div class="header-content">
+        <div class="logo">
+          <h1>🍅 Pomode</h1>
+          <p class="subtitle">Timer Pomodoro minimalista</p>
+        </div>
+
+        <app-theme-toggle></app-theme-toggle>
+      </div>
+    </app-container>
+  </header>
+
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="app-footer">
+    <app-container [size]="'xl'">
+      <div class="footer-content">
+        <p class="copyright">© 2025 Pomode | Desenvolvido com Angular</p>
+        <p class="version">v0.1.0</p>
+      </div>
+    </app-container>
+  </footer>
+</div>

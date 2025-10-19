@@ -1,0 +1,153 @@
+// Cores do tema - Psicologia das cores aplicada
+// Vermelho (tomate): Urgência, foco, energia
+// Azul: Calma, produtividade, concentração
+// Verde: Equilíbrio, renovação, descanso
+// Neutros: Clareza, minimalismo
+
+:root {
+  // Cores principais
+  --color-primary: #e74c3c;           // Vermelho tomate (foco/trabalho)
+  --color-primary-hover: #c0392b;
+  --color-primary-light: #ff6b5a;
+
+  --color-secondary: #3498db;         // Azul (pausa curta)
+  --color-secondary-hover: #2980b9;
+
+  --color-success: #27ae60;           // Verde (pausa longa/completo)
+  --color-success-hover: #229954;
+
+  // Backgrounds tema claro
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+
+  // Textos tema claro
+  --text-primary: #1a1a1a;
+  --text-secondary: #6c757d;
+  --text-tertiary: #adb5bd;
+  --text-inverse: #ffffff;
+
+  // Borders e divisores
+  --border-color: #dee2e6;
+  --border-color-light: #e9ecef;
+
+  // Sombras
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+  // Espaçamentos (sistema de 8px)
+  --spacing-xs: 0.25rem;   // 4px
+  --spacing-sm: 0.5rem;    // 8px
+  --spacing-md: 1rem;      // 16px
+  --spacing-lg: 1.5rem;    // 24px
+  --spacing-xl: 2rem;      // 32px
+  --spacing-xxl: 3rem;     // 48px
+  --spacing-xxxl: 4rem;    // 64px
+
+  // Border radius
+  --radius-sm: 0.25rem;    // 4px
+  --radius-md: 0.5rem;     // 8px
+  --radius-lg: 1rem;       // 16px
+  --radius-full: 9999px;
+
+  // Transições
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+
+  // Tipografia
+  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;
+
+  --font-size-xs: 0.75rem;    // 12px
+  --font-size-sm: 0.875rem;   // 14px
+  --font-size-base: 1rem;     // 16px
+  --font-size-lg: 1.125rem;   // 18px
+  --font-size-xl: 1.25rem;    // 20px
+  --font-size-2xl: 1.5rem;    // 24px
+  --font-size-3xl: 1.875rem;  // 30px
+  --font-size-4xl: 2.25rem;   // 36px
+  --font-size-5xl: 3rem;      // 48px
+  --font-size-6xl: 4rem;      // 64px
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  // Z-index layers
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+// Tema escuro
+body.dark-mode,
+[data-theme="dark"] {
+  // Backgrounds tema escuro
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2a2a2a;
+  --bg-tertiary: #3a3a3a;
+  --bg-overlay: rgba(0, 0, 0, 0.7);
+
+  // Textos tema escuro
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-tertiary: #808080;
+  --text-inverse: #1a1a1a;
+
+  // Cores ajustadas para escuro
+  --color-primary-hover: #ff6b5a;
+
+  // Borders tema escuro
+  --border-color: #3a3a3a;
+  --border-color-light: #2a2a2a;
+
+  // Sombras tema escuro (mais intensas)
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
+}
+
+// Auto dark mode baseado em preferência do sistema
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    // Backgrounds tema escuro
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2a2a2a;
+    --bg-tertiary: #3a3a3a;
+    --bg-overlay: rgba(0, 0, 0, 0.7);
+
+    // Textos tema escuro
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-tertiary: #808080;
+    --text-inverse: #1a1a1a;
+
+    // Cores ajustadas para escuro
+    --color-primary-hover: #ff6b5a;
+
+    // Borders tema escuro
+    --border-color: #3a3a3a;
+    --border-color-light: #2a2a2a;
+
+    // Sombras tema escuro
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
+  }
+}

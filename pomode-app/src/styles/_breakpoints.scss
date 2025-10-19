@@ -1,0 +1,47 @@
+// Breakpoints responsivos
+$breakpoints: (
+  'xs': 0,
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px,
+  'xxl': 1400px
+);
+
+// Mixin para media queries responsivas
+@mixin respond-to($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @if $value {
+    @media (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` não encontrado. Use: #{map-keys($breakpoints)}";
+  }
+}
+
+// Mixin para max-width media queries
+@mixin respond-below($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @if $value {
+    @media (max-width: calc(#{$value} - 1px)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` não encontrado. Use: #{map-keys($breakpoints)}";
+  }
+}
+
+// Mixin para entre breakpoints
+@mixin respond-between($min, $max) {
+  $min-value: map-get($breakpoints, $min);
+  $max-value: map-get($breakpoints, $max);
+
+  @if $min-value and $max-value {
+    @media (min-width: $min-value) and (max-width: calc(#{$max-value} - 1px)) {
+      @content;
+    }
+  }
+}

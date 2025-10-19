@@ -1,0 +1,124 @@
+@use '../styles/mixins' as *;
+@use '../styles/breakpoints' as *;
+
+.app-container {
+  min-height: 100vh;
+  @include flex-column;
+  background-color: var(--bg-primary);
+}
+
+// Header
+.app-header {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--spacing-lg) 0;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  backdrop-filter: blur(8px);
+  background-color: rgba(var(--bg-primary-rgb), 0.95);
+
+  @include respond-to('md') {
+    padding: var(--spacing-xl) 0;
+  }
+
+  .header-content {
+    @include flex-between;
+    gap: var(--spacing-md);
+  }
+
+  .logo {
+    @include flex-column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+
+    @include respond-to('md') {
+      align-items: center;
+      flex-direction: row;
+      gap: var(--spacing-md);
+    }
+
+    h1 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin: 0;
+      line-height: 1;
+
+      @include respond-to('md') {
+        font-size: var(--font-size-3xl);
+      }
+    }
+
+    .subtitle {
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+      margin: 0;
+
+      @include respond-to('md') {
+        font-size: var(--font-size-base);
+      }
+    }
+  }
+}
+
+// Main
+.app-main {
+  flex: 1;
+  @include flex-center;
+  padding: var(--spacing-xl) 0;
+
+  @include respond-to('md') {
+    padding: var(--spacing-xxl) 0;
+  }
+}
+
+// Footer
+.app-footer {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: var(--spacing-lg) 0;
+
+  .footer-content {
+    @include flex-between;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    text-align: center;
+
+    @include respond-to('md') {
+      flex-direction: row;
+      text-align: left;
+    }
+
+    p {
+      margin: 0;
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+    }
+
+    .copyright {
+      font-weight: var(--font-weight-medium);
+    }
+
+    .version {
+      font-family: var(--font-family-mono);
+      color: var(--text-tertiary);
+    }
+  }
+}
+
+// Responsividade adicional
+@include respond-below('sm') {
+  .app-header {
+    padding: var(--spacing-md) 0;
+
+    .header-content {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .logo {
+        width: 100%;
+      }
+    }
+  }
+}
