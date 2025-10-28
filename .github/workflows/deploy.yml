@@ -42,7 +42,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/pomode-app/browser
+          path: ./pomode-app/dist/pomode-app/browser
 
   deploy:
     environment:
