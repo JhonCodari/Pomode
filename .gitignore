@@ -9,7 +9,6 @@ bazel-out/
 
 # Node modules and dependency files
 node_modules/
-package-lock.json
 yarn.lock
 yarn-error.log
 
