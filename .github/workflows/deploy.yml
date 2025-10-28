@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: '22'
           cache: 'npm'
-          cache-dependency-path: pomode-app/package-lock.json
+          cache-dependency-path: './pomode-app/package-lock.json'
           
       - name: Install dependencies
         working-directory: ./pomode-app
