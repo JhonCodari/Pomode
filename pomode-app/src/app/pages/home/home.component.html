@@ -4,18 +4,12 @@
     <section class="timer-section">
       <app-timer></app-timer>
       <app-timer-controls></app-timer-controls>
-    </section>
 
-    <!-- Settings Button -->
-    <div class="settings-section">
-      <app-button
-        [variant]="'outline'"
-        [size]="'md'"
-        (click)="openSettings()"
-      >
-        ⚙️ Configurações
-      </app-button>
-    </div>
+      <!-- Cycles Info -->
+      <div class="cycles-info">
+        <span class="cycles-text">Ciclos completados: {{ pomodoroService.completedCycles() }}</span>
+      </div>
+    </section>
 
     <!-- Stats Grid -->
     <div class="stats-grid">
@@ -60,9 +54,3 @@
     </app-card>
   </div>
 </app-container>
-
-<!-- Modal de Configurações -->
-<app-settings-modal
-  *ngIf="showSettings()"
-  (close)="closeSettings()"
-></app-settings-modal>

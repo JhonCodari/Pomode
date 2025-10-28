@@ -1,12 +1,10 @@
-import { Component, inject, signal, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ContainerComponent } from '../../components/container/container.component';
 import { CardComponent } from '../../components/card/card.component';
-import { ButtonComponent } from '../../components/button/button.component';
 import { TimerComponent } from '../../components/timer/timer.component';
 import { TimerControlsComponent } from '../../components/timer-controls/timer-controls.component';
-import { SettingsModalComponent } from '../../components/settings-modal/settings-modal.component';
 import { PomodoroService } from '../../services/pomodoro.service';
 import { AudioService } from '../../services/audio.service';
 
@@ -16,20 +14,17 @@ import { AudioService } from '../../services/audio.service';
     CommonModule,
     ContainerComponent,
     CardComponent,
-    ButtonComponent,
     TimerComponent,
-    TimerControlsComponent,
-    SettingsModalComponent
+    TimerControlsComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  private pomodoroService = inject(PomodoroService);
+  pomodoroService = inject(PomodoroService);
   private audioService = inject(AudioService);
   private timerCompleteSubscription?: Subscription;
 
-  showSettings = signal(false);
   sessions = this.pomodoroService.sessions;
 
   ngOnInit(): void {
@@ -43,14 +38,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.timerCompleteSubscription?.unsubscribe();
-  }
-
-  openSettings(): void {
-    this.showSettings.set(true);
-  }
-
-  closeSettings(): void {
-    this.showSettings.set(false);
   }
 
   private onTimerComplete(mode: string): void {

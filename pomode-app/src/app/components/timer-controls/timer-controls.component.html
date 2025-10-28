@@ -1,45 +1,43 @@
 <div class="controls-container">
-  <div class="main-controls">
-    <!-- Botão de Start/Pause -->
-    <app-button
-      *ngIf="state() === 'idle' || state() === 'paused'"
-      [variant]="'primary'"
-      [size]="'lg'"
-      (click)="start()"
-      class="control-btn"
-    >
-      ▶️ {{ state() === 'paused' ? 'Continuar' : 'Iniciar' }}
-    </app-button>
+  <!-- Botão de Start/Pause/Continue -->
+  <app-button
+    *ngIf="state() === 'idle' || state() === 'paused'"
+    [variant]="'primary'"
+    [size]="'md'"
+    (click)="start()"
+    class="control-btn"
+  >
+    ▶️ {{ state() === 'paused' ? 'Continuar' : 'Iniciar' }}
+  </app-button>
 
-    <app-button
-      *ngIf="state() === 'running'"
-      [variant]="'secondary'"
-      [size]="'lg'"
-      (click)="pause()"
-      class="control-btn"
-    >
-      ⏸️ Pausar
-    </app-button>
-  </div>
+  <app-button
+    *ngIf="state() === 'running'"
+    [variant]="'primary'"
+    [size]="'md'"
+    (click)="pause()"
+    class="control-btn"
+  >
+    ⏸️ Pausar
+  </app-button>
 
-  <div class="secondary-controls">
-    <!-- Botão de Reset -->
-    <app-button
-      [variant]="'outline'"
-      [size]="'md'"
-      (click)="reset()"
-      [disabled]="state() === 'idle'"
-    >
-      🔄 Resetar
-    </app-button>
+  <!-- Botão de Reset -->
+  <app-button
+    [variant]="'outline'"
+    [size]="'md'"
+    (click)="reset()"
+    [disabled]="state() === 'idle'"
+    class="control-btn"
+  >
+    🔄 Resetar
+  </app-button>
 
-    <!-- Botão de Pular -->
-    <app-button
-      [variant]="'ghost'"
-      [size]="'md'"
-      (click)="skip()"
-    >
-      ⏭️ Pular
-    </app-button>
-  </div>
+  <!-- Botão de Pular -->
+  <app-button
+    [variant]="'outline'"
+    [size]="'md'"
+    (click)="skip()"
+    class="control-btn"
+  >
+    ⏭️ Pular
+  </app-button>
 </div>

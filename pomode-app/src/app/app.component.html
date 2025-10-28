@@ -6,10 +6,20 @@
           <h1>🍅 Pomode</h1>
           <p class="subtitle">Timer Pomodoro minimalista</p>
         </div>
-
-        <app-theme-toggle></app-theme-toggle>
       </div>
     </app-container>
+
+    <!-- Botões posicionados absolutamente no canto superior direito -->
+    <div class="header-actions">
+      <app-button
+        [variant]="'outline'"
+        [size]="'sm'"
+        (click)="openSettings()"
+      >
+        ⚙️
+      </app-button>
+      <app-theme-toggle></app-theme-toggle>
+    </div>
   </header>
 
   <main class="app-main">
@@ -25,3 +35,9 @@
     </app-container>
   </footer>
 </div>
+
+<!-- Modal de Configurações -->
+<app-settings-modal
+  *ngIf="showSettings()"
+  (close)="closeSettings()"
+></app-settings-modal>

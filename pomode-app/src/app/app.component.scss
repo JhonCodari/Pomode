@@ -27,6 +27,22 @@
     gap: var(--spacing-md);
   }
 
+  .header-actions {
+    position: absolute;
+    top: var(--spacing-lg);
+    right: var(--spacing-md);
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-sm);
+    align-items: center;
+    z-index: 100;
+
+    @include respond-to('md') {
+      top: var(--spacing-xl);
+      right: var(--spacing-lg);
+    }
+  }
+
   .logo {
     @include flex-column;
     align-items: flex-start;
