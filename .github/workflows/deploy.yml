@@ -18,6 +18,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./pomode-app
     
     steps:
       - name: Checkout
@@ -28,20 +31,17 @@ jobs:
         with:
           node-version: '22'
           cache: 'npm'
-          cache-dependency-path: './pomode-app/package-lock.json'
           
       - name: Install dependencies
-        working-directory: ./pomode-app
         run: npm ci
         
       - name: Build
-        working-directory: ./pomode-app
         run: npm run build:prod
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./pomode-app/dist/pomode-app/browser
+          path: ./dist/pomode-app/browser
 
   deploy:
     environment:
