@@ -1,0 +1,131 @@
+@use '../../../styles/mixins' as *;
+@use '../../../styles/breakpoints' as *;
+
+.timer-container {
+  @include flex-center-column;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xxl) var(--spacing-lg);
+
+  @include respond-to('md') {
+    padding: var(--spacing-xxxl) var(--spacing-xl);
+    gap: var(--spacing-xxl);
+  }
+}
+
+.mode-indicator {
+  @include flex-center;
+  gap: var(--spacing-md);
+  animation: fadeIn var(--transition-base) ease-in-out;
+
+  .mode-emoji {
+    font-size: var(--font-size-3xl);
+
+    @include respond-to('md') {
+      font-size: var(--font-size-4xl);
+    }
+  }
+
+  .mode-text {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+
+    @include respond-to('md') {
+      font-size: var(--font-size-2xl);
+    }
+  }
+}
+
+.timer-display {
+  @include flex-center;
+  gap: var(--spacing-sm);
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  line-height: 1;
+  user-select: none;
+
+  @include slide-up;
+
+  .time-number {
+    font-size: clamp(4rem, 15vw, 8rem);
+
+    @include respond-to('md') {
+      font-size: clamp(6rem, 12vw, 10rem);
+    }
+  }
+
+  .time-separator {
+    font-size: clamp(3rem, 12vw, 6rem);
+    animation: blink 2s infinite;
+
+    @include respond-to('md') {
+      font-size: clamp(4rem, 10vw, 8rem);
+    }
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  max-width: 500px;
+  height: 8px;
+  background-color: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+
+  @include respond-to('md') {
+    height: 10px;
+    max-width: 600px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--color-primary) 0%,
+      var(--color-primary-hover) 100%
+    );
+    border-radius: var(--radius-full);
+    transition: width var(--transition-fast) linear;
+  }
+}
+
+.cycles-info {
+  @include flex-center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+
+  .cycles-text {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-medium);
+
+    @include respond-to('md') {
+      font-size: var(--font-size-base);
+    }
+  }
+}
+
+// Animação de piscar para o separador
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0.3;
+  }
+}
+
+// Animação de entrada
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

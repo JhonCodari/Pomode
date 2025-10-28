@@ -1,0 +1,20 @@
+<div class="timer-container">
+  <div class="mode-indicator">
+    <span class="mode-emoji">{{ modeEmoji() }}</span>
+    <span class="mode-text">{{ modeText() }}</span>
+  </div>
+
+  <div class="timer-display">
+    <span class="time-number">{{ formatNumber(minutes()) }}</span>
+    <span class="time-separator">:</span>
+    <span class="time-number">{{ formatNumber(seconds()) }}</span>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" [style.width.%]="progress()"></div>
+  </div>
+
+  <div class="cycles-info">
+    <span class="cycles-text">Ciclos completados: {{ completedCycles() }}</span>
+  </div>
+</div>

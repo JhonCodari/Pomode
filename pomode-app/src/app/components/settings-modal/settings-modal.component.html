@@ -1,0 +1,99 @@
+<div class="modal-overlay" (click)="cancel()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <app-card [elevated]="true" [hasHeader]="true">
+      <div card-header>
+        <h3>⚙️ Configurações</h3>
+      </div>
+
+      <div class="settings-form">
+        <!-- Tempo de Foco -->
+        <div class="form-group">
+          <label for="workTime">
+            🍅 Tempo de Foco (minutos)
+          </label>
+          <input
+            id="workTime"
+            type="number"
+            [(ngModel)]="workTime"
+            min="1"
+            max="60"
+            class="form-input"
+          />
+        </div>
+
+        <!-- Pausa Curta -->
+        <div class="form-group">
+          <label for="shortBreak">
+            ☕ Pausa Curta (minutos)
+          </label>
+          <input
+            id="shortBreak"
+            type="number"
+            [(ngModel)]="shortBreakTime"
+            min="1"
+            max="30"
+            class="form-input"
+          />
+        </div>
+
+        <!-- Pausa Longa -->
+        <div class="form-group">
+          <label for="longBreak">
+            🌴 Pausa Longa (minutos)
+          </label>
+          <input
+            id="longBreak"
+            type="number"
+            [(ngModel)]="longBreakTime"
+            min="1"
+            max="60"
+            class="form-input"
+          />
+        </div>
+
+        <!-- Ciclos -->
+        <div class="form-group">
+          <label for="cycles">
+            🔄 Ciclos antes da pausa longa
+          </label>
+          <input
+            id="cycles"
+            type="number"
+            [(ngModel)]="cyclesBeforeLongBreak"
+            min="1"
+            max="10"
+            class="form-input"
+          />
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <app-button
+          [variant]="'ghost'"
+          [size]="'md'"
+          (click)="resetToDefault()"
+        >
+          Padrão
+        </app-button>
+
+        <div class="action-buttons">
+          <app-button
+            [variant]="'outline'"
+            [size]="'md'"
+            (click)="cancel()"
+          >
+            Cancelar
+          </app-button>
+
+          <app-button
+            [variant]="'primary'"
+            [size]="'md'"
+            (click)="saveSettings()"
+          >
+            Salvar
+          </app-button>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>
