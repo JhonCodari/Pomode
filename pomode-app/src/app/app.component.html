@@ -4,18 +4,14 @@
       <div class="header-content">
         <div class="logo">
           <h1>🍅 Pomode</h1>
-          <p class="subtitle">Timer Pomodoro minimalista</p>
+          <p class="subtitle">Timer Pomodoro</p>
         </div>
       </div>
     </app-container>
 
     <!-- Botões posicionados absolutamente no canto superior direito -->
     <div class="header-actions">
-      <app-button
-        [variant]="'outline'"
-        [size]="'sm'"
-        (click)="openSettings()"
-      >
+      <app-button (click)="openSettings()">
         ⚙️
       </app-button>
       <app-theme-toggle></app-theme-toggle>

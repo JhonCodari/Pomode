@@ -8,7 +8,7 @@
   height: 40px;
   padding: var(--spacing-sm);
 
-  background-color: var(--bg-secondary);
+  background: var(--gradient-bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
 
@@ -18,8 +18,11 @@
   transition: all var(--transition-fast);
 
   &:hover {
-    background-color: var(--bg-tertiary);
+    background: var(--gradient-primary);
+    color: var(--color-white);
+    border-color: transparent;
     transform: rotate(15deg) scale(1.05);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
   }
 
   &:active {

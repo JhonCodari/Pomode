@@ -1,9 +1,11 @@
 /* ========================================
    Pomode - Sistema de Design Global
+   Nova Identidade Visual - Leveza, Tranquilidade e Concentração
    ======================================== */
 
-// 1. Variáveis e configurações
-@use 'styles/variables';
+// 1. Design Tokens e Temas (Nova estrutura reutilizável)
+@use 'styles/design-tokens' as tokens;
+@use 'styles/theme';
 @use 'styles/breakpoints' as *;
 @use 'styles/mixins' as *;
 @use 'styles/utilities';
@@ -27,8 +29,8 @@ html {
 body {
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-base);
+  font-weight: var(--font-weight-regular);
   color: var(--text-primary);
   background-color: var(--bg-primary);
   -webkit-font-smoothing: antialiased;

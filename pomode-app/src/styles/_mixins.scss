@@ -189,3 +189,81 @@
     }
   }
 }
+
+// ============================================================================
+// GRADIENTES - Mixins de utilidade
+// ============================================================================
+
+// Aplica gradiente com fallback de cor sólida
+@mixin gradient-background($gradient, $fallback-color) {
+  background-color: $fallback-color;
+  background: $gradient;
+}
+
+// Texto com gradiente
+@mixin gradient-text($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Borda com gradiente
+@mixin gradient-border($gradient, $border-width: 2px) {
+  position: relative;
+  border: $border-width solid transparent;
+  background-clip: padding-box;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: $border-width;
+    background: $gradient;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+// Animação de gradiente (para efeitos especiais)
+@mixin animated-gradient($duration: 3s) {
+  background-size: 200% 200%;
+  animation: gradientShift $duration ease infinite;
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
+
+// Shimmer effect (loading com gradiente)
+@mixin shimmer-effect($duration: 1.5s) {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer $duration infinite;
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}

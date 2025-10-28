@@ -1,7 +1,8 @@
 @use '../../../styles/mixins' as *;
 
 .card {
-  background-color: var(--bg-primary);
+  background: var(--gradient-bg-card);
+  backdrop-filter: blur(8px);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -11,6 +12,11 @@
 .card-elevated {
   box-shadow: var(--shadow-md);
   border-color: transparent;
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
 }
 
 .card-hoverable {

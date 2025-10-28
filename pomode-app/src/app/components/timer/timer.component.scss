@@ -41,9 +41,13 @@
   gap: var(--spacing-sm);
   font-family: var(--font-family-mono);
   font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1;
   user-select: none;
+  filter: drop-shadow(0 0 8px rgba(var(--primary-rgb), 0.2));
 
   @include slide-up;
 
@@ -80,13 +84,10 @@
 
   .progress-fill {
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      var(--color-primary) 0%,
-      var(--color-primary-hover) 100%
-    );
+    background: var(--gradient-primary);
     border-radius: var(--radius-full);
     transition: width var(--transition-fast) linear;
+    box-shadow: 0 0 12px rgba(var(--primary-rgb), 0.4);
   }
 }
 

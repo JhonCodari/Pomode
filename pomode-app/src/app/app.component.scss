@@ -4,7 +4,27 @@
 .app-container {
   min-height: 100vh;
   @include flex-column;
-  background-color: var(--bg-primary);
+  background: var(--gradient-bg-light);
+  position: relative;
+
+  // Gradiente sutil de overlay para profundidade
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-bg-subtle);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 // Header
@@ -40,6 +60,35 @@
     @include respond-to('md') {
       top: var(--spacing-xl);
       right: var(--spacing-lg);
+    }
+
+    // Botão de configurações com mesmo estilo do theme-toggle
+    ::ng-deep app-button {
+      .btn {
+        width: 40px;
+        height: 40px;
+        min-height: 40px;
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-xl);
+
+        background: var(--gradient-bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+
+        color: var(--text-primary);
+
+        &:hover {
+          background: var(--gradient-primary);
+          color: var(--color-white);
+          border-color: transparent;
+          transform: scale(1.05);
+          box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
     }
   }
 

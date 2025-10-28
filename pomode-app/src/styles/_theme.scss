@@ -1,0 +1,245 @@
+// ============================================================================
+// THEME SYSTEM - Sistema de Temas Reutilizável
+// ============================================================================
+
+@use './design-tokens' as tokens;
+@use 'sass:map';
+
+// ============================================================================
+// MIXIN PARA APLICAR VARIÁVEIS CSS DE UM TEMA
+// ============================================================================
+
+@mixin apply-theme($theme-map) {
+  @each $key, $value in $theme-map {
+    @if type-of($value) == 'list' {
+      --#{$key}: #{$value};
+    } @else {
+      --#{$key}: #{$value};
+    }
+  }
+}
+
+// ============================================================================
+// APLICAÇÃO DOS TEMAS PADRÃO
+// ============================================================================
+
+:root {
+  // Aplica tema claro como padrão
+  @include apply-theme(tokens.$light-theme);
+
+  // Tipografia
+  --font-family-base: #{tokens.$font-family-base};
+  --font-family-mono: #{tokens.$font-family-mono};
+
+  --font-size-xs: #{tokens.$font-size-xs};
+  --font-size-sm: #{tokens.$font-size-sm};
+  --font-size-base: #{tokens.$font-size-base};
+  --font-size-md: #{tokens.$font-size-md};
+  --font-size-lg: #{tokens.$font-size-lg};
+  --font-size-xl: #{tokens.$font-size-xl};
+  --font-size-2xl: #{tokens.$font-size-2xl};
+  --font-size-3xl: #{tokens.$font-size-3xl};
+  --font-size-4xl: #{tokens.$font-size-4xl};
+
+  --font-weight-light: #{tokens.$font-weight-light};
+  --font-weight-regular: #{tokens.$font-weight-regular};
+  --font-weight-medium: #{tokens.$font-weight-medium};
+  --font-weight-semibold: #{tokens.$font-weight-semibold};
+  --font-weight-bold: #{tokens.$font-weight-bold};
+
+  --line-height-tight: #{tokens.$line-height-tight};
+  --line-height-base: #{tokens.$line-height-base};
+  --line-height-relaxed: #{tokens.$line-height-relaxed};
+
+  // Espaçamentos
+  --spacing-xs: #{tokens.$spacing-xs};
+  --spacing-sm: #{tokens.$spacing-sm};
+  --spacing-md: #{tokens.$spacing-md};
+  --spacing-lg: #{tokens.$spacing-lg};
+  --spacing-xl: #{tokens.$spacing-xl};
+  --spacing-xxl: #{tokens.$spacing-xxl};
+  --spacing-xxxl: #{tokens.$spacing-xxxl};
+
+  // Border radius
+  --radius-sm: #{tokens.$radius-sm};
+  --radius-md: #{tokens.$radius-md};
+  --radius-lg: #{tokens.$radius-lg};
+  --radius-xl: #{tokens.$radius-xl};
+  --radius-2xl: #{tokens.$radius-2xl};
+  --radius-full: #{tokens.$radius-full};
+
+  // Transições
+  --transition-fast: #{tokens.$transition-fast};
+  --transition-base: #{tokens.$transition-base};
+  --transition-slow: #{tokens.$transition-slow};
+  --transition-slower: #{tokens.$transition-slower};
+
+  --ease-in-out: #{tokens.$ease-in-out};
+  --ease-out: #{tokens.$ease-out};
+  --ease-in: #{tokens.$ease-in};
+
+  // Z-index
+  --z-base: #{tokens.$z-base};
+  --z-dropdown: #{tokens.$z-dropdown};
+  --z-sticky: #{tokens.$z-sticky};
+  --z-fixed: #{tokens.$z-fixed};
+  --z-modal-backdrop: #{tokens.$z-modal-backdrop};
+  --z-modal: #{tokens.$z-modal};
+  --z-popover: #{tokens.$z-popover};
+  --z-tooltip: #{tokens.$z-tooltip};
+
+  // Gradientes (tema claro)
+  --gradient-primary: #{tokens.$gradient-primary};
+  --gradient-primary-hover: #{tokens.$gradient-primary-hover};
+  --gradient-primary-radial: #{tokens.$gradient-primary-radial};
+
+  --gradient-secondary: #{tokens.$gradient-secondary};
+  --gradient-secondary-hover: #{tokens.$gradient-secondary-hover};
+
+  --gradient-success: #{tokens.$gradient-success};
+  --gradient-success-hover: #{tokens.$gradient-success-hover};
+
+  --gradient-bg-light: #{tokens.$gradient-bg-light};
+  --gradient-bg-subtle: #{tokens.$gradient-bg-subtle};
+  --gradient-bg-card: #{tokens.$gradient-bg-card};
+
+  --gradient-overlay-light: #{tokens.$gradient-overlay-light};
+  --gradient-overlay-dark: #{tokens.$gradient-overlay-dark};
+  --gradient-overlay-top: #{tokens.$gradient-overlay-top};
+  --gradient-overlay-bottom: #{tokens.$gradient-overlay-bottom};
+  --gradient-shimmer: #{tokens.$gradient-shimmer};
+
+  --gradient-animated: #{tokens.$gradient-animated};
+
+  // Valores RGB para transparências (tema claro)
+  --bg-primary-rgb: 255, 255, 255;
+  --primary-rgb: 0, 192, 192;
+
+  // ============================================================================
+  // VARIÁVEIS DE COMPATIBILIDADE (mapeamento do sistema antigo)
+  // ============================================================================
+  // Estas variáveis mantêm compatibilidade com componentes que ainda usam
+  // os nomes antigos. Gradualmente serão migradas para os novos nomes.
+
+  // Cores principais (antigas -> novas)
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+
+  --color-success: var(--accent);
+  --color-success-hover: var(--accent-hover);
+
+  // Borders
+  --border-color: var(--border-primary);
+  --border-color-light: var(--border-secondary);
+
+  // Sombras
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+}
+
+// Tema escuro (ativado via classe ou preferência do sistema)
+[data-theme='dark'],
+.dark-theme {
+  @include apply-theme(tokens.$dark-theme);
+
+  // Gradientes (tema escuro)
+  --gradient-primary: #{tokens.$gradient-primary};
+  --gradient-primary-hover: #{tokens.$gradient-primary-hover};
+  --gradient-primary-radial: #{tokens.$gradient-primary-radial};
+
+  --gradient-secondary: #{tokens.$gradient-secondary};
+  --gradient-secondary-hover: #{tokens.$gradient-secondary-hover};
+
+  --gradient-success: #{tokens.$gradient-success};
+  --gradient-success-hover: #{tokens.$gradient-success-hover};
+
+  --gradient-bg-light: #{tokens.$gradient-bg-dark};
+  --gradient-bg-subtle: #{tokens.$gradient-bg-dark-subtle};
+  --gradient-bg-card: #{tokens.$gradient-card-dark};
+
+  --gradient-overlay-light: #{tokens.$gradient-overlay-light};
+  --gradient-overlay-dark: #{tokens.$gradient-overlay-dark};
+  --gradient-overlay-top: #{tokens.$gradient-overlay-top};
+  --gradient-overlay-bottom: #{tokens.$gradient-overlay-bottom};
+  --gradient-shimmer: #{tokens.$gradient-shimmer};
+
+  --gradient-animated: #{tokens.$gradient-animated};
+
+  // Valores RGB para transparências (tema escuro)
+  --bg-primary-rgb: 15, 20, 25;
+  --primary-rgb: 38, 202, 202;
+
+  // Variáveis de compatibilidade para tema escuro
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+
+  --color-success: var(--accent);
+  --color-success-hover: var(--accent-hover);
+
+  --border-color: var(--border-primary);
+  --border-color-light: var(--border-secondary);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+}
+
+// Detecta preferência do sistema
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include apply-theme(tokens.$dark-theme);
+    --bg-primary-rgb: 15, 20, 25;
+    --primary-rgb: 38, 202, 202;
+
+    // Variáveis de compatibilidade para tema escuro (preferência do sistema)
+    --color-primary: var(--primary);
+    --color-primary-hover: var(--primary-hover);
+    --color-primary-light: var(--primary-light);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-hover: var(--secondary-hover);
+
+    --color-success: var(--accent);
+    --color-success-hover: var(--accent-hover);
+
+    --border-color: var(--border-primary);
+    --border-color-light: var(--border-secondary);
+  }
+}
+
+// ============================================================================
+// MIXIN PARA CRIAR TEMAS PERSONALIZADOS
+// ============================================================================
+
+@mixin custom-theme($theme-name, $theme-map) {
+  [data-theme='#{$theme-name}'],
+  .theme-#{$theme-name} {
+    @include apply-theme($theme-map);
+  }
+}
+
+// ============================================================================
+// EXEMPLO DE USO PARA TEMAS FUTUROS
+// ============================================================================
+
+// Para adicionar um novo tema, basta criar um mapa e usar o mixin:
+//
+// $my-custom-theme: (
+//   'primary': #ff6b6b,
+//   'bg-primary': #ffffff,
+//   'text-primary': #2c3e50,
+//   // ... outras variáveis
+// );
+//
+// @include custom-theme('sunset', $my-custom-theme);

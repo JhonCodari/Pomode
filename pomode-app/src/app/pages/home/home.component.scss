@@ -91,10 +91,28 @@
 
   .stat-card {
     transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
 
     &:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-lg);
+
+      &::before {
+        opacity: 1;
+      }
     }
 
     .stat {
@@ -105,7 +123,10 @@
       .stat-value {
         font-size: var(--font-size-4xl);
         font-weight: var(--font-weight-bold);
-        color: var(--color-primary);
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         line-height: 1;
 
         @include respond-below('md') {

@@ -58,12 +58,17 @@
 
 // Variantes
 .btn-primary {
-  background-color: var(--color-primary);
+  background: var(--gradient-primary);
   color: var(--text-inverse);
+  box-shadow: var(--shadow-md);
 
   &:not(:disabled):hover {
-    background-color: var(--color-primary-hover);
-    box-shadow: var(--shadow-md);
+    background: var(--gradient-primary-hover);
+    box-shadow: var(--shadow-lg);
+  }
+
+  &:not(:disabled):active {
+    box-shadow: var(--shadow-sm);
   }
 }
 

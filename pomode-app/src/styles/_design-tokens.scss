@@ -1,0 +1,334 @@
+// ============================================================================
+// DESIGN TOKENS - Sistema de Design Reutilizável
+// ============================================================================
+// Sistema preparado para temas personalizados
+// Baseado em psicologia das cores: leveza, tranquilidade e concentração
+
+// ============================================================================
+// PALETA DE CORES BASE
+// ============================================================================
+
+// Cores Principais (Teal/Turquesa) - Concentração, equilíbrio, calma
+$teal-50: #e0f7f7;
+$teal-100: #b3ecec;
+$teal-200: #80e0e0;
+$teal-300: #4dd4d4;
+$teal-400: #26caca;
+$teal-500: #00c0c0;   // Cor principal
+$teal-600: #00b0b0;
+$teal-700: #009d9d;
+$teal-800: #008a8a;
+$teal-850: #007777;   // Tom intermediário para mais variedade
+$teal-900: #006868;
+$teal-950: #004d4d;   // Tom muito escuro para backgrounds noturnos
+
+// Azul (Secundário) - Tranquilidade, produtividade
+$blue-50: #e3f2fd;
+$blue-100: #bbdefb;
+$blue-200: #90caf9;
+$blue-300: #64b5f6;
+$blue-400: #42a5f5;
+$blue-500: #2196f3;   // Azul principal
+$blue-600: #1e88e5;
+$blue-700: #1976d2;
+$blue-800: #1565c0;
+$blue-900: #0d47a1;
+$blue-950: #082f6b;   // Tom muito escuro para backgrounds noturnos
+
+// Verde (Sucesso) - Harmonia, crescimento, bem-estar
+$green-50: #e8f5e9;
+$green-100: #c8e6c9;
+$green-200: #a5d6a7;
+$green-300: #81c784;
+$green-400: #66bb6a;
+$green-500: #4caf50;   // Verde principal
+$green-600: #43a047;
+$green-700: #388e3c;
+$green-800: #2e7d32;
+$green-900: #1b5e20;
+$green-950: #0d3510;   // Tom muito escuro para backgrounds noturnos
+
+// Cinzas Neutros (Modernidade, leveza)
+$gray-50: #fafafa;
+$gray-100: #f5f5f5;
+$gray-200: #eeeeee;
+$gray-300: #e0e0e0;
+$gray-400: #bdbdbd;
+$gray-500: #9e9e9e;
+$gray-600: #757575;
+$gray-700: #616161;
+$gray-800: #424242;
+$gray-900: #212121;
+
+// Cores Semânticas
+$color-info: $blue-500;
+$color-success: $green-500;
+$color-warning: #ff9800;
+$color-error: #f44336;
+
+// ============================================================================
+// TEMA CLARO - Leveza e claridade
+// ============================================================================
+
+$light-theme: (
+  // Cores de ação
+  'primary': $teal-500,
+  'primary-hover': $teal-600,
+  'primary-active': $teal-700,
+  'primary-light': $teal-100,
+  'primary-dark': $teal-800,
+
+  'secondary': $blue-500,
+  'secondary-hover': $blue-600,
+  'secondary-light': $blue-100,
+
+  'accent': $green-500,
+  'accent-hover': $green-600,
+  'accent-light': $green-100,
+
+  // Backgrounds - Coloridos com paleta Teal/Blue
+  'bg-primary': $teal-50,           // Fundo principal suave
+  'bg-secondary': $blue-50,         // Fundo secundário
+  'bg-tertiary': $teal-100,         // Fundo terciário
+  'bg-elevated': $teal-50,          // Elementos elevados
+  'bg-overlay': rgba(0, 102, 102, 0.5),  // Overlay com Teal escuro
+
+  // Textos
+  'text-primary': $gray-900,
+  'text-secondary': $gray-600,
+  'text-tertiary': $gray-500,
+  'text-disabled': $gray-400,
+  'text-inverse': #ffffff,
+  'text-on-primary': #ffffff,
+
+  // Borders
+  'border-primary': $gray-300,
+  'border-secondary': $gray-200,
+  'border-focus': $teal-500,
+
+  // Estados
+  'state-hover': rgba(0, 192, 192, 0.08),
+  'state-active': rgba(0, 192, 192, 0.12),
+  'state-disabled': $gray-200,
+
+  // Sombras (coloridas com Teal para leveza)
+  'shadow-sm': (0 1px 2px rgba(0, 102, 102, 0.06)),
+  'shadow-md': (0 2px 8px rgba(0, 102, 102, 0.08)),
+  'shadow-lg': (0 8px 16px rgba(0, 102, 102, 0.10)),
+  'shadow-xl': (0 12px 24px rgba(0, 102, 102, 0.12)),
+
+  // Semânticas
+  'success': $color-success,
+  'success-light': $green-100,
+  'info': $color-info,
+  'info-light': $blue-100,
+  'warning': $color-warning,
+  'warning-light': #fff3e0,
+  'error': $color-error,
+  'error-light': #ffebee,
+);
+
+// ============================================================================
+// TEMA ESCURO - Tranquilidade e conforto visual
+// ============================================================================
+
+$dark-theme: (
+  // Cores de ação (ajustadas para melhor contraste)
+  'primary': $teal-400,
+  'primary-hover': $teal-300,
+  'primary-active': $teal-200,
+  'primary-light': rgba(38, 202, 202, 0.15),
+  'primary-dark': $teal-700,
+
+  'secondary': $blue-400,
+  'secondary-hover': $blue-300,
+  'secondary-light': rgba(66, 165, 245, 0.15),
+
+  'accent': $green-400,
+  'accent-hover': $green-300,
+  'accent-light': rgba(102, 187, 106, 0.15),
+
+  // Backgrounds - Coloridos com paleta Teal/Blue escura
+  'bg-primary': $teal-900,          // Fundo principal escuro colorido
+  'bg-secondary': $blue-900,        // Fundo secundário
+  'bg-tertiary': $teal-800,         // Fundo terciário
+  'bg-elevated': $teal-850,         // Elementos elevados (mix)
+  'bg-overlay': rgba(0, 102, 102, 0.8),  // Overlay com Teal escuro
+
+  // Textos
+  'text-primary': #e8eaed,
+  'text-secondary': #9aa0a6,
+  'text-tertiary': #70757a,
+  'text-disabled': #5f6368,
+  'text-inverse': #0f1419,
+  'text-on-primary': #0f1419,
+
+  // Borders (coloridas com Teal)
+  'border-primary': $teal-700,      // Borda com cor Teal
+  'border-secondary': $teal-800,    // Borda mais escura
+  'border-focus': $teal-400,
+
+  // Estados
+  'state-hover': rgba(38, 202, 202, 0.12),
+  'state-active': rgba(38, 202, 202, 0.16),
+  'state-disabled': #2d3138,
+
+  // Sombras (coloridas com Teal escuro para profundidade)
+  'shadow-sm': (0 1px 2px rgba(0, 77, 77, 0.4)),
+  'shadow-md': (0 2px 8px rgba(0, 77, 77, 0.5)),
+  'shadow-lg': (0 8px 16px rgba(0, 77, 77, 0.6)),
+  'shadow-xl': (0 12px 24px rgba(0, 77, 77, 0.7)),
+
+  // Semânticas
+  'success': $green-400,
+  'success-light': rgba(102, 187, 106, 0.15),
+  'info': $blue-400,
+  'info-light': rgba(66, 165, 245, 0.15),
+  'warning': #ffb74d,
+  'warning-light': rgba(255, 183, 77, 0.15),
+  'error': #ef5350,
+  'error-light': rgba(239, 83, 80, 0.15),
+);
+
+// ============================================================================
+// TIPOGRAFIA
+// ============================================================================
+
+$font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+                   'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+                   'Helvetica Neue', sans-serif;
+
+$font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code',
+                   'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+
+// Escala de tamanhos (Major Third - 1.250)
+$font-size-xs: 0.75rem;      // 12px
+$font-size-sm: 0.875rem;     // 14px
+$font-size-base: 1rem;       // 16px
+$font-size-md: 1.125rem;     // 18px
+$font-size-lg: 1.25rem;      // 20px
+$font-size-xl: 1.563rem;     // 25px
+$font-size-2xl: 1.953rem;    // 31px
+$font-size-3xl: 2.441rem;    // 39px
+$font-size-4xl: 3.052rem;    // 49px
+
+// Pesos
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line heights
+$line-height-tight: 1.2;
+$line-height-base: 1.5;
+$line-height-relaxed: 1.75;
+
+// ============================================================================
+// ESPAÇAMENTOS (Sistema de 8px)
+// ============================================================================
+
+$spacing-xs: 0.25rem;    // 4px
+$spacing-sm: 0.5rem;     // 8px
+$spacing-md: 1rem;       // 16px
+$spacing-lg: 1.5rem;     // 24px
+$spacing-xl: 2rem;       // 32px
+$spacing-xxl: 3rem;      // 48px
+$spacing-xxxl: 4rem;     // 64px
+
+// ============================================================================
+// BORDER RADIUS
+// ============================================================================
+
+$radius-sm: 0.25rem;     // 4px
+$radius-md: 0.5rem;      // 8px
+$radius-lg: 0.75rem;     // 12px
+$radius-xl: 1rem;        // 16px
+$radius-2xl: 1.5rem;     // 24px
+$radius-full: 9999px;
+
+// ============================================================================
+// TRANSIÇÕES
+// ============================================================================
+
+$transition-fast: 150ms;
+$transition-base: 250ms;
+$transition-slow: 350ms;
+$transition-slower: 500ms;
+
+$ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+$ease-out: cubic-bezier(0.0, 0, 0.2, 1);
+$ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+// ============================================================================
+// Z-INDEX
+// ============================================================================
+
+$z-base: 0;
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-fixed: 300;
+$z-modal-backdrop: 400;
+$z-modal: 500;
+$z-popover: 600;
+$z-tooltip: 700;
+
+// ============================================================================
+// BREAKPOINTS
+// ============================================================================
+
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// ============================================================================
+// GRADIENTES - Modernidade e profundidade visual
+// ============================================================================
+
+// Gradientes principais (direções e estilos variados)
+$gradient-primary: linear-gradient(135deg, $teal-400 0%, $teal-600 100%);
+$gradient-primary-hover: linear-gradient(135deg, $teal-500 0%, $teal-700 100%);
+$gradient-primary-radial: radial-gradient(circle at top left, $teal-400, $teal-600);
+
+$gradient-secondary: linear-gradient(135deg, $blue-400 0%, $blue-600 100%);
+$gradient-secondary-hover: linear-gradient(135deg, $blue-500 0%, $blue-700 100%);
+
+$gradient-success: linear-gradient(135deg, $green-400 0%, $green-600 100%);
+$gradient-success-hover: linear-gradient(135deg, $green-500 0%, $green-700 100%);
+
+// Gradientes sutis para backgrounds (Tema Claro - Paleta Teal/Azul)
+$gradient-bg-light: linear-gradient(135deg, $teal-50 0%, $blue-50 50%, $teal-100 100%);
+$gradient-bg-subtle: linear-gradient(180deg, rgba($teal-100, 0.3) 0%, rgba($blue-50, 0.5) 50%, rgba($green-50, 0.3) 100%);
+$gradient-bg-card: linear-gradient(145deg, rgba($teal-50, 0.9) 0%, rgba($blue-50, 0.7) 100%);
+
+// Gradientes para tema escuro (Teal/Azul escuro em vez de preto puro)
+$gradient-bg-dark: linear-gradient(135deg, $teal-900 0%, $blue-900 50%, $teal-950 100%);
+$gradient-bg-dark-subtle: linear-gradient(180deg, rgba($teal-800, 0.4) 0%, rgba($blue-900, 0.6) 50%, rgba($green-900, 0.4) 100%);
+$gradient-card-dark: linear-gradient(145deg, rgba($teal-800, 0.8) 0%, rgba($blue-900, 0.6) 100%);
+
+// Gradientes animados (para elementos especiais)
+$gradient-animated: linear-gradient(
+  270deg,
+  $teal-400,
+  $blue-400,
+  $green-400,
+  $teal-400
+);
+
+// Overlay gradientes (usando paleta Teal/Azul para psicologia das cores)
+$gradient-overlay-light: linear-gradient(180deg, rgba($teal-900, 0.2) 0%, rgba($blue-900, 0.4) 100%);
+$gradient-overlay-dark: linear-gradient(180deg, rgba($teal-900, 0.7) 0%, rgba($blue-950, 0.85) 100%);
+$gradient-overlay-top: linear-gradient(180deg, rgba($teal-900, 0.3) 0%, transparent 100%);
+$gradient-overlay-bottom: linear-gradient(0deg, rgba($blue-900, 0.3) 0%, transparent 100%);
+$gradient-shimmer: linear-gradient(90deg, transparent 0%, rgba($teal-400, 0.3) 50%, transparent 100%);
+
+// ============================================================================
+// FUNÇÃO PARA OBTER VALOR DO TEMA
+// ============================================================================
+
+@function theme-get($key, $theme: $light-theme) {
+  @return map-get($theme, $key);
+}
