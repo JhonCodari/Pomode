@@ -4,35 +4,45 @@
 .controls-container {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   width: 100%;
-  max-width: 90%;
+  max-width: 100%;
   margin: 0 auto;
   justify-content: center;
   align-items: stretch;
-  padding: 0;
+  padding: 0 var(--spacing-md);
 
   @include respond-to('sm') {
-    max-width: 85%;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
   }
 
   @include respond-to('md') {
     max-width: 800px;
     gap: var(--spacing-lg);
+    padding: 0;
   }
 
   .control-btn {
     flex: 1;
     min-width: 0;
-    font-size: var(--font-size-sm);
+    max-width: 120px;
+    font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
     white-space: nowrap;
-    min-height: 48px;
+    min-height: 44px;
+    padding: var(--spacing-xs) var(--spacing-xs);
+
+    @include respond-to('sm') {
+      max-width: 140px;
+      font-size: var(--font-size-sm);
+      min-height: 48px;
+    }
 
     @include respond-to('md') {
+      max-width: none;
       font-size: var(--font-size-md);
       min-height: 56px;
+      padding: var(--spacing-sm) var(--spacing-md);
     }
 
     @include respond-to('lg') {
