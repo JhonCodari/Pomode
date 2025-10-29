@@ -2,8 +2,8 @@
 
 .card {
   background: var(--gradient-bg-card);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--border-color);
+  backdrop-filter: blur(var(--blur-sm));
+  border: var(--border-thin) solid var(--border-color);
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all var(--transition-base);
@@ -15,7 +15,7 @@
 
   &:hover {
     box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
+    transform: translateY(calc(-1 * var(--spacing-xs) / 2));
   }
 }
 
@@ -29,7 +29,7 @@
 
 .card-header {
   padding: var(--spacing-lg);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: var(--border-thin) solid var(--border-color);
   background-color: var(--bg-secondary);
 }
 
@@ -39,7 +39,7 @@
 
 .card-footer {
   padding: var(--spacing-lg);
-  border-top: 1px solid var(--border-color);
+  border-top: var(--border-thin) solid var(--border-color);
   background-color: var(--bg-secondary);
 }
 

@@ -248,6 +248,44 @@ $radius-2xl: 1.5rem;     // 24px
 $radius-full: 9999px;
 
 // ============================================================================
+// DIMENSÕES DE BOTÕES E COMPONENTES (Sistema Responsivo)
+// ============================================================================
+
+// Alturas de botões
+$button-height-sm: 2rem;      // 32px - Botões pequenos
+$button-height-md: 2.5rem;    // 40px - Botões médios (padrão)
+$button-height-lg: 3rem;      // 48px - Botões grandes
+$button-height-xl: 3.5rem;    // 56px - Botões extra grandes
+$button-height-2xl: 4rem;     // 64px - Botões muito grandes
+
+// Alturas mínimas para mobile (touch targets)
+$button-min-height-mobile: 2.75rem;  // 44px - mínimo recomendado para mobile
+$button-min-height-tablet: 3rem;      // 48px
+$button-min-height-desktop: 3.5rem;   // 56px
+
+// Tamanhos de ícones/botões quadrados
+$icon-size-sm: 2rem;          // 32px
+$icon-size-md: 2.5rem;        // 40px
+$icon-size-lg: 3rem;          // 48px
+
+// Max-widths para containers
+$container-sm: 40rem;         // 640px
+$container-md: 48rem;         // 768px
+$container-lg: 64rem;         // 1024px
+$container-xl: 80rem;         // 1280px
+$container-controls: 50rem;   // 800px - para controles do timer
+
+// Valores de blur para glassmorphism
+$blur-sm: 0.5rem;             // 8px
+$blur-md: 0.625rem;           // 10px
+$blur-lg: 0.75rem;            // 12px
+
+// Bordas
+$border-thin: 1px;
+$border-medium: 2px;
+$border-thick: 3px;
+
+// ============================================================================
 // TRANSIÇÕES
 // ============================================================================
 

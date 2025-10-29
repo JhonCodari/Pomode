@@ -34,12 +34,12 @@
 // Header
 .app-header {
   background-color: var(--bg-primary);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: var(--border-thin) solid var(--border-color);
   padding: var(--spacing-md) 0;
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(var(--blur-sm));
   background-color: rgba(var(--bg-primary-rgb), 0.95);
 
   @include respond-to('md') {
@@ -73,14 +73,14 @@
     // Botão de configurações com mesmo estilo do theme-toggle
     ::ng-deep app-button {
       .btn {
-        width: 40px;
-        height: 40px;
-        min-height: 40px;
+        width: var(--icon-size-md);
+        height: var(--icon-size-md);
+        min-height: var(--icon-size-md);
         padding: var(--spacing-sm);
         font-size: var(--font-size-xl);
 
         background: var(--gradient-bg-card);
-        border: 1px solid var(--border-color);
+        border: var(--border-thin) solid var(--border-color);
         border-radius: var(--radius-md);
 
         color: var(--text-primary);
@@ -90,7 +90,7 @@
           color: var(--color-white);
           border-color: transparent;
           transform: scale(1.05);
-          box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+          box-shadow: var(--shadow-lg);
         }
 
         &:active {
@@ -153,7 +153,7 @@
 // Footer
 .app-footer {
   background-color: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
+  border-top: var(--border-thin) solid var(--border-color);
   padding: var(--spacing-lg) 0;
 
   .footer-content {

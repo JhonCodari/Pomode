@@ -68,6 +68,35 @@
   --radius-2xl: #{tokens.$radius-2xl};
   --radius-full: #{tokens.$radius-full};
 
+  // Dimensões de botões e componentes
+  --button-height-sm: #{tokens.$button-height-sm};
+  --button-height-md: #{tokens.$button-height-md};
+  --button-height-lg: #{tokens.$button-height-lg};
+  --button-height-xl: #{tokens.$button-height-xl};
+  --button-height-2xl: #{tokens.$button-height-2xl};
+
+  --button-min-height-mobile: #{tokens.$button-min-height-mobile};
+  --button-min-height-tablet: #{tokens.$button-min-height-tablet};
+  --button-min-height-desktop: #{tokens.$button-min-height-desktop};
+
+  --icon-size-sm: #{tokens.$icon-size-sm};
+  --icon-size-md: #{tokens.$icon-size-md};
+  --icon-size-lg: #{tokens.$icon-size-lg};
+
+  --container-sm: #{tokens.$container-sm};
+  --container-md: #{tokens.$container-md};
+  --container-lg: #{tokens.$container-lg};
+  --container-xl: #{tokens.$container-xl};
+  --container-controls: #{tokens.$container-controls};
+
+  --blur-sm: #{tokens.$blur-sm};
+  --blur-md: #{tokens.$blur-md};
+  --blur-lg: #{tokens.$blur-lg};
+
+  --border-thin: #{tokens.$border-thin};
+  --border-medium: #{tokens.$border-medium};
+  --border-thick: #{tokens.$border-thick};
+
   // Transições
   --transition-fast: #{tokens.$transition-fast};
   --transition-base: #{tokens.$transition-base};
