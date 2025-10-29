@@ -59,6 +59,11 @@
 
 .info-card {
   animation: fadeIn var(--transition-base) ease-in-out 0.4s;
+  margin: 0 var(--spacing-md);
+
+  @include respond-to('sm') {
+    margin: 0;
+  }
 
   .card-content {
     h3 {
@@ -100,10 +105,12 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--spacing-md);
+  padding: 0 var(--spacing-md);
   animation: fadeIn var(--transition-base) ease-in-out 0.6s;
 
   @include respond-to('sm') {
     grid-template-columns: repeat(3, 1fr);
+    padding: 0;
   }
 
   .stat-card {

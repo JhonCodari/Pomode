@@ -4,18 +4,22 @@
 .controls-container {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
   width: 100%;
-  max-width: 800px;
+  max-width: 90%;
   margin: 0 auto;
   justify-content: center;
   align-items: stretch;
-  // Garante padding lateral em telas pequenas
-  padding: 0 var(--spacing-md);
+  padding: 0;
+
+  @include respond-to('sm') {
+    max-width: 85%;
+    gap: var(--spacing-md);
+  }
 
   @include respond-to('md') {
+    max-width: 800px;
     gap: var(--spacing-lg);
-    padding: 0 var(--spacing-lg);
   }
 
   .control-btn {
