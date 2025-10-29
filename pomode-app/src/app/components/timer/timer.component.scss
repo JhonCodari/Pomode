@@ -4,7 +4,10 @@
 .timer-container {
   @include flex-center-column;
   gap: var(--spacing-xl);
-  padding: var(--spacing-xxl) var(--spacing-lg);
+  padding: var(--spacing-xxl) var(--spacing-md);
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 
   @include respond-to('md') {
     padding: var(--spacing-xxxl) var(--spacing-xl);
@@ -62,6 +65,12 @@
   .time-separator {
     font-size: clamp(3rem, 12vw, 6rem);
     animation: blink 2s infinite;
+    // Sobrescreve o gradiente herdado para ter cor sólida visível
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: currentColor !important;
+    background-clip: unset !important;
+    color: var(--primary);
 
     @include respond-to('md') {
       font-size: clamp(4rem, 10vw, 8rem);
@@ -70,7 +79,7 @@
 }
 
 .progress-bar {
-  width: 100%;
+  width: calc(100% - var(--spacing-lg));
   max-width: 500px;
   height: 8px;
   background-color: var(--bg-tertiary);

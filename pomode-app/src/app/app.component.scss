@@ -6,6 +6,10 @@
   @include flex-column;
   background: var(--gradient-bg-light);
   position: relative;
+  // Garante que não ultrapasse a largura da viewport
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 
   // Gradiente sutil de overlay para profundidade
   &::before {
