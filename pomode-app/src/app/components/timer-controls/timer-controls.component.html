@@ -3,7 +3,6 @@
   <app-button
     *ngIf="state() === 'idle' || state() === 'paused'"
     [variant]="'primary'"
-    [size]="'md'"
     (click)="start()"
     class="control-btn"
   >
@@ -13,7 +12,6 @@
   <app-button
     *ngIf="state() === 'running'"
     [variant]="'primary'"
-    [size]="'md'"
     (click)="pause()"
     class="control-btn"
   >
@@ -23,7 +21,6 @@
   <!-- Botão de Reset -->
   <app-button
     [variant]="'outline'"
-    [size]="'md'"
     (click)="reset()"
     [disabled]="state() === 'idle'"
     class="control-btn"
@@ -34,7 +31,6 @@
   <!-- Botão de Pular -->
   <app-button
     [variant]="'outline'"
-    [size]="'md'"
     (click)="skip()"
     class="control-btn"
   >

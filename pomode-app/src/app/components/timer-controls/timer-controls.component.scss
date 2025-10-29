@@ -4,7 +4,7 @@
 .controls-container {
   display: flex;
   flex-direction: row;
-  gap: 6px;
+  gap: var(--spacing-xs);
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
@@ -14,7 +14,6 @@
 
   @include respond-to('sm') {
     gap: var(--spacing-sm);
-    padding: 0 var(--spacing-xl);
   }
 
   @include respond-to('md') {
@@ -26,32 +25,32 @@
   .control-btn {
     flex: 1 1 0;
     min-width: 0;
-    max-width: 100px;
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-height: 44px;
-    padding: var(--spacing-xs) 6px;
 
-    @include respond-to('sm') {
-      max-width: 130px;
-      font-size: var(--font-size-sm);
-      min-height: 48px;
-      padding: var(--spacing-xs) var(--spacing-sm);
-    }
+    ::ng-deep .btn {
+      width: 100%;
+      padding: var(--spacing-xs) 4px;
+      font-size: 10px;
+      min-height: 40px;
+      gap: 2px;
 
-    @include respond-to('md') {
-      max-width: none;
-      font-size: var(--font-size-md);
-      min-height: 56px;
-      padding: var(--spacing-sm) var(--spacing-md);
-    }
+      @include respond-to('sm') {
+        padding: var(--spacing-sm) var(--spacing-xs);
+        font-size: var(--font-size-sm);
+        min-height: 48px;
+        gap: var(--spacing-xs);
+      }
 
-    @include respond-to('lg') {
-      font-size: var(--font-size-lg);
-      min-height: 64px;
+      @include respond-to('md') {
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: var(--font-size-base);
+        min-height: 56px;
+        gap: var(--spacing-sm);
+      }
+
+      @include respond-to('lg') {
+        font-size: var(--font-size-lg);
+        min-height: 64px;
+      }
     }
 
     &:hover:not(:disabled) {
