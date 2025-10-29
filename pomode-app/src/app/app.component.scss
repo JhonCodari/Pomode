@@ -35,7 +35,7 @@
 .app-header {
   background-color: var(--bg-primary);
   border-bottom: 1px solid var(--border-color);
-  padding: var(--spacing-lg) 0;
+  padding: var(--spacing-md) 0;
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
@@ -43,6 +43,10 @@
   background-color: rgba(var(--bg-primary-rgb), 0.95);
 
   @include respond-to('md') {
+    padding: var(--spacing-lg) 0;
+  }
+
+  @include respond-to('lg') {
     padding: var(--spacing-xl) 0;
   }
 
@@ -135,10 +139,14 @@
 .app-main {
   flex: 1;
   @include flex-center;
-  padding: var(--spacing-xl) 0;
+  padding: var(--spacing-md) 0;
 
   @include respond-to('md') {
-    padding: var(--spacing-xxl) 0;
+    padding: var(--spacing-lg) 0;
+  }
+
+  @include respond-to('lg') {
+    padding: var(--spacing-xl) 0;
   }
 }
 

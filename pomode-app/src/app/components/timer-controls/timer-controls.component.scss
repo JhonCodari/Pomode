@@ -21,12 +21,17 @@
   .control-btn {
     flex: 1;
     min-width: 0;
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     white-space: nowrap;
-    min-height: 56px;
+    min-height: 48px;
 
     @include respond-to('md') {
+      font-size: var(--font-size-md);
+      min-height: 56px;
+    }
+
+    @include respond-to('lg') {
       font-size: var(--font-size-lg);
       min-height: 64px;
     }

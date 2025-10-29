@@ -3,37 +3,50 @@
 
 .timer-container {
   @include flex-center-column;
-  gap: var(--spacing-xl);
-  padding: var(--spacing-xxl) var(--spacing-md);
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
   width: 100%;
   max-width: 100%;
   overflow: hidden;
 
   @include respond-to('md') {
-    padding: var(--spacing-xxxl) var(--spacing-xl);
-    gap: var(--spacing-xxl);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+
+  @include respond-to('lg') {
+    gap: var(--spacing-xl);
+    padding: var(--spacing-xl) var(--spacing-xxl);
   }
 }
 
 .mode-indicator {
   @include flex-center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
   animation: fadeIn var(--transition-base) ease-in-out;
 
   .mode-emoji {
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-2xl);
 
     @include respond-to('md') {
+      font-size: var(--font-size-3xl);
+    }
+
+    @include respond-to('lg') {
       font-size: var(--font-size-4xl);
     }
   }
 
   .mode-text {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
     color: var(--text-primary);
 
     @include respond-to('md') {
+      font-size: var(--font-size-xl);
+    }
+
+    @include respond-to('lg') {
       font-size: var(--font-size-2xl);
     }
   }
@@ -55,15 +68,19 @@
   @include slide-up;
 
   .time-number {
-    font-size: clamp(4rem, 15vw, 8rem);
+    font-size: clamp(3.5rem, 12vw, 6rem);
 
     @include respond-to('md') {
+      font-size: clamp(5rem, 10vw, 8rem);
+    }
+
+    @include respond-to('lg') {
       font-size: clamp(6rem, 12vw, 10rem);
     }
   }
 
   .time-separator {
-    font-size: clamp(3rem, 12vw, 6rem);
+    font-size: clamp(2.5rem, 10vw, 4.5rem);
     animation: blink 2s infinite;
     // Sobrescreve o gradiente herdado para ter cor sólida visível
     background: none !important;
@@ -73,6 +90,10 @@
     color: var(--primary);
 
     @include respond-to('md') {
+      font-size: clamp(3.5rem, 8vw, 6rem);
+    }
+
+    @include respond-to('lg') {
       font-size: clamp(4rem, 10vw, 8rem);
     }
   }
