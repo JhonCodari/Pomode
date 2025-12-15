@@ -1,69 +1,158 @@
-<div class="modal-overlay" (click)="cancel()">
+<div class="modal-overlay" (click)="cancel()" role="dialog" aria-modal="true" aria-labelledby="settings-title">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <app-card [elevated]="true" [hasHeader]="true">
       <div card-header>
-        <h3>⚙️ Configurações</h3>
+        <h3 id="settings-title"><span aria-hidden="true">⚙️</span> Configurações</h3>
       </div>
 
       <div class="settings-form">
-        <!-- Tempo de Foco -->
-        <div class="form-group">
-          <label for="workTime">
-            🍅 Tempo de Foco (minutos)
-          </label>
-          <input
-            id="workTime"
-            type="number"
-            [(ngModel)]="workTime"
-            min="1"
-            max="60"
-            class="form-input"
-          />
+        <!-- Seção: Tempos -->
+        <div class="settings-section">
+          <h4 class="section-title">Tempos</h4>
+
+          <!-- Tempo de Foco -->
+          <div class="form-group">
+            <label for="workTime">
+              <span aria-hidden="true">🍅</span> Tempo de Foco (minutos)
+            </label>
+            <input
+              id="workTime"
+              type="number"
+              [(ngModel)]="workTime"
+              [min]="limits.workTime.min"
+              [max]="limits.workTime.max"
+              class="form-input"
+              aria-describedby="workTime-hint"
+            />
+            <span id="workTime-hint" class="form-hint">
+              Entre {{ limits.workTime.min }} e {{ limits.workTime.max }} minutos
+            </span>
+          </div>
+
+          <!-- Pausa Curta -->
+          <div class="form-group">
+            <label for="shortBreak">
+              <span aria-hidden="true">☕</span> Pausa Curta (minutos)
+            </label>
+            <input
+              id="shortBreak"
+              type="number"
+              [(ngModel)]="shortBreakTime"
+              [min]="limits.shortBreakTime.min"
+              [max]="limits.shortBreakTime.max"
+              class="form-input"
+              aria-describedby="shortBreak-hint"
+            />
+            <span id="shortBreak-hint" class="form-hint">
+              Entre {{ limits.shortBreakTime.min }} e {{ limits.shortBreakTime.max }} minutos
+            </span>
+          </div>
+
+          <!-- Pausa Longa -->
+          <div class="form-group">
+            <label for="longBreak">
+              <span aria-hidden="true">🌴</span> Pausa Longa (minutos)
+            </label>
+            <input
+              id="longBreak"
+              type="number"
+              [(ngModel)]="longBreakTime"
+              [min]="limits.longBreakTime.min"
+              [max]="limits.longBreakTime.max"
+              class="form-input"
+              aria-describedby="longBreak-hint"
+            />
+            <span id="longBreak-hint" class="form-hint">
+              Entre {{ limits.longBreakTime.min }} e {{ limits.longBreakTime.max }} minutos
+            </span>
+          </div>
+
+          <!-- Ciclos -->
+          <div class="form-group">
+            <label for="cycles">
+              <span aria-hidden="true">🔄</span> Ciclos antes da pausa longa
+            </label>
+            <input
+              id="cycles"
+              type="number"
+              [(ngModel)]="cyclesBeforeLongBreak"
+              [min]="limits.cyclesBeforeLongBreak.min"
+              [max]="limits.cyclesBeforeLongBreak.max"
+              class="form-input"
+              aria-describedby="cycles-hint"
+            />
+            <span id="cycles-hint" class="form-hint">
+              Entre {{ limits.cyclesBeforeLongBreak.min }} e {{ limits.cyclesBeforeLongBreak.max }} ciclos
+            </span>
+          </div>
         </div>
 
-        <!-- Pausa Curta -->
-        <div class="form-group">
-          <label for="shortBreak">
-            ☕ Pausa Curta (minutos)
-          </label>
-          <input
-            id="shortBreak"
-            type="number"
-            [(ngModel)]="shortBreakTime"
-            min="1"
-            max="30"
-            class="form-input"
-          />
+        <!-- Seção: Som -->
+        <div class="settings-section">
+          <h4 class="section-title">Som</h4>
+
+          <!-- Toggle de Som -->
+          <div class="form-group form-group-toggle">
+            <label for="soundEnabled">
+              <span aria-hidden="true">🔊</span> Som de alerta
+            </label>
+            <label class="toggle-switch">
+              <input
+                id="soundEnabled"
+                type="checkbox"
+                [(ngModel)]="soundEnabled"
+              />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Volume -->
+          @if (soundEnabled()) {
+            <div class="form-group">
+              <label for="soundVolume">
+                <span aria-hidden="true">🎚️</span> Volume ({{ soundVolume() }}%)
+              </label>
+              <div class="volume-control">
+                <input
+                  id="soundVolume"
+                  type="range"
+                  [(ngModel)]="soundVolume"
+                  [min]="limits.soundVolume.min"
+                  [max]="limits.soundVolume.max"
+                  class="form-range"
+                />
+                <app-button
+                  [variant]="'ghost'"
+                  [size]="'sm'"
+                  (click)="testSound()"
+                  title="Testar som"
+                >
+                  <span aria-hidden="true">▶</span> Testar
+                </app-button>
+              </div>
+            </div>
+          }
         </div>
 
-        <!-- Pausa Longa -->
-        <div class="form-group">
-          <label for="longBreak">
-            🌴 Pausa Longa (minutos)
-          </label>
-          <input
-            id="longBreak"
-            type="number"
-            [(ngModel)]="longBreakTime"
-            min="1"
-            max="60"
-            class="form-input"
-          />
-        </div>
+        <!-- Seção: Notificações -->
+        <div class="settings-section">
+          <h4 class="section-title">Notificações</h4>
 
-        <!-- Ciclos -->
-        <div class="form-group">
-          <label for="cycles">
-            🔄 Ciclos antes da pausa longa
-          </label>
-          <input
-            id="cycles"
-            type="number"
-            [(ngModel)]="cyclesBeforeLongBreak"
-            min="1"
-            max="10"
-            class="form-input"
-          />
+          <!-- Toggle de Notificações -->
+          <div class="form-group form-group-toggle">
+            <label for="notificationsEnabled">
+              <span aria-hidden="true">🔔</span> Notificações do navegador
+            </label>
+            <label class="toggle-switch">
+              <input
+                id="notificationsEnabled"
+                type="checkbox"
+                [(ngModel)]="notificationsEnabled"
+                (change)="notificationsEnabled() && requestNotificationPermission()"
+              />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
         </div>
       </div>
 

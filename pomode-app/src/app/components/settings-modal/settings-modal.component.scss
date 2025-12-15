@@ -13,11 +13,13 @@
   padding: var(--spacing-md);
   backdrop-filter: blur(8px);
   animation: fadeIn var(--transition-base) ease-out;
+  overflow-y: auto;
 }
 
 .modal-content {
   width: 100%;
   max-width: 500px;
+  max-height: calc(100vh - var(--spacing-xl) * 2);
   animation: slideUp var(--transition-base) ease-out;
 
   @include respond-to('md') {
@@ -28,21 +30,54 @@
 .settings-form {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-md) 0;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  max-height: 60vh;
+  overflow-y: auto;
+  @include custom-scrollbar;
+
+  .settings-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-secondary);
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  .section-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
 
   .form-group {
     @include flex-column;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
 
     label {
       font-size: var(--font-size-base);
       font-weight: var(--font-weight-medium);
       color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+    }
+
+    .form-hint {
+      font-size: var(--font-size-xs);
+      color: var(--text-tertiary);
     }
 
     .form-input {
-      padding: var(--spacing-md);
+      padding: var(--spacing-sm) var(--spacing-md);
       font-size: var(--font-size-base);
       color: var(--text-primary);
       background-color: var(--bg-secondary);
@@ -52,7 +87,7 @@
 
       &:focus {
         outline: none;
-        border-color: var(--color-primary);
+        border-color: var(--primary);
         background: var(--gradient-bg-subtle);
         box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
       }
@@ -60,6 +95,110 @@
       &:hover:not(:focus) {
         border-color: var(--text-tertiary);
       }
+    }
+
+    .form-range {
+      width: 100%;
+      height: 6px;
+      border-radius: var(--radius-full);
+      background: var(--bg-tertiary);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--primary);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        box-shadow: var(--shadow-sm);
+
+        &:hover {
+          transform: scale(1.1);
+          box-shadow: var(--shadow-md);
+        }
+      }
+
+      &::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--primary);
+        cursor: pointer;
+        border: none;
+      }
+    }
+  }
+
+  .form-group-toggle {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .volume-control {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+
+    .form-range {
+      flex: 1;
+    }
+  }
+}
+
+// Toggle Switch
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .toggle-slider {
+      background: var(--gradient-primary);
+
+      &::before {
+        transform: translateX(22px);
+      }
+    }
+
+    &:focus + .toggle-slider {
+      box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.2);
+    }
+  }
+
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-sm);
     }
   }
 }

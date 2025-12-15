@@ -1,9 +1,11 @@
-﻿<div class="app-container">
+﻿<a class="skip-link" href="#main-content">Pular para o conteúdo principal</a>
+
+<div class="app-container">
   <header class="app-header">
     <app-container [size]="'xl'">
       <div class="header-content">
         <div class="logo">
-          <h1>🍅 Pomode</h1>
+          <h1><span aria-hidden="true">🍅</span> Pomode</h1>
           <p class="subtitle">Timer Pomodoro</p>
         </div>
       </div>
@@ -11,14 +13,18 @@
 
     <!-- Botões posicionados absolutamente no canto superior direito -->
     <div class="header-actions">
-      <app-button (click)="openSettings()">
-        ⚙️
+      <app-button
+        (click)="openSettings()"
+        aria-label="Abrir configurações"
+        title="Configurações"
+      >
+        <span aria-hidden="true">⚙️</span>
       </app-button>
       <app-theme-toggle></app-theme-toggle>
     </div>
   </header>
 
-  <main class="app-main">
+  <main id="main-content" class="app-main" tabindex="-1">
     <router-outlet></router-outlet>
   </main>
 
@@ -27,13 +33,18 @@
       <div class="footer-content">
         <p class="copyright">© 2025 Pomode | Desenvolvido por Jhon Codari</p>
         <p class="version">v0.1.0</p>
+        <p class="shortcuts" aria-label="Atalhos de teclado disponíveis">
+          <kbd>Espaço</kbd> Play/Pause · <kbd>R</kbd> Reset · <kbd>S</kbd> Pular
+        </p>
       </div>
     </app-container>
   </footer>
 </div>
 
 <!-- Modal de Configurações -->
-<app-settings-modal
-  *ngIf="showSettings()"
-  (close)="closeSettings()"
-></app-settings-modal>
+@if (showSettings()) {
+  <app-settings-modal (close)="closeSettings()"></app-settings-modal>
+}
+
+<!-- Toast para notificações -->
+<app-toast></app-toast>

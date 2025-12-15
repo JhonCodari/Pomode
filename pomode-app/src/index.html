@@ -5,11 +5,55 @@
   <title>Pomode - Timer Pomodoro</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Aplicativo web de Pomodoro para aumentar sua produtividade">
-  <meta name="theme-color" content="#1a1a1a">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Aplicativo web de Pomodoro para aumentar sua produtividade. Gerencie seu tempo com técnica Pomodoro: 25 minutos de foco, pausas regulares.">
+  <meta name="keywords" content="pomodoro, timer, produtividade, foco, gestão de tempo, técnica pomodoro, trabalho, estudos">
+  <meta name="author" content="Pomode">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pomode.app/">
+  <meta property="og:title" content="Pomode - Timer Pomodoro">
+  <meta property="og:description" content="Aumente sua produtividade com a técnica Pomodoro. Timer simples e elegante para gerenciar seu tempo de trabalho e descanso.">
+  <meta property="og:image" content="https://pomode.app/og-image.png">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Pomode">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://pomode.app/">
+  <meta name="twitter:title" content="Pomode - Timer Pomodoro">
+  <meta name="twitter:description" content="Aumente sua produtividade com a técnica Pomodoro. Timer simples e elegante para gerenciar seu tempo.">
+  <meta name="twitter:image" content="https://pomode.app/og-image.png">
+
+  <!-- PWA -->
+  <meta name="theme-color" content="#00c0c0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Pomode">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16x16.png">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
   <app-root></app-root>
+
+  <!-- Noscript fallback -->
+  <noscript>
+    <p style="text-align: center; padding: 2rem;">
+      Este aplicativo requer JavaScript habilitado para funcionar.
+      Por favor, habilite o JavaScript no seu navegador.
+    </p>
+  </noscript>
 </body>
 </html>

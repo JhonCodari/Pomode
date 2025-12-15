@@ -1,0 +1,6 @@
+# Robots.txt para Pomode
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://pomode.app/sitemap.xml

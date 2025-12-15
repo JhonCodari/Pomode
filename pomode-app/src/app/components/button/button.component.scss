@@ -73,21 +73,21 @@
 }
 
 .btn-secondary {
-  background-color: var(--color-secondary);
+  background-color: var(--secondary);
   color: var(--text-inverse);
 
   &:not(:disabled):hover {
-    background-color: var(--color-secondary-hover);
+    background-color: var(--secondary-hover);
     box-shadow: var(--shadow-md);
   }
 }
 
 .btn-success {
-  background-color: var(--color-success);
+  background-color: var(--accent);
   color: var(--text-inverse);
 
   &:not(:disabled):hover {
-    background-color: var(--color-success-hover);
+    background-color: var(--accent-hover);
     box-shadow: var(--shadow-md);
   }
 }

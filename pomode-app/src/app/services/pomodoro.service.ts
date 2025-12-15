@@ -1,39 +1,32 @@
-import { Injectable, signal, computed, effect } from '@angular/core';
-import { interval, Subject, Subscription } from 'rxjs';
+import { Injectable, signal, computed, effect, OnDestroy } from '@angular/core';
+import { Subject, Subscription, timer } from 'rxjs';
+import {
+  TimerMode,
+  TimerState,
+  PomodoroSettings,
+  PomodoroSession,
+  DEFAULT_SETTINGS,
+  validateSettings
+} from '../models';
 
-export type TimerMode = 'work' | 'shortBreak' | 'longBreak';
-export type TimerState = 'idle' | 'running' | 'paused';
-
-export interface PomodoroSettings {
-  workTime: number;        // minutos
-  shortBreakTime: number;  // minutos
-  longBreakTime: number;   // minutos
-  cyclesBeforeLongBreak: number;
-}
-
-export interface PomodoroSession {
-  id: string;
-  mode: TimerMode;
-  duration: number;
-  completedAt: Date;
-}
-
-const DEFAULT_SETTINGS: PomodoroSettings = {
-  workTime: 25,
-  shortBreakTime: 5,
-  longBreakTime: 15,
-  cyclesBeforeLongBreak: 4
-};
+// Re-exporta tipos para compatibilidade
+export type { TimerMode, TimerState, PomodoroSettings, PomodoroSession };
 
 @Injectable({
   providedIn: 'root'
 })
-export class PomodoroService {
+export class PomodoroService implements OnDestroy {
   private readonly SETTINGS_KEY = 'pomodoro-settings';
   private readonly SESSIONS_KEY = 'pomodoro-sessions';
 
-  // Timer subscription
+  // Timer com precisão usando timestamps
   private timerSubscription?: Subscription;
+  private startTimestamp: number = 0;
+  private pausedTimeRemaining: number = 0;
+  private targetEndTime: number = 0; // Timestamp absoluto de quando o timer deve terminar
+
+  // Page Visibility para detectar quando aba fica inativa/ativa
+  private visibilityChangeHandler: (() => void) | null = null;
 
   // Signals
   public settings = signal<PomodoroSettings>(this.loadSettings());
@@ -49,6 +42,7 @@ export class PomodoroService {
   public progress = computed(() => {
     const total = this.getTotalTime(this.mode());
     const remaining = this.timeRemaining();
+    if (total === 0) return 0;
     return ((total - remaining) / total) * 100;
   });
 
@@ -68,24 +62,92 @@ export class PomodoroService {
     effect(() => {
       this.saveSessions(this.sessions());
     });
+
+    // Configura Page Visibility API para detectar quando aba volta a ficar ativa
+    this.setupVisibilityChangeListener();
+  }
+
+  ngOnDestroy(): void {
+    this.stopTimer();
+    this.timerComplete$.complete();
+    this.removeVisibilityChangeListener();
+  }
+
+  /**
+   * Configura listener para Page Visibility API
+   * Detecta quando usuário volta à aba para verificar se timer completou
+   */
+  private setupVisibilityChangeListener(): void {
+    if (typeof document === 'undefined') return;
+
+    this.visibilityChangeHandler = () => {
+      if (!document.hidden && this.state() === 'running') {
+        // Usuário voltou à aba e timer está rodando
+        // Verifica se o timer deveria ter completado enquanto estava em background
+        this.checkTimerStatus();
+      }
+    };
+
+    document.addEventListener('visibilitychange', this.visibilityChangeHandler);
+  }
+
+  /**
+   * Remove listener de visibilidade
+   */
+  private removeVisibilityChangeListener(): void {
+    if (this.visibilityChangeHandler && typeof document !== 'undefined') {
+      document.removeEventListener('visibilitychange', this.visibilityChangeHandler);
+      this.visibilityChangeHandler = null;
+    }
+  }
+
+  /**
+   * Verifica status do timer baseado no timestamp absoluto
+   * Chamado quando usuário volta à aba
+   */
+  private checkTimerStatus(): void {
+    if (this.state() !== 'running' || this.targetEndTime === 0) return;
+
+    const now = Date.now();
+
+    // Se o tempo alvo já passou, timer deveria ter completado
+    if (now >= this.targetEndTime) {
+      // Timer completou enquanto estava em background
+      this.timeRemaining.set(0);
+      this.onTimerComplete();
+    } else {
+      // Atualiza tempo restante baseado no tempo real
+      const remaining = Math.ceil((this.targetEndTime - now) / 1000);
+      this.timeRemaining.set(remaining);
+    }
   }
 
   /**
    * Inicia o timer
+   * Corrigido: verifica estado ANTES de alterá-lo
    */
   public start(): void {
-    if (this.state() === 'running') return;
+    const currentState = this.state();
 
-    this.state.set('running');
+    if (currentState === 'running') return;
 
-    // Se está pausado, continua de onde parou
-    // Se está idle, começa do zero
-    if (this.state() === 'idle') {
-      this.timeRemaining.set(this.getTotalTime(this.mode()));
+    // Se está idle, define o tempo total
+    if (currentState === 'idle') {
+      this.pausedTimeRemaining = this.getTotalTime(this.mode());
+      this.timeRemaining.set(this.pausedTimeRemaining);
+    } else {
+      // Se está pausado, continua de onde parou
+      this.pausedTimeRemaining = this.timeRemaining();
     }
 
-    // Cria subscription do timer (tick a cada segundo)
-    this.timerSubscription = interval(1000).subscribe(() => {
+    // Marca o timestamp de início e o timestamp absoluto de fim
+    this.startTimestamp = Date.now();
+    this.targetEndTime = this.startTimestamp + (this.pausedTimeRemaining * 1000);
+    this.state.set('running');
+
+    // Timer com precisão usando timestamps absolutos
+    // Tick a cada 100ms para maior precisão visual
+    this.timerSubscription = timer(0, 100).subscribe(() => {
       this.tick();
     });
   }
@@ -96,7 +158,14 @@ export class PomodoroService {
   public pause(): void {
     if (this.state() !== 'running') return;
 
+    // Salva o tempo restante atual baseado no timestamp absoluto
+    const now = Date.now();
+    const remaining = Math.max(0, Math.ceil((this.targetEndTime - now) / 1000));
+    this.pausedTimeRemaining = remaining;
+    this.timeRemaining.set(remaining);
+
     this.state.set('paused');
+    this.targetEndTime = 0; // Limpa o target
     this.stopTimer();
   }
 
@@ -105,8 +174,10 @@ export class PomodoroService {
    */
   public reset(): void {
     this.state.set('idle');
+    this.targetEndTime = 0;
     this.stopTimer();
-    this.timeRemaining.set(this.getTotalTime(this.mode()));
+    this.pausedTimeRemaining = this.getTotalTime(this.mode());
+    this.timeRemaining.set(this.pausedTimeRemaining);
   }
 
   /**
@@ -119,12 +190,15 @@ export class PomodoroService {
   }
 
   /**
-   * Atualiza as configurações
+   * Atualiza as configurações com validação
    */
-  public updateSettings(settings: Partial<PomodoroSettings>): void {
+  public updateSettings(newSettings: Partial<PomodoroSettings>): void {
+    // Valida as configurações antes de salvar
+    const validatedSettings = validateSettings(newSettings);
+
     this.settings.update(current => ({
       ...current,
-      ...settings
+      ...validatedSettings
     }));
 
     // Se o timer está idle, atualiza o tempo
@@ -142,17 +216,21 @@ export class PomodoroService {
   }
 
   /**
-   * Tick do timer (a cada segundo)
+   * Tick do timer com precisão usando timestamps
+   * Calcula o tempo real decorrido para evitar drift
+   * Usa targetEndTime para garantir precisão mesmo se aba ficar em background
    */
   private tick(): void {
-    const remaining = this.timeRemaining();
+    if (this.targetEndTime === 0) return;
+
+    const now = Date.now();
+    const remaining = Math.max(0, Math.ceil((this.targetEndTime - now) / 1000));
+
+    this.timeRemaining.set(remaining);
 
     if (remaining <= 0) {
       this.onTimerComplete();
-      return;
     }
-
-    this.timeRemaining.set(remaining - 1);
   }
 
   /**
@@ -175,12 +253,14 @@ export class PomodoroService {
     // Para o timer
     this.stopTimer();
     this.state.set('idle');
+    this.targetEndTime = 0;
 
     // Avança para o próximo modo
     this.nextMode();
 
     // Reseta o tempo
-    this.timeRemaining.set(this.getTotalTime(this.mode()));
+    this.pausedTimeRemaining = this.getTotalTime(this.mode());
+    this.timeRemaining.set(this.pausedTimeRemaining);
   }
 
   /**
@@ -218,13 +298,14 @@ export class PomodoroService {
    * Reseta o timer para o modo atual
    */
   private resetTimer(): void {
-    this.timeRemaining.set(this.getTotalTime(this.mode()));
+    this.pausedTimeRemaining = this.getTotalTime(this.mode());
+    this.timeRemaining.set(this.pausedTimeRemaining);
   }
 
   /**
    * Obtém o tempo total de um modo (em segundos)
    */
-  private getTotalTime(mode: TimerMode): number {
+  public getTotalTime(mode: TimerMode): number {
     const settings = this.settings();
 
     switch (mode) {
@@ -242,7 +323,7 @@ export class PomodoroService {
    */
   private saveSession(mode: TimerMode): void {
     const session: PomodoroSession = {
-      id: `${Date.now()}`,
+      id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       mode,
       duration: this.getTotalTime(mode),
       completedAt: new Date()
@@ -291,7 +372,12 @@ export class PomodoroService {
     try {
       const stored = localStorage.getItem(this.SESSIONS_KEY);
       if (stored) {
-        return JSON.parse(stored);
+        const sessions = JSON.parse(stored);
+        // Converte strings de data para objetos Date
+        return sessions.map((s: PomodoroSession) => ({
+          ...s,
+          completedAt: new Date(s.completedAt)
+        }));
       }
     } catch (error) {
       console.error('Erro ao carregar sessões:', error);

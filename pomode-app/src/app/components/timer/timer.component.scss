@@ -57,17 +57,18 @@
   gap: var(--spacing-sm);
   font-family: var(--font-family-mono);
   font-weight: var(--font-weight-bold);
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   line-height: 1;
   user-select: none;
-  filter: drop-shadow(0 0 8px rgba(var(--primary-rgb), 0.2));
 
   @include slide-up;
 
   .time-number {
+    // Aplicar gradiente apenas nos números
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(var(--primary-rgb), 0.2));
     font-size: clamp(3.5rem, 12vw, 6rem);
 
     @include respond-to('md') {
@@ -80,14 +81,10 @@
   }
 
   .time-separator {
+    // Cor sólida para o separador (não herda gradiente)
+    color: var(--primary);
     font-size: clamp(2.5rem, 10vw, 4.5rem);
     animation: blink 2s infinite;
-    // Sobrescreve o gradiente herdado para ter cor sólida visível
-    background: none !important;
-    -webkit-background-clip: unset !important;
-    -webkit-text-fill-color: currentColor !important;
-    background-clip: unset !important;
-    color: var(--primary);
 
     @include respond-to('md') {
       font-size: clamp(3.5rem, 8vw, 6rem);

@@ -1,0 +1,118 @@
+@use '../../../styles/mixins' as *;
+@use '../../../styles/breakpoints' as *;
+
+.toast-container {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: var(--z-tooltip);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-width: 400px;
+  width: calc(100vw - var(--spacing-lg) * 2);
+
+  @include respond-to('md') {
+    bottom: var(--spacing-xl);
+    right: var(--spacing-xl);
+  }
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-elevated);
+  border: var(--border-thin) solid var(--border-primary);
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  animation: slideIn 0.3s ease-out;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    transform: translateX(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .toast-icon {
+    font-size: var(--font-size-lg);
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+  }
+
+  .toast-message {
+    flex: 1;
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+    line-height: var(--line-height-base);
+  }
+
+  .toast-close {
+    @include reset-button;
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+
+    &:hover {
+      color: var(--text-primary);
+      background-color: var(--state-hover);
+    }
+  }
+}
+
+// Variantes de toast
+.toast-success {
+  border-left: 4px solid var(--success);
+
+  .toast-icon {
+    color: var(--success);
+    background-color: var(--success-light);
+  }
+}
+
+.toast-error {
+  border-left: 4px solid var(--error);
+
+  .toast-icon {
+    color: var(--error);
+    background-color: var(--error-light);
+  }
+}
+
+.toast-warning {
+  border-left: 4px solid var(--warning);
+
+  .toast-icon {
+    color: var(--warning);
+    background-color: var(--warning-light);
+  }
+}
+
+.toast-info {
+  border-left: 4px solid var(--info);
+
+  .toast-icon {
+    color: var(--info);
+    background-color: var(--info-light);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

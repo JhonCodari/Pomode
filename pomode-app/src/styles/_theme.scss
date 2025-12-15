@@ -4,6 +4,7 @@
 
 @use './design-tokens' as tokens;
 @use 'sass:map';
+@use 'sass:meta';
 
 // ============================================================================
 // MIXIN PARA APLICAR VARIÁVEIS CSS DE UM TEMA
@@ -11,7 +12,7 @@
 
 @mixin apply-theme($theme-map) {
   @each $key, $value in $theme-map {
-    @if type-of($value) == 'list' {
+    @if meta.type-of($value) == 'list' {
       --#{$key}: #{$value};
     } @else {
       --#{$key}: #{$value};

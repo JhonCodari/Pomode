@@ -7,7 +7,7 @@
 
       <!-- Cycles Info -->
       <div class="cycles-info">
-        <span class="cycles-text">Ciclos completados: {{ pomodoroService.completedCycles() }}</span>
+        <span class="cycles-text">Ciclos completados: {{ completedCycles() }}</span>
       </div>
     </section>
 
@@ -15,21 +15,21 @@
     <div class="stats-grid">
       <app-card class="stat-card" [elevated]="true">
         <div class="stat">
-          <span class="stat-value">{{ todaySessions }}</span>
+          <span class="stat-value">{{ todaySessions() }}</span>
           <span class="stat-label">Sessões hoje</span>
         </div>
       </app-card>
 
       <app-card class="stat-card" [elevated]="true">
         <div class="stat">
-          <span class="stat-value">{{ totalHours }}</span>
+          <span class="stat-value">{{ totalHours() }}</span>
           <span class="stat-label">Total de horas</span>
         </div>
       </app-card>
 
       <app-card class="stat-card" [elevated]="true">
         <div class="stat">
-          <span class="stat-value">{{ currentStreak }}</span>
+          <span class="stat-value">{{ currentStreak() }}</span>
           <span class="stat-label">Sessões (7 dias)</span>
         </div>
       </app-card>
