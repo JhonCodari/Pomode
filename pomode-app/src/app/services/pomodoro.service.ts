@@ -1,5 +1,5 @@
 import { Injectable, signal, computed, effect, OnDestroy } from '@angular/core';
-import { Subject, Subscription, timer } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   TimerMode,
   TimerState,
@@ -19,8 +19,9 @@ export class PomodoroService implements OnDestroy {
   private readonly SETTINGS_KEY = 'pomodoro-settings';
   private readonly SESSIONS_KEY = 'pomodoro-sessions';
 
-  // Timer com precisão usando timestamps
-  private timerSubscription?: Subscription;
+  // Timer usando Web Worker para evitar throttling em background
+  private timerWorker?: Worker;
+  private fallbackIntervalId?: any; // Fallback se Worker não disponível
   private startTimestamp: number = 0;
   private pausedTimeRemaining: number = 0;
   private targetEndTime: number = 0; // Timestamp absoluto de quando o timer deve terminar
@@ -53,6 +54,9 @@ export class PomodoroService implements OnDestroy {
     // Inicializa o timer com o tempo de trabalho
     this.resetTimer();
 
+    // Inicializa Web Worker para o timer
+    this.initializeTimerWorker();
+
     // Effect para salvar configurações quando mudarem
     effect(() => {
       this.saveSettings(this.settings());
@@ -71,6 +75,65 @@ export class PomodoroService implements OnDestroy {
     this.stopTimer();
     this.timerComplete$.complete();
     this.removeVisibilityChangeListener();
+    this.terminateWorker();
+  }
+
+  /**
+   * Inicializa Web Worker para timer em thread separada
+   * Workers não são throttled pelo navegador em background
+   */
+  private initializeTimerWorker(): void {
+    if (typeof Worker === 'undefined') {
+      console.warn('Web Workers não suportados. Usando fallback.');
+      return;
+    }
+
+    try {
+      this.timerWorker = new Worker(new URL('../workers/timer.worker', import.meta.url), {
+        type: 'module'
+      });
+
+      this.timerWorker.onmessage = (e: MessageEvent) => {
+        const { type, remaining, completed } = e.data;
+
+        switch (type) {
+          case 'tick':
+            this.timeRemaining.set(remaining);
+            break;
+
+          case 'complete':
+            this.timeRemaining.set(0);
+            this.onTimerComplete();
+            break;
+
+          case 'status':
+            if (completed) {
+              this.timeRemaining.set(0);
+              this.onTimerComplete();
+            } else {
+              this.timeRemaining.set(remaining);
+            }
+            break;
+        }
+      };
+
+      this.timerWorker.onerror = (error) => {
+        console.error('Timer Worker error:', error);
+        this.terminateWorker();
+      };
+    } catch (error) {
+      console.error('Erro ao criar Worker:', error);
+    }
+  }
+
+  /**
+   * Termina Web Worker
+   */
+  private terminateWorker(): void {
+    if (this.timerWorker) {
+      this.timerWorker.terminate();
+      this.timerWorker = undefined;
+    }
   }
 
   /**
@@ -103,20 +166,23 @@ export class PomodoroService implements OnDestroy {
 
   /**
    * Verifica status do timer baseado no timestamp absoluto
-   * Chamado quando usuário volta à aba
+   * Chamado quando usuário volta à aba ou periodicamente
    */
   private checkTimerStatus(): void {
     if (this.state() !== 'running' || this.targetEndTime === 0) return;
 
-    const now = Date.now();
+    // Se usando Worker, pede verificação
+    if (this.timerWorker) {
+      this.timerWorker.postMessage({ action: 'check' });
+      return;
+    }
 
-    // Se o tempo alvo já passou, timer deveria ter completado
+    // Fallback: verifica manualmente
+    const now = Date.now();
     if (now >= this.targetEndTime) {
-      // Timer completou enquanto estava em background
       this.timeRemaining.set(0);
       this.onTimerComplete();
     } else {
-      // Atualiza tempo restante baseado no tempo real
       const remaining = Math.ceil((this.targetEndTime - now) / 1000);
       this.timeRemaining.set(remaining);
     }
@@ -124,7 +190,7 @@ export class PomodoroService implements OnDestroy {
 
   /**
    * Inicia o timer
-   * Corrigido: verifica estado ANTES de alterá-lo
+   * Usa Web Worker para garantir funcionamento em background
    */
   public start(): void {
     const currentState = this.state();
@@ -145,11 +211,16 @@ export class PomodoroService implements OnDestroy {
     this.targetEndTime = this.startTimestamp + (this.pausedTimeRemaining * 1000);
     this.state.set('running');
 
-    // Timer com precisão usando timestamps absolutos
-    // Tick a cada 100ms para maior precisão visual
-    this.timerSubscription = timer(0, 100).subscribe(() => {
-      this.tick();
-    });
+    // Inicia timer no Worker (ou fallback)
+    if (this.timerWorker) {
+      this.timerWorker.postMessage({
+        action: 'start',
+        endTime: this.targetEndTime
+      });
+    } else {
+      // Fallback: usa setInterval nativo (menos throttled que RxJS)
+      this.startFallbackTimer();
+    }
   }
 
   /**
@@ -216,20 +287,33 @@ export class PomodoroService implements OnDestroy {
   }
 
   /**
-   * Tick do timer com precisão usando timestamps
-   * Calcula o tempo real decorrido para evitar drift
-   * Usa targetEndTime para garantir precisão mesmo se aba ficar em background
+   * Fallback: timer usando setInterval nativo
+   * Usado quando Web Worker não está disponível
    */
-  private tick(): void {
-    if (this.targetEndTime === 0) return;
+  private startFallbackTimer(): void {
+    this.stopFallbackTimer();
 
-    const now = Date.now();
-    const remaining = Math.max(0, Math.ceil((this.targetEndTime - now) / 1000));
+    this.fallbackIntervalId = setInterval(() => {
+      if (this.targetEndTime === 0) return;
 
-    this.timeRemaining.set(remaining);
+      const now = Date.now();
+      const remaining = Math.max(0, Math.ceil((this.targetEndTime - now) / 1000));
 
-    if (remaining <= 0) {
-      this.onTimerComplete();
+      this.timeRemaining.set(remaining);
+
+      if (remaining <= 0) {
+        this.onTimerComplete();
+      }
+    }, 100);
+  }
+
+  /**
+   * Para fallback timer
+   */
+  private stopFallbackTimer(): void {
+    if (this.fallbackIntervalId) {
+      clearInterval(this.fallbackIntervalId);
+      this.fallbackIntervalId = undefined;
     }
   }
 
@@ -264,13 +348,16 @@ export class PomodoroService implements OnDestroy {
   }
 
   /**
-   * Para o timer
+   * Para o timer (Worker ou fallback)
    */
   private stopTimer(): void {
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
-      this.timerSubscription = undefined;
+    // Para Worker
+    if (this.timerWorker) {
+      this.timerWorker.postMessage({ action: 'stop' });
     }
+
+    // Para fallback
+    this.stopFallbackTimer();
   }
 
   /**
