@@ -1,12 +1,14 @@
-<div class="controls-container">
+<div class="controls-container" role="toolbar">
   <!-- Botão de Start/Pause/Continue -->
   <app-button
     *ngIf="state() === 'idle' || state() === 'paused'"
     [variant]="'primary'"
     (click)="start()"
     class="control-btn"
+    [attr.aria-label]="(state() === 'paused' ? 'TIMER.CONTROLS.CONTINUE' : 'TIMER.CONTROLS.START') | translate"
   >
-    ▶️ {{ (state() === 'paused' ? 'TIMER.CONTROLS.CONTINUE' : 'TIMER.CONTROLS.START') | translate }}
+    <span aria-hidden="true">▶️</span>
+    <span class="btn-text">{{ (state() === 'paused' ? 'TIMER.CONTROLS.CONTINUE' : 'TIMER.CONTROLS.START') | translate }}</span>
   </app-button>
 
   <app-button
@@ -14,8 +16,10 @@
     [variant]="'primary'"
     (click)="pause()"
     class="control-btn"
+    [attr.aria-label]="'TIMER.CONTROLS.PAUSE' | translate"
   >
-    ⏸️ {{ 'TIMER.CONTROLS.PAUSE' | translate }}
+    <span aria-hidden="true">⏸️</span>
+    <span class="btn-text">{{ 'TIMER.CONTROLS.PAUSE' | translate }}</span>
   </app-button>
 
   <!-- Botão de Reset -->
@@ -24,8 +28,10 @@
     (click)="reset()"
     [disabled]="state() === 'idle'"
     class="control-btn"
+    [attr.aria-label]="'TIMER.CONTROLS.RESET' | translate"
   >
-    🔄 {{ 'TIMER.CONTROLS.RESET' | translate }}
+    <span aria-hidden="true">🔄</span>
+    <span class="btn-text">{{ 'TIMER.CONTROLS.RESET' | translate }}</span>
   </app-button>
 
   <!-- Botão de Pular -->
@@ -33,7 +39,9 @@
     [variant]="'outline'"
     (click)="skip()"
     class="control-btn"
+    [attr.aria-label]="'TIMER.CONTROLS.SKIP' | translate"
   >
-    ⏭️ {{ 'TIMER.CONTROLS.SKIP' | translate }}
+    <span aria-hidden="true">⏭️</span>
+    <span class="btn-text">{{ 'TIMER.CONTROLS.SKIP' | translate }}</span>
   </app-button>
 </div>

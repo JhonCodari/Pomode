@@ -8,112 +8,148 @@
     </header>
 
     <div class="article-content" itemprop="articleBody">
-      <section class="section" id="o-que-e">
-        <h2>{{ 'ABOUT.WHAT_IS.TITLE' | translate }}</h2>
+      <app-section
+        [title]="'ABOUT.WHAT_IS.TITLE' | translate"
+        id="o-que-e">
         <p [innerHTML]="'ABOUT.WHAT_IS.P1' | translate"></p>
         <p [innerHTML]="'ABOUT.WHAT_IS.P2' | translate"></p>
-      </section>
+      </app-section>
 
-      <section class="section" id="historia">
-        <h2 [innerHTML]="'ABOUT.HISTORY.TITLE' | translate"></h2>
+      <app-section
+        [title]="'ABOUT.HISTORY.TITLE' | translate"
+        id="historia">
         <p [innerHTML]="'ABOUT.HISTORY.P1' | translate"></p>
         <p [innerHTML]="'ABOUT.HISTORY.P2' | translate"></p>
-      </section>
+      </app-section>
 
-      <section class="section" id="ciencia">
-        <h2 [innerHTML]="'ABOUT.SCIENCE.TITLE' | translate"></h2>
+      <app-section
+        [title]="'ABOUT.SCIENCE.TITLE' | translate"
+        id="ciencia">
         <p [innerHTML]="'ABOUT.SCIENCE.INTRO' | translate"></p>
-        <ul class="benefits-list">
-          <li [innerHTML]="'ABOUT.SCIENCE.BENEFITS.FATIGUE' | translate"></li>
-          <li [innerHTML]="'ABOUT.SCIENCE.BENEFITS.PRODUCTIVITY' | translate"></li>
-          <li [innerHTML]="'ABOUT.SCIENCE.BENEFITS.GRADES' | translate"></li>
-          <li [innerHTML]="'ABOUT.SCIENCE.BENEFITS.BALANCE' | translate"></li>
-        </ul>
+        <app-list
+          [variant]="'bulleted'"
+          [items]="[
+            { text: 'ABOUT.SCIENCE.BENEFITS.FATIGUE' },
+            { text: 'ABOUT.SCIENCE.BENEFITS.PRODUCTIVITY' },
+            { text: 'ABOUT.SCIENCE.BENEFITS.GRADES' },
+            { text: 'ABOUT.SCIENCE.BENEFITS.BALANCE' }
+          ]">
+        </app-list>
         <p [innerHTML]="'ABOUT.SCIENCE.CONCLUSION' | translate"></p>
-      </section>
+      </app-section>
 
-      <section class="section" id="como-funciona">
-        <h2 [innerHTML]="'ABOUT.HOW_IT_WORKS.TITLE' | translate"></h2>
-        <ol class="steps-list">
-          <li [innerHTML]="'ABOUT.HOW_IT_WORKS.STEPS.STEP1' | translate"></li>
-          <li [innerHTML]="'ABOUT.HOW_IT_WORKS.STEPS.STEP2' | translate"></li>
-          <li [innerHTML]="'ABOUT.HOW_IT_WORKS.STEPS.STEP3' | translate"></li>
-          <li [innerHTML]="'ABOUT.HOW_IT_WORKS.STEPS.STEP4' | translate"></li>
-          <li [innerHTML]="'ABOUT.HOW_IT_WORKS.STEPS.STEP5' | translate"></li>
-        </ol>
-      </section>
+      <app-section
+        [title]="'ABOUT.HOW_IT_WORKS.TITLE' | translate"
+        id="como-funciona">
+        <app-list
+          [variant]="'numbered'"
+          [items]="[
+            { text: 'ABOUT.HOW_IT_WORKS.STEPS.STEP1' },
+            { text: 'ABOUT.HOW_IT_WORKS.STEPS.STEP2' },
+            { text: 'ABOUT.HOW_IT_WORKS.STEPS.STEP3' },
+            { text: 'ABOUT.HOW_IT_WORKS.STEPS.STEP4' },
+            { text: 'ABOUT.HOW_IT_WORKS.STEPS.STEP5' }
+          ]">
+        </app-list>
+      </app-section>
 
-      <section class="section" id="beneficios">
-        <h2 [innerHTML]="'ABOUT.BENEFITS.TITLE' | translate"></h2>
-        <ul class="benefits-list">
-          <li [innerHTML]="'ABOUT.BENEFITS.ITEMS.START' | translate"></li>
-          <li [innerHTML]="'ABOUT.BENEFITS.ITEMS.MOTIVATION' | translate"></li>
-          <li [innerHTML]="'ABOUT.BENEFITS.ITEMS.STRUCTURE' | translate"></li>
-          <li [innerHTML]="'ABOUT.BENEFITS.ITEMS.BURNOUT' | translate"></li>
-          <li [innerHTML]="'ABOUT.BENEFITS.ITEMS.CREATIVITY' | translate"></li>
-          <li [innerHTML]="'ABOUT.BENEFITS.ITEMS.AWARENESS' | translate"></li>
-        </ul>
-      </section>
+      <app-section
+        [title]="'ABOUT.BENEFITS.TITLE' | translate"
+        id="beneficios">
+        <app-list
+          [variant]="'bulleted'"
+          [items]="[
+            { text: 'ABOUT.BENEFITS.ITEMS.START' },
+            { text: 'ABOUT.BENEFITS.ITEMS.MOTIVATION' },
+            { text: 'ABOUT.BENEFITS.ITEMS.STRUCTURE' },
+            { text: 'ABOUT.BENEFITS.ITEMS.BURNOUT' },
+            { text: 'ABOUT.BENEFITS.ITEMS.CREATIVITY' },
+            { text: 'ABOUT.BENEFITS.ITEMS.AWARENESS' }
+          ]">
+        </app-list>
+      </app-section>
 
-      <section class="section" id="para-quem-serve">
-        <h2 [innerHTML]="'ABOUT.AUDIENCE.TITLE' | translate"></h2>
+      <app-section
+        [title]="'ABOUT.AUDIENCE.TITLE' | translate"
+        id="para-quem-serve">
         <p>{{ 'ABOUT.AUDIENCE.INTRO' | translate }}</p>
-        <ul class="audience-list">
-          <li [innerHTML]="'ABOUT.AUDIENCE.ITEMS.STUDENTS' | translate"></li>
-          <li [innerHTML]="'ABOUT.AUDIENCE.ITEMS.DEVELOPERS' | translate"></li>
-          <li [innerHTML]="'ABOUT.AUDIENCE.ITEMS.REMOTE' | translate"></li>
-          <li [innerHTML]="'ABOUT.AUDIENCE.ITEMS.CREATIVES' | translate"></li>
-          <li [innerHTML]="'ABOUT.AUDIENCE.ITEMS.ADHD' | translate"></li>
-          <li [innerHTML]="'ABOUT.AUDIENCE.ITEMS.FREELANCERS' | translate"></li>
-          <li [innerHTML]="'ABOUT.AUDIENCE.ITEMS.ANYONE' | translate"></li>
-        </ul>
-      </section>
+        <app-list
+          [variant]="'bulleted'"
+          [items]="[
+            { text: 'ABOUT.AUDIENCE.ITEMS.STUDENTS' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.DEVELOPERS' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.REMOTE' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.CREATIVES' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.ADHD' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.FREELANCERS' },
+            { text: 'ABOUT.AUDIENCE.ITEMS.ANYONE' }
+          ]">
+        </app-list>
+      </app-section>
 
-      <section class="section" id="erros-comuns">
-        <h2 [innerHTML]="'ABOUT.MISTAKES.TITLE' | translate"></h2>
-        <ul class="benefits-list">
-          <li [innerHTML]="'ABOUT.MISTAKES.ITEMS.BIG_TASK' | translate"></li>
-          <li [innerHTML]="'ABOUT.MISTAKES.ITEMS.MULTITASK' | translate"></li>
-          <li [innerHTML]="'ABOUT.MISTAKES.ITEMS.SOCIAL_MEDIA' | translate"></li>
-          <li [innerHTML]="'ABOUT.MISTAKES.ITEMS.NO_REFLECTION' | translate"></li>
-        </ul>
-      </section>
+      <app-section
+        [title]="'ABOUT.MISTAKES.TITLE' | translate"
+        id="erros-comuns">
+        <app-list
+          [variant]="'bulleted'"
+          [items]="[
+            { text: 'ABOUT.MISTAKES.ITEMS.BIG_TASK' },
+            { text: 'ABOUT.MISTAKES.ITEMS.MULTITASK' },
+            { text: 'ABOUT.MISTAKES.ITEMS.SOCIAL_MEDIA' },
+            { text: 'ABOUT.MISTAKES.ITEMS.NO_REFLECTION' }
+          ]">
+        </app-list>
+      </app-section>
 
-      <section class="section" id="dicas-avancadas">
-        <h2 [innerHTML]="'ABOUT.ADVANCED.TITLE' | translate"></h2>
+      <app-section
+        [title]="'ABOUT.ADVANCED.TITLE' | translate"
+        id="dicas-avancadas">
         <p>{{ 'ABOUT.ADVANCED.INTRO' | translate }}</p>
-        <ul class="benefits-list">
-          <li [innerHTML]="'ABOUT.ADVANCED.ITEMS.RECALL' | translate"></li>
-          <li [innerHTML]="'ABOUT.ADVANCED.ITEMS.SPACED' | translate"></li>
-          <li [innerHTML]="'ABOUT.ADVANCED.ITEMS.FLEXIBLE' | translate"></li>
-          <li [innerHTML]="'ABOUT.ADVANCED.ITEMS.DISTRACTIONS' | translate"></li>
-        </ul>
-      </section>
+        <app-list
+          [variant]="'bulleted'"
+          [items]="[
+            { text: 'ABOUT.ADVANCED.ITEMS.RECALL' },
+            { text: 'ABOUT.ADVANCED.ITEMS.SPACED' },
+            { text: 'ABOUT.ADVANCED.ITEMS.FLEXIBLE' },
+            { text: 'ABOUT.ADVANCED.ITEMS.DISTRACTIONS' }
+          ]">
+        </app-list>
+      </app-section>
 
-      <section class="section" id="referencias">
-        <h2 [innerHTML]="'ABOUT.REFERENCES.TITLE' | translate"></h2>
+      <app-section
+        [title]="'ABOUT.REFERENCES.TITLE' | translate"
+        id="referencias">
         <p>{{ 'ABOUT.REFERENCES.INTRO' | translate }}</p>
-        <ul class="references-list">
-          <li>
-            <span [innerHTML]="'ABOUT.REFERENCES.ITEMS.PUBMED' | translate"></span> —
-            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12532815/" target="_blank" rel="noopener noreferrer">
-              {{ 'ABOUT.REFERENCES.ACCESS' | translate }}
-            </a>
-          </li>
-          <li>
-            <span [innerHTML]="'ABOUT.REFERENCES.ITEMS.NATGEO' | translate"></span> —
-            <a href="https://www.nationalgeographic.com/health/article/attention-spans-shrinking-how-to-regain" target="_blank" rel="noopener noreferrer">
-              {{ 'ABOUT.REFERENCES.ACCESS_ARTICLE' | translate }}
-            </a>
-          </li>
-          <li [innerHTML]="'ABOUT.REFERENCES.ITEMS.HARVARD' | translate"></li>
-          <li [innerHTML]="'ABOUT.REFERENCES.ITEMS.APA' | translate"></li>
-          <li [innerHTML]="'ABOUT.REFERENCES.ITEMS.JOURNAL' | translate"></li>
-        </ul>
-      </section>
+        <app-list
+          [variant]="'referenced'"
+          [items]="[
+            {
+              text: 'ABOUT.REFERENCES.ITEMS.PUBMED',
+              link: {
+                url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12532815/',
+                text: 'ABOUT.REFERENCES.ACCESS',
+                external: true
+              }
+            },
+            {
+              text: 'ABOUT.REFERENCES.ITEMS.NATGEO',
+              link: {
+                url: 'https://www.nationalgeographic.com/health/article/attention-spans-shrinking-how-to-regain',
+                text: 'ABOUT.REFERENCES.ACCESS_ARTICLE',
+                external: true
+              }
+            },
+            { text: 'ABOUT.REFERENCES.ITEMS.HARVARD' },
+            { text: 'ABOUT.REFERENCES.ITEMS.APA' },
+            { text: 'ABOUT.REFERENCES.ITEMS.JOURNAL' }
+          ]">
+        </app-list>
+      </app-section>
 
-      <section class="section cta-section" id="comece-agora">
-        <h2 [innerHTML]="'ABOUT.CTA.TITLE' | translate"></h2>
+      <app-section
+        [title]="'ABOUT.CTA.TITLE' | translate"
+        [variant]="'cta'"
+        id="comece-agora">
         <p [innerHTML]="'ABOUT.CTA.P1' | translate"></p>
         <p [innerHTML]="'ABOUT.CTA.P2' | translate"></p>
         <app-button
@@ -123,7 +159,7 @@
         >
           {{ 'ABOUT.CTA.BUTTON' | translate }}
         </app-button>
-      </section>
+      </app-section>
     </div>
   </article>
 </app-container>

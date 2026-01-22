@@ -4,37 +4,52 @@
   <header class="app-header">
     <app-container [size]="'xl'">
       <div class="header-content">
-        <div class="logo">
-          <h1><span aria-hidden="true">🍅</span> {{ 'APP.TITLE' | translate }}</h1>
-          <p class="subtitle">{{ 'APP.SUBTITLE' | translate }}</p>
-        </div>
+        <!-- Logo -->
+        <app-logo [linkToHome]="false"></app-logo>
+
+        <!-- Navigation Desktop -->
+        <nav class="desktop-nav" role="navigation">
+          <a routerLink="/sobre-pomodoro" routerLinkActive="active" class="nav-link">
+            {{ 'NAV.WHAT_IS_POMODORO' | translate }}
+          </a>
+        </nav>
       </div>
     </app-container>
 
-    <!-- Botões posicionados absolutamente no canto superior direito -->
+    <!-- Header Actions - Desktop/Tablet -->
     <div class="header-actions">
-      <a routerLink="/sobre-pomodoro" routerLinkActive="active" class="nav-link">
-        {{ 'NAV.WHAT_IS_POMODORO' | translate }}
-      </a>
       <app-button
         routerLink="/"
         [attr.aria-label]="'NAV.GO_HOME' | translate"
         [title]="'NAV.HOME' | translate"
+        class="header-action-btn"
       >
-        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-        </svg>
+        <app-icon name="home" [size]="'sm'" [ariaHidden]="true"></app-icon>
       </app-button>
       <app-button
         (click)="openSettings()"
         [attr.aria-label]="'NAV.SETTINGS' | translate"
         [title]="'NAV.SETTINGS' | translate"
+        class="header-action-btn"
       >
-        <span aria-hidden="true">⚙️</span>
+        <app-icon name="settings" [size]="'sm'" [ariaHidden]="true"></app-icon>
       </app-button>
       <app-language-selector></app-language-selector>
       <app-theme-toggle></app-theme-toggle>
     </div>
+
+    <!-- Mobile Menu Button -->
+    <button
+      class="mobile-menu-trigger"
+      (click)="toggleMobileMenu()"
+      [attr.aria-label]="'NAV.OPEN_MENU' | translate"
+      [attr.aria-expanded]="showMobileMenu()"
+      type="button"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
   </header>
 
   <main id="main-content" class="app-main" tabindex="-1">
@@ -50,6 +65,13 @@
     </app-container>
   </footer>
 </div>
+
+<!-- Mobile Menu -->
+<app-mobile-menu
+  [isOpen]="showMobileMenu"
+  (close)="closeMobileMenu()"
+  (settingsOpen)="openSettings()"
+></app-mobile-menu>
 
 <!-- Modal de Configurações -->
 @if (showSettings()) {

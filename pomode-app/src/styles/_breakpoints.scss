@@ -1,49 +1,186 @@
-// Breakpoints responsivos
+// ============================================================================
+// BREAKPOINTS RESPONSIVOS - MOBILE FIRST APPROACH
+// ============================================================================
+// Sistema otimizado para 3 principais tamanhos de tela:
+// 📱 Smartphones: 0-767px
+// 📟 Tablets: 768-1023px
+// 💻 Desktops: 1024px+
+
 @use 'sass:map';
 
+// Breakpoints principais - Mobile First
 $breakpoints: (
-  'xs': 0,
-  'sm': 576px,
-  'md': 768px,
-  'lg': 992px,
-  'xl': 1200px,
-  'xxl': 1400px
+  // Mobile base (0-767px) - padrão
+  'mobile': 0,
+
+  // Tablet (768px+)
+  'tablet': 768px,
+
+  // Desktop (1024px+)
+  'desktop': 1024px,
+
+  // Breakpoints extras para ajustes finos
+  'mobile-sm': 375px,    // Smartphones pequenos
+  'mobile-lg': 425px,    // Smartphones grandes
+  'tablet-lg': 992px,    // Tablets grandes / laptops pequenos
+  'desktop-lg': 1200px,  // Desktops grandes
+  'desktop-xl': 1440px   // Monitores grandes
 );
 
-// Mixin para media queries responsivas
+// Aliases para compatibilidade com código existente
+$breakpoint-aliases: (
+  'sm': 768px,    // = tablet
+  'md': 1024px,   // = desktop
+  'lg': 1200px,   // = desktop-lg
+  'xl': 1440px,   // = desktop-xl
+  'xs': 0         // = mobile
+);
+
+// Combinar todos os breakpoints
+$all-breakpoints: map.merge($breakpoints, $breakpoint-aliases);
+
+// ============================================================================
+// MIXINS PARA MEDIA QUERIES MOBILE-FIRST
+// ============================================================================
+
+// Mixin principal - Mobile First (min-width)
 @mixin respond-to($breakpoint) {
-  $value: map.get($breakpoints, $breakpoint);
+  $value: map.get($all-breakpoints, $breakpoint);
 
   @if $value {
-    @media (min-width: $value) {
+    @if $value == 0 {
+      // Para mobile (0), não aplicar media query (base styles)
       @content;
+    } @else {
+      @media (min-width: $value) {
+        @content;
+      }
     }
   } @else {
-    @warn "Breakpoint `#{$breakpoint}` não encontrado. Use: #{map.keys($breakpoints)}";
+    @warn "Breakpoint `#{$breakpoint}` não encontrado. Use: #{map.keys($all-breakpoints)}";
   }
 }
 
-// Mixin para max-width media queries
+// Mixin para max-width (Desktop First - para casos específicos)
 @mixin respond-below($breakpoint) {
-  $value: map.get($breakpoints, $breakpoint);
+  $value: map.get($all-breakpoints, $breakpoint);
 
   @if $value {
     @media (max-width: calc(#{$value} - 1px)) {
       @content;
     }
   } @else {
-    @warn "Breakpoint `#{$breakpoint}` não encontrado. Use: #{map.keys($breakpoints)}";
+    @warn "Breakpoint `#{$breakpoint}` não encontrado. Use: #{map.keys($all-breakpoints)}";
   }
 }
 
-// Mixin para entre breakpoints
+// Mixin para range entre breakpoints
 @mixin respond-between($min, $max) {
-  $min-value: map.get($breakpoints, $min);
-  $max-value: map.get($breakpoints, $max);
+  $min-value: map.get($all-breakpoints, $min);
+  $max-value: map.get($all-breakpoints, $max);
 
   @if $min-value and $max-value {
     @media (min-width: $min-value) and (max-width: calc(#{$max-value} - 1px)) {
       @content;
     }
+  }
+}
+
+// ============================================================================
+// MIXINS SEMÂNTICOS PARA OS 3 TAMANHOS PRINCIPAIS
+// ============================================================================
+
+// 📱 Smartphone styles (base - sem media query)
+@mixin mobile {
+  // Styles aplicados por padrão (mobile-first)
+  @content;
+}
+
+// 📟 Tablet e acima (768px+)
+@mixin tablet-up {
+  @include respond-to('tablet') {
+    @content;
+  }
+}
+
+// 💻 Desktop e acima (1024px+)
+@mixin desktop-up {
+  @include respond-to('desktop') {
+    @content;
+  }
+}
+
+// Apenas tablet (768px - 1023px)
+@mixin tablet-only {
+  @include respond-between('tablet', 'desktop') {
+    @content;
+  }
+}
+
+// Apenas mobile (0 - 767px)
+@mixin mobile-only {
+  @include respond-below('tablet') {
+    @content;
+  }
+}
+
+// ============================================================================
+// MIXINS PARA ALTURA DA TELA (VIEWPORT HEIGHT)
+// ============================================================================
+
+// Para dispositivos móveis com tela pequena em altura
+@mixin short-screen($max-height: 600px) {
+  @media (max-height: $max-height) {
+    @content;
+  }
+}
+
+// Para dispositivos com tela alta
+@mixin tall-screen($min-height: 800px) {
+  @media (min-height: $min-height) {
+    @content;
+  }
+}
+
+// Para orientação landscape em mobile (geralmente tela baixa)
+@mixin mobile-landscape {
+  @media (max-width: 767px) and (orientation: landscape) and (max-height: 500px) {
+    @content;
+  }
+}
+
+// ============================================================================
+// MIXINS PARA DENSIDADE DE PIXEL
+// ============================================================================
+
+// Para telas de baixa densidade (não Retina)
+@mixin low-density {
+  @media (-webkit-max-device-pixel-ratio: 1), (max-resolution: 96dpi) {
+    @content;
+  }
+}
+
+// Para telas de alta densidade (Retina)
+@mixin high-density {
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+// ============================================================================
+// MIXINS PARA COMBINAÇÕES DE BREAKPOINTS
+// ============================================================================
+
+// Mobile em orientação portrait (uso comum)
+@mixin mobile-portrait {
+  @media (max-width: 767px) and (orientation: portrait) {
+    @content;
+  }
+}
+
+// Tablet em orientação landscape
+@mixin tablet-landscape {
+  @media (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+    @content;
   }
 }

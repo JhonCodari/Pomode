@@ -1,0 +1,94 @@
+@use '../../../styles/mixins' as *;
+@use '../../../styles/breakpoints' as *;
+
+.logo {
+  display: block;
+
+  .logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+
+    &:hover {
+      color: var(--primary);
+
+      .logo-emoji {
+        transform: rotate(-10deg) scale(1.1);
+      }
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .logo-title {
+    font-family: var(--font-family-base);
+    color: var(--text-primary);
+    margin: 0;
+    line-height: var(--line-height-tight);
+    font-weight: var(--font-weight-bold);
+
+    .logo-emoji {
+      display: inline-block;
+      transition: transform var(--transition-base);
+      margin-right: var(--spacing-xs);
+    }
+  }
+
+  .logo-subtitle {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-base);
+  }
+
+  // Tamanhos
+  &.logo-sm {
+    .logo-title {
+      font-size: var(--font-size-lg);
+    }
+
+    .logo-subtitle {
+      font-size: var(--font-size-xs);
+    }
+  }
+
+  &.logo-md {
+    .logo-title {
+      font-size: var(--font-size-xl);
+
+      @include tablet-up {
+        font-size: var(--font-size-2xl);
+      }
+    }
+
+    .logo-subtitle {
+      font-size: var(--font-size-sm);
+
+      @include tablet-up {
+        font-size: var(--font-size-base);
+      }
+    }
+  }
+
+  &.logo-lg {
+    .logo-title {
+      font-size: var(--font-size-2xl);
+
+      @include tablet-up {
+        font-size: var(--font-size-3xl);
+      }
+    }
+
+    .logo-subtitle {
+      font-size: var(--font-size-base);
+
+      @include tablet-up {
+        font-size: var(--font-size-lg);
+      }
+    }
+  }
+}

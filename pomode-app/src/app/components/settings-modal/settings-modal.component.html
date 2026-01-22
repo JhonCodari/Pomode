@@ -11,80 +11,52 @@
           <h4 class="section-title">{{ 'SETTINGS.TIMES.SECTION' | translate }}</h4>
 
           <!-- Tempo de Foco -->
-          <div class="form-group">
-            <label for="workTime">
-              <span aria-hidden="true">🍅</span> {{ 'SETTINGS.TIMES.WORK_TIME' | translate }}
-            </label>
-            <input
-              id="workTime"
-              type="number"
-              [(ngModel)]="workTime"
-              [min]="limits.workTime.min"
-              [max]="limits.workTime.max"
-              class="form-input"
-              aria-describedby="workTime-hint"
-            />
-            <span id="workTime-hint" class="form-hint">
-              {{ 'SETTINGS.TIMES.BETWEEN' | translate: { min: limits.workTime.min, max: limits.workTime.max } }}
-            </span>
-          </div>
+          <app-form-field
+            fieldId="workTime"
+            [label]="'SETTINGS.TIMES.WORK_TIME'"
+            type="number"
+            emoji="🍅"
+            [(ngModel)]="workTime"
+            [min]="limits.workTime.min"
+            [max]="limits.workTime.max"
+            [hint]="'SETTINGS.TIMES.BETWEEN' | translate: { min: limits.workTime.min, max: limits.workTime.max }"
+          ></app-form-field>
 
           <!-- Pausa Curta -->
-          <div class="form-group">
-            <label for="shortBreak">
-              <span aria-hidden="true">☕</span> {{ 'SETTINGS.TIMES.SHORT_BREAK' | translate }}
-            </label>
-            <input
-              id="shortBreak"
-              type="number"
-              [(ngModel)]="shortBreakTime"
-              [min]="limits.shortBreakTime.min"
-              [max]="limits.shortBreakTime.max"
-              class="form-input"
-              aria-describedby="shortBreak-hint"
-            />
-            <span id="shortBreak-hint" class="form-hint">
-              {{ 'SETTINGS.TIMES.BETWEEN' | translate: { min: limits.shortBreakTime.min, max: limits.shortBreakTime.max } }}
-            </span>
-          </div>
+          <app-form-field
+            fieldId="shortBreak"
+            [label]="'SETTINGS.TIMES.SHORT_BREAK'"
+            type="number"
+            emoji="☕"
+            [(ngModel)]="shortBreakTime"
+            [min]="limits.shortBreakTime.min"
+            [max]="limits.shortBreakTime.max"
+            [hint]="'SETTINGS.TIMES.BETWEEN' | translate: { min: limits.shortBreakTime.min, max: limits.shortBreakTime.max }"
+          ></app-form-field>
 
           <!-- Pausa Longa -->
-          <div class="form-group">
-            <label for="longBreak">
-              <span aria-hidden="true">🌴</span> {{ 'SETTINGS.TIMES.LONG_BREAK' | translate }}
-            </label>
-            <input
-              id="longBreak"
-              type="number"
-              [(ngModel)]="longBreakTime"
-              [min]="limits.longBreakTime.min"
-              [max]="limits.longBreakTime.max"
-              class="form-input"
-              aria-describedby="longBreak-hint"
-            />
-            <span id="longBreak-hint" class="form-hint">
-              {{ 'SETTINGS.TIMES.BETWEEN' | translate: { min: limits.longBreakTime.min, max: limits.longBreakTime.max } }}
-            </span>
-          </div>
+          <app-form-field
+            fieldId="longBreak"
+            [label]="'SETTINGS.TIMES.LONG_BREAK'"
+            type="number"
+            emoji="🌴"
+            [(ngModel)]="longBreakTime"
+            [min]="limits.longBreakTime.min"
+            [max]="limits.longBreakTime.max"
+            [hint]="'SETTINGS.TIMES.BETWEEN' | translate: { min: limits.longBreakTime.min, max: limits.longBreakTime.max }"
+          ></app-form-field>
 
           <!-- Ciclos -->
-          <div class="form-group">
-            <label for="cycles">
-              <span aria-hidden="true">🔄</span> {{ 'SETTINGS.TIMES.CYCLES' | translate }}
-            </label>
-            <input
-              id="cycles"
-              type="number"
-              [(ngModel)]="cyclesBeforeLongBreak"
-              [min]="limits.cyclesBeforeLongBreak.min"
-              [max]="limits.cyclesBeforeLongBreak.max"
-              class="form-input"
-              aria-describedby="cycles-hint"
-            />
-            <span id="cycles-hint" class="form-hint">
-              {{ 'SETTINGS.TIMES.BETWEEN_CYCLES' | translate: { min: limits.cyclesBeforeLongBreak.min, max: limits.cyclesBeforeLongBreak.max } }}
-            </span>
-          </div>
+          <app-form-field
+            fieldId="cycles"
+            [label]="'SETTINGS.TIMES.CYCLES_FOR_LONG_BREAK'"
+            type="number"
+            emoji="🔄"
+            [(ngModel)]="cyclesBeforeLongBreak"
+            [min]="limits.cyclesBeforeLongBreak.min"
+            [max]="limits.cyclesBeforeLongBreak.max"
+            [hint]="'SETTINGS.TIMES.BETWEEN' | translate: { min: limits.cyclesBeforeLongBreak.min, max: limits.cyclesBeforeLongBreak.max }"
+          ></app-form-field>
         </div>
 
         <!-- Seção: Som -->
@@ -107,10 +79,10 @@
           </div>
 
           <!-- Volume -->
-          @if (soundEnabled()) {
+          @if (soundEnabled) {
             <div class="form-group">
               <label for="soundVolume">
-                <span aria-hidden="true">🎚️</span> {{ 'SETTINGS.SOUND.VOLUME' | translate }} ({{ soundVolume() }}%)
+                <span aria-hidden="true">🎚️</span> {{ 'SETTINGS.SOUND.VOLUME' | translate }} ({{ soundVolume }}%)
               </label>
               <div class="volume-control">
                 <input
@@ -148,7 +120,7 @@
                 id="notificationsEnabled"
                 type="checkbox"
                 [(ngModel)]="notificationsEnabled"
-                (change)="notificationsEnabled() && requestNotificationPermission()"
+                (change)="notificationsEnabled && requestNotificationPermission()"
               />
               <span class="toggle-slider"></span>
             </label>

@@ -1,15 +1,19 @@
-import { Component, signal, inject, HostListener } from '@angular/core';
+import { Component, signal, inject, HostListener, effect } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-import { ContainerComponent } from './components/container/container.component';
-import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
-import { ButtonComponent } from './components/button/button.component';
-import { SettingsModalComponent } from './components/settings-modal/settings-modal.component';
-import { ToastComponent } from './components/toast/toast.component';
-import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
+import {
+  ContainerComponent,
+  ThemeToggleComponent,
+  ButtonComponent,
+  SettingsModalComponent,
+  MobileMenuComponent,
+  ToastComponent,
+  LanguageSelectorComponent,
+  LogoComponent,
+  IconComponent
+} from './components';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { PomodoroService } from './services/pomodoro.service';
-import { LanguageService } from './services/language.service';
+import { PomodoroService, LanguageService, ResponsiveService, TouchDetectionService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -21,8 +25,11 @@ import { LanguageService } from './services/language.service';
     ThemeToggleComponent,
     ButtonComponent,
     SettingsModalComponent,
+    MobileMenuComponent,
     ToastComponent,
     LanguageSelectorComponent,
+    LogoComponent,
+    IconComponent,
     CommonModule,
     TranslateModule
   ],
@@ -32,9 +39,44 @@ import { LanguageService } from './services/language.service';
 export class AppComponent {
   private pomodoroService = inject(PomodoroService);
   private languageService = inject(LanguageService); // Inicializa o serviço de idioma
+  private responsiveService = inject(ResponsiveService);
+  private touchService = inject(TouchDetectionService);
 
   title = 'Pomode';
   showSettings = signal(false);
+  showMobileMenu = signal(false);
+
+  // Propriedades responsivas computadas
+  readonly isMobile = this.responsiveService.isMobile;
+  readonly isTablet = this.responsiveService.isTablet;
+  readonly isDesktop = this.responsiveService.isDesktop;
+  readonly screenSize = this.responsiveService.screenSize;
+  readonly isTouchDevice = this.touchService.isTouchDevice;
+
+  constructor() {
+    // Efeito para automaticamente fechar o menu mobile quando mudando para desktop
+    effect(() => {
+      if (this.isDesktop() && this.showMobileMenu()) {
+        this.showMobileMenu.set(false);
+      }
+    });
+
+    // Efeito para aplicar classes CSS baseadas no dispositivo
+    effect(() => {
+      if (typeof document !== 'undefined') {
+        const body = document.body;
+
+        // Classes baseadas no tamanho da tela
+        body.classList.toggle('screen-mobile', this.isMobile());
+        body.classList.toggle('screen-tablet', this.isTablet());
+        body.classList.toggle('screen-desktop', this.isDesktop());
+
+        // Classes baseadas no tipo de dispositivo
+        body.classList.toggle('touch-device', this.isTouchDevice());
+        body.classList.toggle('mouse-device', !this.isTouchDevice());
+      }
+    });
+  }
 
   // Atalhos de teclado globais
   @HostListener('document:keydown', ['$event'])
@@ -72,6 +114,14 @@ export class AppComponent {
 
   closeSettings(): void {
     this.showSettings.set(false);
+  }
+
+  toggleMobileMenu(): void {
+    this.showMobileMenu.set(!this.showMobileMenu());
+  }
+
+  closeMobileMenu(): void {
+    this.showMobileMenu.set(false);
   }
 
   private toggleTimer(): void {

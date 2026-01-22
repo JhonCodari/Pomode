@@ -1,0 +1,43 @@
+@use '../../../styles/design-tokens' as tokens;
+
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  color: currentColor;
+  transition: color var(--transition-fast);
+
+  // Tamanhos
+  &.icon-sm {
+    width: tokens.$icon-size-sm;
+    height: tokens.$icon-size-sm;
+  }
+
+  &.icon-md {
+    width: tokens.$icon-size-md;
+    height: tokens.$icon-size-md;
+  }
+
+  &.icon-lg {
+    width: tokens.$icon-size-lg;
+    height: tokens.$icon-size-lg;
+  }
+
+  &.icon-xl {
+    width: calc(tokens.$icon-size-lg * 1.5);
+    height: calc(tokens.$icon-size-lg * 1.5);
+  }
+
+  // Variantes
+  &.icon-solid {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  &.icon-outline {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}

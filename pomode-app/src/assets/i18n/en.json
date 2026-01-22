@@ -10,7 +10,12 @@
     "WHAT_IS_POMODORO": "What is Pomodoro?",
     "HOME": "Home",
     "SETTINGS": "Settings",
-    "GO_HOME": "Go to home page"
+    "GO_HOME": "Go to home page",
+    "MAIN_NAVIGATION": "Main navigation",
+    "MOBILE_MENU": "Mobile menu",
+    "OPEN_MENU": "Open menu",
+    "CLOSE_MENU": "Close menu",
+    "APP_SETTINGS": "App settings"
   },
   "TIMER": {
     "MODES": {
@@ -20,6 +25,7 @@
     },
     "CYCLES_COMPLETED": "Cycles completed:",
     "CONTROLS": {
+      "TITLE": "Timer controls",
       "START": "Start",
       "CONTINUE": "Continue",
       "PAUSE": "Pause",

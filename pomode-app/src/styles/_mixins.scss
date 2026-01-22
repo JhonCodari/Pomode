@@ -98,7 +98,39 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 }
+// Hover responsivo - só aplica hover em dispositivos com mouse
+@mixin hover-mouse {
+  .mouse-device &:hover {
+    @content;
+  }
 
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// Focus visível - melhora a acessibilidade
+@mixin focus-visible {
+  &:focus-visible {
+    @include focus-ring;
+    @content;
+  }
+}
+
+// Hover para touch - usa :active em vez de :hover
+@mixin hover-touch {
+  .touch-device &:active {
+    @content;
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    &:active {
+      @content;
+    }
+  }
+}
 // Container responsivo
 @mixin container($max-width: 1200px) {
   width: 100%;
@@ -171,6 +203,51 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+// ============================================================================
+// MIXINS PARA RESPONSIVIDADE AVANÇADA
+// ============================================================================
+
+// Telas de alta densidade (Retina)
+@mixin retina {
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+// Modo escuro do sistema
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+// Orientação do dispositivo
+@mixin landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin portrait {
+  @media (orientation: portrait) {
+    @content;
+  }
+}
+
+// Reduzir movimento para acessibilidade
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// Alto contraste para acessibilidade
+@mixin high-contrast {
+  @media (prefers-contrast: high) {
+    @content;
   }
 }
 

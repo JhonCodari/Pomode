@@ -1,11 +1,22 @@
 @use '../../../styles/breakpoints' as *;
 
+// ============================================================================
+// CONTAINER COMPONENT - MOBILE FIRST
+// ============================================================================
+
 .container {
   width: 100%;
-  padding-left: var(--spacing-lg);
-  padding-right: var(--spacing-lg);
 
-  @include respond-to('md') {
+  // Mobile base
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+
+  @include tablet-up {
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+  }
+
+  @include desktop-up {
     padding-left: var(--spacing-xl);
     padding-right: var(--spacing-xl);
   }
@@ -21,7 +32,10 @@
   padding-right: 0;
 }
 
-// Tamanhos
+// ============================================================================
+// TAMANHOS RESPONSIVOS
+// ============================================================================
+
 .container-sm {
   max-width: var(--container-sm);
 }
@@ -40,4 +54,15 @@
 
 .container-full {
   max-width: 100%;
+}
+
+// ============================================================================
+// RESPONSIVIDADE ESPECIAL PARA TELAS MUITO PEQUENAS
+// ============================================================================
+
+@media (max-width: 320px) {
+  .container:not(.container-no-padding) {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
 }

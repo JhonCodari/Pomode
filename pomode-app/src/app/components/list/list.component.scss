@@ -1,0 +1,117 @@
+@use '../../../styles/mixins' as *;
+@use '../../../styles/breakpoints' as *;
+
+.custom-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+
+  .list-item {
+    position: relative;
+    margin-bottom: var(--spacing-md);
+    padding-left: var(--spacing-xl);
+    line-height: var(--line-height-relaxed);
+
+    .list-content {
+      color: var(--text-primary);
+    }
+
+    .list-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: var(--font-weight-medium);
+      transition: color var(--transition-fast);
+
+      &:hover {
+        color: var(--primary-hover);
+        text-decoration: underline;
+      }
+
+      @include focus-visible {
+        // Focus ring já aplicado pelo mixin
+      }
+    }
+  }
+}
+
+// Lista com bullets (padrão)
+.list-bulleted {
+  .list-item::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--primary);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-lg);
+  }
+}
+
+// Lista numerada (steps)
+.list-numbered {
+  counter-reset: step-counter;
+
+  .list-item {
+    counter-increment: step-counter;
+
+    &::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      background: var(--primary);
+      color: var(--bg-primary);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-sm);
+    }
+  }
+}
+
+// Lista com checkmarks
+.list-checked {
+  .list-item::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--primary);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-lg);
+  }
+}
+
+// Lista de referências
+.list-referenced {
+  .list-item::before {
+    content: '📄';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: var(--font-size-base);
+  }
+}
+
+// Responsividade
+@include mobile-only {
+  .custom-list {
+    .list-item {
+      padding-left: var(--spacing-lg);
+      margin-bottom: var(--spacing-sm);
+    }
+  }
+
+  .list-numbered {
+    .list-item::before {
+      width: 28px;
+      height: 28px;
+      font-size: var(--font-size-xs);
+    }
+  }
+}

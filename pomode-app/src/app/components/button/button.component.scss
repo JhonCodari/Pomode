@@ -22,18 +22,45 @@
 
   transition: all var(--transition-fast);
 
+  // Melhorar acessibilidade
+  @include focus-visible {
+    // Focus já está definido no mixin
+  }
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;
   }
 
-  &:not(:disabled):hover {
+  // Hover responsivo - só para dispositivos com mouse
+  @include hover-mouse {
     transform: translateY(calc(-1 * var(--spacing-xs) / 4));
+  }
+
+  // Touch feedback para dispositivos móveis
+  @include hover-touch {
+    transform: scale(0.98);
   }
 
   &:not(:disabled):active {
     transform: translateY(0);
+  }
+
+  // Melhorias para telas Retina
+  @include retina {
+    // Bordas mais nítidas em telas de alta densidade
+    border-width: 0.5px;
+  }
+
+  // Reduzir animações se o usuário preferir
+  @include reduced-motion {
+    transition: none;
+
+    &:not(:disabled):hover,
+    &:not(:disabled):active {
+      transform: none;
+    }
   }
 }
 

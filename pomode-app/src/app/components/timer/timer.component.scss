@@ -1,66 +1,97 @@
 @use '../../../styles/mixins' as *;
 @use '../../../styles/breakpoints' as *;
 
+// ============================================================================
+// TIMER COMPONENT - MOBILE FIRST
+// ============================================================================
+
 .timer-container {
   @include flex-center-column;
-  gap: var(--spacing-md);
-  padding: var(--spacing-md);
   width: 100%;
   max-width: 100%;
   overflow: hidden;
 
-  @include respond-to('md') {
+  // Mobile base
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+
+  @include tablet-up {
     gap: var(--spacing-lg);
     padding: var(--spacing-lg) var(--spacing-xl);
   }
 
-  @include respond-to('lg') {
+  @include desktop-up {
     gap: var(--spacing-xl);
     padding: var(--spacing-xl) var(--spacing-xxl);
   }
 }
 
+// ============================================================================
+// MODE INDICATOR
+// ============================================================================
+
 .mode-indicator {
   @include flex-center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   animation: fadeIn var(--transition-base) ease-in-out;
 
-  .mode-emoji {
-    font-size: var(--font-size-2xl);
+  @include tablet-up {
+    gap: var(--spacing-sm);
+  }
 
-    @include respond-to('md') {
-      font-size: var(--font-size-3xl);
+  .mode-emoji {
+    font-size: var(--font-size-xl);
+
+    @include tablet-up {
+      font-size: var(--font-size-2xl);
     }
 
-    @include respond-to('lg') {
-      font-size: var(--font-size-4xl);
+    @include desktop-up {
+      font-size: var(--font-size-3xl);
     }
   }
 
   .mode-text {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     color: var(--text-primary);
 
-    @include respond-to('md') {
-      font-size: var(--font-size-xl);
+    @include tablet-up {
+      font-size: var(--font-size-lg);
     }
 
-    @include respond-to('lg') {
-      font-size: var(--font-size-2xl);
+    @include desktop-up {
+      font-size: var(--font-size-xl);
     }
   }
 }
 
+// ============================================================================
+// TIMER DISPLAY - RESPONSIVO E OTIMIZADO
+// ============================================================================
+
 .timer-display {
   @include flex-center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   font-family: var(--font-family-mono);
   font-weight: var(--font-weight-bold);
   line-height: 1;
   user-select: none;
-
   @include slide-up;
+
+  @include tablet-up {
+    gap: var(--spacing-sm);
+  }
+
+  // Ajustar para mobile landscape (tela baixa)
+  @include mobile-landscape {
+    gap: var(--spacing-xs);
+  }
+
+  // Ajustar para telas muito baixas
+  @include short-screen(600px) {
+    gap: var(--spacing-xs);
+  }
 
   .time-number {
     // Aplicar gradiente apenas nos números
@@ -69,73 +100,99 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     filter: drop-shadow(0 0 8px rgba(var(--primary-rgb), 0.2));
-    font-size: clamp(3.5rem, 12vw, 6rem);
 
-    @include respond-to('md') {
-      font-size: clamp(5rem, 10vw, 8rem);
+    // Mobile first font sizes
+    font-size: clamp(2.5rem, 15vw, 4rem);
+
+    // Tamanho menor em telas baixas para garantir que cabe
+    @include short-screen(600px) {
+      font-size: clamp(2rem, 12vw, 3rem);
     }
 
-    @include respond-to('lg') {
-      font-size: clamp(6rem, 12vw, 10rem);
+    // Mobile landscape - reduzir ainda mais
+    @include mobile-landscape {
+      font-size: clamp(1.8rem, 10vw, 2.5rem);
+    }
+
+    @include tablet-up {
+      font-size: clamp(4rem, 12vw, 6rem);
+    }
+
+    @include desktop-up {
+      font-size: clamp(6rem, 10vw, 8rem);
     }
   }
 
   .time-separator {
     // Cor sólida para o separador (não herda gradiente)
     color: var(--primary);
-    font-size: clamp(2.5rem, 10vw, 4.5rem);
     animation: blink 2s infinite;
 
-    @include respond-to('md') {
-      font-size: clamp(3.5rem, 8vw, 6rem);
+    // Mobile first font sizes
+    font-size: clamp(2rem, 12vw, 3rem);
+
+    @include tablet-up {
+      font-size: clamp(3rem, 10vw, 4.5rem);
     }
 
-    @include respond-to('lg') {
-      font-size: clamp(4rem, 10vw, 8rem);
+    @include desktop-up {
+      font-size: clamp(4.5rem, 8vw, 6rem);
     }
   }
 }
 
+// ============================================================================
+// PROGRESS BAR
+// ============================================================================
+
 .progress-bar {
-  width: calc(100% - var(--spacing-lg));
-  max-width: 500px;
-  height: 8px;
-  background-color: var(--bg-tertiary);
+  width: 100%;
+  max-width: calc(100% - var(--spacing-md));
+  height: 4px;
+  background-color: rgba(var(--primary-rgb), 0.2);
   border-radius: var(--radius-full);
   overflow: hidden;
+  margin: 0 auto;
 
-  @include respond-to('md') {
-    height: 10px;
-    max-width: 600px;
+  @include tablet-up {
+    height: 6px;
+    max-width: calc(100% - var(--spacing-lg));
+  }
+
+  @include desktop-up {
+    height: 8px;
+    max-width: calc(100% - var(--spacing-xl));
   }
 
   .progress-fill {
     height: 100%;
     background: var(--gradient-primary);
-    border-radius: var(--radius-full);
-    transition: width var(--transition-fast) linear;
-    box-shadow: 0 0 12px rgba(var(--primary-rgb), 0.4);
+    border-radius: inherit;
+    transition: width var(--transition-base) ease-out;
+    box-shadow: 0 0 8px rgba(var(--primary-rgb), 0.3);
   }
 }
 
-// Animação de piscar para o separador
-@keyframes blink {
-  0%, 49% {
-    opacity: 1;
-  }
-  50%, 100% {
-    opacity: 0.3;
-  }
-}
+// ============================================================================
+// ANIMAÇÕES
+// ============================================================================
 
-// Animação de entrada
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-var(--spacing-sm));
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0.3;
   }
 }

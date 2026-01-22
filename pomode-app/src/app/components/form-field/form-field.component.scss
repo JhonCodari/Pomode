@@ -1,0 +1,115 @@
+@use '../../../styles/mixins' as *;
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+
+  &.has-error {
+    .form-input {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px var(--error-alpha);
+    }
+  }
+}
+
+.form-label {
+  display: block;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-tight);
+
+  .label-emoji {
+    margin-right: var(--spacing-xs);
+  }
+
+  &.required::after {
+    content: '*';
+    color: var(--error);
+    margin-left: var(--spacing-xs);
+  }
+}
+
+.form-input {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: var(--border-medium) solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  line-height: var(--line-height-base);
+  transition: all var(--transition-fast);
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-alpha);
+  }
+
+  &:disabled {
+    background-color: var(--bg-secondary);
+    color: var(--text-tertiary);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &:readonly {
+    background-color: var(--bg-secondary);
+    cursor: default;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  &::placeholder {
+    color: var(--text-tertiary);
+    opacity: 1;
+  }
+}
+
+.form-hint {
+  display: block;
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+
+  &.error-hint {
+    color: var(--text-secondary);
+  }
+}
+
+.form-error {
+  display: block;
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--error);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+}
+
+// Melhorias de acessibilidade
+@include high-contrast {
+  .form-input {
+    border-width: 2px;
+
+    &:focus {
+      border-width: 3px;
+    }
+  }
+}
+
+@include reduced-motion {
+  .form-input {
+    transition: none;
+  }
+}
