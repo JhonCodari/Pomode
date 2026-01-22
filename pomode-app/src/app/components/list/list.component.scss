@@ -9,7 +9,7 @@
   .list-item {
     position: relative;
     margin-bottom: var(--spacing-md);
-    padding-left: var(--spacing-xl);
+    padding-left: var(--spacing-xxl);
     line-height: var(--line-height-relaxed);
 
     .list-content {
@@ -53,6 +53,7 @@
 
   .list-item {
     counter-increment: step-counter;
+    padding-left: 3.5rem; // 56px - espaço fixo para acomodar círculo + margem
 
     &::before {
       content: counter(step-counter);
@@ -102,16 +103,20 @@
 @include mobile-only {
   .custom-list {
     .list-item {
-      padding-left: var(--spacing-lg);
+      padding-left: var(--spacing-xl);
       margin-bottom: var(--spacing-sm);
     }
   }
 
   .list-numbered {
-    .list-item::before {
-      width: 28px;
-      height: 28px;
-      font-size: var(--font-size-xs);
+    .list-item {
+      padding-left: 3rem; // 48px - espaço reduzido mas suficiente para mobile
+
+      &::before {
+        width: 28px;
+        height: 28px;
+        font-size: var(--font-size-xs);
+      }
     }
   }
 }
