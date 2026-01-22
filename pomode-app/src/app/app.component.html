@@ -13,6 +13,16 @@
 
     <!-- Botões posicionados absolutamente no canto superior direito -->
     <div class="header-actions">
+      <a routerLink="/sobre-pomodoro" routerLinkActive="active" class="nav-link">
+        O que é Pomodoro?
+      </a>
+      <app-button
+        routerLink="/"
+        aria-label="Voltar para a página inicial"
+        title="Home"
+      >
+        <img src="/icons/home.png" alt="" aria-hidden="true" class="btn-icon" />
+      </app-button>
       <app-button
         (click)="openSettings()"
         aria-label="Abrir configurações"
@@ -33,9 +43,6 @@
       <div class="footer-content">
         <p class="copyright">© 2025 Pomode | Desenvolvido por Jhon Codari</p>
         <p class="version">v0.1.0</p>
-        <p class="shortcuts" aria-label="Atalhos de teclado disponíveis">
-          <kbd>Espaço</kbd> Play/Pause · <kbd>R</kbd> Reset · <kbd>S</kbd> Pular
-        </p>
       </div>
     </app-container>
   </footer>

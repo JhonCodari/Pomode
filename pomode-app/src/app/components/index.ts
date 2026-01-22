@@ -7,3 +7,4 @@ export * from './theme-toggle/theme-toggle.component';
 export * from './timer/timer.component';
 export * from './timer-controls/timer-controls.component';
 export * from './toast/toast.component';
+export * from './stats-sidebar/stats-sidebar.component';

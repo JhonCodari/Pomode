@@ -1,5 +1,5 @@
 import { Component, signal, inject, HostListener } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { ContainerComponent } from './components/container/container.component';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { ButtonComponent } from './components/button/button.component';
@@ -12,6 +12,8 @@ import { PomodoroService } from './services/pomodoro.service';
   selector: 'app-root',
   imports: [
     RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
     ContainerComponent,
     ThemeToggleComponent,
     ButtonComponent,

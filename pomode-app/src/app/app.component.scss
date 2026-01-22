@@ -51,8 +51,8 @@
   }
 
   .header-content {
-    @include flex-between;
-    gap: var(--spacing-md);
+    display: flex;
+    align-items: center;
   }
 
   .header-actions {
@@ -70,6 +70,40 @@
       right: var(--spacing-lg);
     }
 
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      display: none; // Esconde em mobile
+
+      @include respond-to('md') {
+        display: block;
+        font-size: var(--font-size-base);
+        padding: var(--spacing-sm) var(--spacing-md);
+      }
+
+      &:hover {
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+      }
+
+      &.active {
+        color: var(--primary);
+        background-color: rgba(var(--primary-rgb), 0.1);
+        font-weight: var(--font-weight-semibold);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+      }
+    }
+
     // Botão de configurações com mesmo estilo do theme-toggle
     ::ng-deep app-button {
       .btn {
@@ -84,6 +118,14 @@
         border-radius: var(--radius-md);
 
         color: var(--text-primary);
+
+        // Estilo para ícone SVG
+        .btn-icon {
+          width: 20px;
+          height: 20px;
+          display: block;
+          color: currentColor;
+        }
 
         &:hover {
           background: var(--gradient-primary);

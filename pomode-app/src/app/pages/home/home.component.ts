@@ -5,6 +5,7 @@ import { ContainerComponent } from '../../components/container/container.compone
 import { CardComponent } from '../../components/card/card.component';
 import { TimerComponent } from '../../components/timer/timer.component';
 import { TimerControlsComponent } from '../../components/timer-controls/timer-controls.component';
+import { StatsSidebarComponent, StatItem } from '../../components/stats-sidebar/stats-sidebar.component';
 import { PomodoroService } from '../../services/pomodoro.service';
 import { AudioService } from '../../services/audio.service';
 import { TimerMode } from '../../models';
@@ -16,7 +17,8 @@ import { TimerMode } from '../../models';
     ContainerComponent,
     CardComponent,
     TimerComponent,
-    TimerControlsComponent
+    TimerControlsComponent,
+    StatsSidebarComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -50,6 +52,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       new Date(s.completedAt) >= weekAgo
     ).length;
   });
+
+  // Stats array para sidebar
+  readonly stats = computed<StatItem[]>(() => [
+    { value: this.todaySessions(), label: 'Sessões hoje' },
+    { value: this.totalHours(), label: 'Total de horas' },
+    { value: this.currentStreak(), label: 'Sessões (7 dias)' }
+  ]);
 
   ngOnInit(): void {
     // Inscreve para ouvir quando o timer completa

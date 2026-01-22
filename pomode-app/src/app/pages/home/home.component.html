@@ -1,56 +1,19 @@
-<app-container [size]="'lg'">
-  <div class="home">
-    <!-- Timer Section -->
-    <section class="timer-section">
-      <app-timer></app-timer>
-      <app-timer-controls></app-timer-controls>
+<app-container [size]="'xl'">
+  <div class="home-layout">
+    <main class="home-main">
+      <!-- Timer Section -->
+      <section class="timer-section">
+        <app-timer></app-timer>
+        <app-timer-controls></app-timer-controls>
 
-      <!-- Cycles Info -->
-      <div class="cycles-info">
-        <span class="cycles-text">Ciclos completados: {{ completedCycles() }}</span>
-      </div>
-    </section>
-
-    <!-- Stats Grid -->
-    <div class="stats-grid">
-      <app-card class="stat-card" [elevated]="true">
-        <div class="stat">
-          <span class="stat-value">{{ todaySessions() }}</span>
-          <span class="stat-label">Sessões hoje</span>
+        <!-- Cycles Info -->
+        <div class="cycles-info">
+          <span class="cycles-text">Ciclos completados: {{ completedCycles() }}</span>
         </div>
-      </app-card>
+      </section>
+    </main>
 
-      <app-card class="stat-card" [elevated]="true">
-        <div class="stat">
-          <span class="stat-value">{{ totalHours() }}</span>
-          <span class="stat-label">Total de horas</span>
-        </div>
-      </app-card>
-
-      <app-card class="stat-card" [elevated]="true">
-        <div class="stat">
-          <span class="stat-value">{{ currentStreak() }}</span>
-          <span class="stat-label">Sessões (7 dias)</span>
-        </div>
-      </app-card>
-    </div>
-
-    <!-- Info Card -->
-    <app-card [elevated]="true" class="info-card">
-      <div class="card-content">
-        <h3>💡 Como funciona?</h3>
-        <ul class="features-list">
-          <li>
-            <strong>Foco:</strong> Trabalhe por 25 minutos concentrado
-          </li>
-          <li>
-            <strong>Pausa curta:</strong> Descanse 5 minutos
-          </li>
-          <li>
-            <strong>Pausa longa:</strong> A cada 4 ciclos, descanse 15 minutos
-          </li>
-        </ul>
-      </div>
-    </app-card>
+    <!-- Sidebar com estatísticas -->
+    <app-stats-sidebar [stats]="stats()"></app-stats-sidebar>
   </div>
 </app-container>

@@ -1,0 +1,208 @@
+@use '../../../styles/mixins' as *;
+@use '../../../styles/breakpoints' as *;
+
+.sobre-pomodoro {
+  padding: var(--spacing-2xl) 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: var(--border-thin) solid var(--border-color);
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+    line-height: var(--line-height-tight);
+
+    @include respond-to('md') {
+      font-size: var(--font-size-3xl);
+    }
+  }
+
+  .subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+  }
+}
+
+.article-content {
+  @include flex-column;
+  gap: var(--spacing-3xl);
+
+  @include respond-to('md') {
+    gap: var(--spacing-4xl);
+  }
+}
+
+.section {
+  scroll-margin-top: 100px; // Para links de âncora
+
+  @include respond-to('md') {
+    padding: 0;
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+
+    @include respond-to('md') {
+      font-size: var(--font-size-2xl);
+      margin-top: var(--spacing-xl);
+    }
+  }
+
+  p {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-md);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+
+  ol, ul {
+    margin: var(--spacing-md) 0;
+    padding-left: var(--spacing-xl);
+  }
+
+  li {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-sm);
+
+    strong {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+}
+
+.steps-list {
+  counter-reset: step-counter;
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    counter-increment: step-counter;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    padding-left: 0;
+
+    &::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      background: var(--primary);
+      color: var(--bg-primary);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-sm);
+    }
+  }
+}
+
+.benefits-list,
+.audience-list,
+.references-list {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    position: relative;
+    padding-left: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+
+    &::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--primary);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-lg);
+    }
+  }
+}
+
+.references-list {
+  li {
+    &::before {
+      content: '📄';
+      font-size: var(--font-size-base);
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: underline;
+      transition: all var(--transition-fast);
+
+      &:hover {
+        color: var(--primary-light);
+        text-decoration: none;
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+        border-radius: var(--radius-sm);
+      }
+    }
+  }
+}
+
+.cta-section {
+  @include flex-column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  text-align: center;
+  margin-top: var(--spacing-xl);
+  padding: 2%;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--primary-rgb), 0.1) 0%,
+    rgba(var(--primary-rgb), 0.05) 100%
+  );
+  border-radius: var(--radius-lg);
+  border: var(--border-thin) solid rgba(var(--primary-rgb), 0.2);
+
+  h2 {
+    color: var(--primary);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
