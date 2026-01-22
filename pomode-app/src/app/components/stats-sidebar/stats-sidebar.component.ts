@@ -5,7 +5,7 @@ import { CardComponent } from '../card/card.component';
 
 export interface StatItem {
   value: number | string;
-  label: string;
+  labelKey: string; // Mudança: usar chave de tradução em vez de string traduzida
 }
 
 @Component({

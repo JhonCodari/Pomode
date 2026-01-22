@@ -56,9 +56,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Stats array para sidebar
   readonly stats = computed<StatItem[]>(() => [
-    { value: this.todaySessions(), label: this.translate.instant('STATS.TODAY_SESSIONS') },
-    { value: this.totalHours(), label: this.translate.instant('STATS.TOTAL_HOURS') },
-    { value: this.currentStreak(), label: this.translate.instant('STATS.WEEKLY_SESSIONS') }
+    { value: this.todaySessions(), labelKey: 'STATS.TODAY_SESSIONS' },
+    { value: this.totalHours(), labelKey: 'STATS.TOTAL_HOURS' },
+    { value: this.currentStreak(), labelKey: 'STATS.WEEKLY_SESSIONS' }
   ]);
 
   ngOnInit(): void {

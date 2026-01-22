@@ -5,7 +5,7 @@
       <app-card class="stat-card" [elevated]="true">
         <div class="stat">
           <span class="stat-value">{{ stat.value }}</span>
-          <span class="stat-label">{{ stat.label }}</span>
+          <span class="stat-label">{{ stat.labelKey | translate }}</span>
         </div>
       </app-card>
     }
