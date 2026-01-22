@@ -2,18 +2,18 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <app-card [elevated]="true" [hasHeader]="true">
       <div card-header>
-        <h3 id="settings-title"><span aria-hidden="true">⚙️</span> Configurações</h3>
+        <h3 id="settings-title"><span aria-hidden="true">⚙️</span> {{ 'SETTINGS.TITLE' | translate }}</h3>
       </div>
 
       <div class="settings-form">
         <!-- Seção: Tempos -->
         <div class="settings-section">
-          <h4 class="section-title">Tempos</h4>
+          <h4 class="section-title">{{ 'SETTINGS.TIMES.SECTION' | translate }}</h4>
 
           <!-- Tempo de Foco -->
           <div class="form-group">
             <label for="workTime">
-              <span aria-hidden="true">🍅</span> Tempo de Foco (minutos)
+              <span aria-hidden="true">🍅</span> {{ 'SETTINGS.TIMES.WORK_TIME' | translate }}
             </label>
             <input
               id="workTime"
@@ -25,14 +25,14 @@
               aria-describedby="workTime-hint"
             />
             <span id="workTime-hint" class="form-hint">
-              Entre {{ limits.workTime.min }} e {{ limits.workTime.max }} minutos
+              {{ 'SETTINGS.TIMES.BETWEEN' | translate: { min: limits.workTime.min, max: limits.workTime.max } }}
             </span>
           </div>
 
           <!-- Pausa Curta -->
           <div class="form-group">
             <label for="shortBreak">
-              <span aria-hidden="true">☕</span> Pausa Curta (minutos)
+              <span aria-hidden="true">☕</span> {{ 'SETTINGS.TIMES.SHORT_BREAK' | translate }}
             </label>
             <input
               id="shortBreak"
@@ -44,14 +44,14 @@
               aria-describedby="shortBreak-hint"
             />
             <span id="shortBreak-hint" class="form-hint">
-              Entre {{ limits.shortBreakTime.min }} e {{ limits.shortBreakTime.max }} minutos
+              {{ 'SETTINGS.TIMES.BETWEEN' | translate: { min: limits.shortBreakTime.min, max: limits.shortBreakTime.max } }}
             </span>
           </div>
 
           <!-- Pausa Longa -->
           <div class="form-group">
             <label for="longBreak">
-              <span aria-hidden="true">🌴</span> Pausa Longa (minutos)
+              <span aria-hidden="true">🌴</span> {{ 'SETTINGS.TIMES.LONG_BREAK' | translate }}
             </label>
             <input
               id="longBreak"
@@ -63,14 +63,14 @@
               aria-describedby="longBreak-hint"
             />
             <span id="longBreak-hint" class="form-hint">
-              Entre {{ limits.longBreakTime.min }} e {{ limits.longBreakTime.max }} minutos
+              {{ 'SETTINGS.TIMES.BETWEEN' | translate: { min: limits.longBreakTime.min, max: limits.longBreakTime.max } }}
             </span>
           </div>
 
           <!-- Ciclos -->
           <div class="form-group">
             <label for="cycles">
-              <span aria-hidden="true">🔄</span> Ciclos antes da pausa longa
+              <span aria-hidden="true">🔄</span> {{ 'SETTINGS.TIMES.CYCLES' | translate }}
             </label>
             <input
               id="cycles"
@@ -82,19 +82,19 @@
               aria-describedby="cycles-hint"
             />
             <span id="cycles-hint" class="form-hint">
-              Entre {{ limits.cyclesBeforeLongBreak.min }} e {{ limits.cyclesBeforeLongBreak.max }} ciclos
+              {{ 'SETTINGS.TIMES.BETWEEN_CYCLES' | translate: { min: limits.cyclesBeforeLongBreak.min, max: limits.cyclesBeforeLongBreak.max } }}
             </span>
           </div>
         </div>
 
         <!-- Seção: Som -->
         <div class="settings-section">
-          <h4 class="section-title">Som</h4>
+          <h4 class="section-title">{{ 'SETTINGS.SOUND.SECTION' | translate }}</h4>
 
           <!-- Toggle de Som -->
           <div class="form-group form-group-toggle">
             <label for="soundEnabled">
-              <span aria-hidden="true">🔊</span> Som de alerta
+              <span aria-hidden="true">🔊</span> {{ 'SETTINGS.SOUND.ENABLED' | translate }}
             </label>
             <label class="toggle-switch">
               <input
@@ -110,7 +110,7 @@
           @if (soundEnabled()) {
             <div class="form-group">
               <label for="soundVolume">
-                <span aria-hidden="true">🎚️</span> Volume ({{ soundVolume() }}%)
+                <span aria-hidden="true">🎚️</span> {{ 'SETTINGS.SOUND.VOLUME' | translate }} ({{ soundVolume() }}%)
               </label>
               <div class="volume-control">
                 <input
@@ -125,9 +125,9 @@
                   [variant]="'ghost'"
                   [size]="'sm'"
                   (click)="testSound()"
-                  title="Testar som"
+                  [title]="'SETTINGS.SOUND.TEST' | translate"
                 >
-                  <span aria-hidden="true">▶</span> Testar
+                  <span aria-hidden="true">▶</span> {{ 'SETTINGS.SOUND.TEST' | translate }}
                 </app-button>
               </div>
             </div>
@@ -136,12 +136,12 @@
 
         <!-- Seção: Notificações -->
         <div class="settings-section">
-          <h4 class="section-title">Notificações</h4>
+          <h4 class="section-title">{{ 'SETTINGS.NOTIFICATIONS.SECTION' | translate }}</h4>
 
           <!-- Toggle de Notificações -->
           <div class="form-group form-group-toggle">
             <label for="notificationsEnabled">
-              <span aria-hidden="true">🔔</span> Notificações do navegador
+              <span aria-hidden="true">🔔</span> {{ 'SETTINGS.NOTIFICATIONS.ENABLED' | translate }}
             </label>
             <label class="toggle-switch">
               <input
@@ -162,7 +162,7 @@
           [size]="'md'"
           (click)="resetToDefault()"
         >
-          Padrão
+          {{ 'SETTINGS.ACTIONS.DEFAULT' | translate }}
         </app-button>
 
         <div class="action-buttons">
@@ -171,7 +171,7 @@
             [size]="'md'"
             (click)="cancel()"
           >
-            Cancelar
+            {{ 'SETTINGS.ACTIONS.CANCEL' | translate }}
           </app-button>
 
           <app-button
@@ -179,7 +179,7 @@
             [size]="'md'"
             (click)="saveSettings()"
           >
-            Salvar
+            {{ 'SETTINGS.ACTIONS.SAVE' | translate }}
           </app-button>
         </div>
       </div>

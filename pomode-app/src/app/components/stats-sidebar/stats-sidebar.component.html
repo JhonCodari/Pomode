@@ -1,5 +1,5 @@
 <aside class="stats-sidebar">
-  <h2 class="sidebar-title">Estatísticas</h2>
+  <h2 class="sidebar-title">{{ 'STATS.TITLE' | translate }}</h2>
   <div class="stats-list">
     @for (stat of stats(); track $index) {
       <app-card class="stat-card" [elevated]="true">

@@ -1,6 +1,7 @@
 import { Component, inject, signal, Output, EventEmitter, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PomodoroService } from '../../services/pomodoro.service';
 import { ToastService } from '../../services/toast.service';
 import { AudioService } from '../../services/audio.service';
@@ -10,7 +11,7 @@ import { PomodoroSettings, SETTINGS_LIMITS, DEFAULT_SETTINGS } from '../../model
 
 @Component({
   selector: 'app-settings-modal',
-  imports: [CommonModule, FormsModule, ButtonComponent, CardComponent],
+  imports: [CommonModule, FormsModule, TranslateModule, ButtonComponent, CardComponent],
   templateUrl: './settings-modal.component.html',
   styleUrl: './settings-modal.component.scss'
 })
@@ -18,6 +19,7 @@ export class SettingsModalComponent {
   private pomodoroService = inject(PomodoroService);
   private toastService = inject(ToastService);
   private audioService = inject(AudioService);
+  private translate = inject(TranslateService);
 
   @Output() close = new EventEmitter<void>();
 
@@ -52,7 +54,7 @@ export class SettingsModalComponent {
     };
 
     this.pomodoroService.updateSettings(settings);
-    this.toastService.success('Configurações salvas com sucesso!');
+    this.toastService.success(this.translate.instant('SETTINGS.SAVED'));
     this.close.emit();
   }
 
@@ -68,7 +70,7 @@ export class SettingsModalComponent {
     this.soundEnabled.set(DEFAULT_SETTINGS.soundEnabled);
     this.soundVolume.set(DEFAULT_SETTINGS.soundVolume);
     this.notificationsEnabled.set(DEFAULT_SETTINGS.notificationsEnabled);
-    this.toastService.info('Configurações restauradas para o padrão');
+    this.toastService.info(this.translate.instant('SETTINGS.RESTORED'));
   }
 
   /** Testa o som com o volume atual */
@@ -94,17 +96,17 @@ export class SettingsModalComponent {
   /** Solicita permissão para notificações */
   async requestNotificationPermission(): Promise<void> {
     if (!('Notification' in window)) {
-      this.toastService.warning('Seu navegador não suporta notificações');
+      this.toastService.warning(this.translate.instant('SETTINGS.NOTIFICATIONS.NOT_SUPPORTED'));
       return;
     }
 
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
       this.notificationsEnabled.set(true);
-      this.toastService.success('Notificações habilitadas!');
+      this.toastService.success(this.translate.instant('SETTINGS.NOTIFICATIONS.ENABLED_SUCCESS'));
     } else {
       this.notificationsEnabled.set(false);
-      this.toastService.warning('Permissão de notificações negada');
+      this.toastService.warning(this.translate.instant('SETTINGS.NOTIFICATIONS.DENIED'));
     }
   }
 

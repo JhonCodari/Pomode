@@ -1,0 +1,191 @@
+{
+  "APP": {
+    "TITLE": "Pomode",
+    "SUBTITLE": "Pomodoro Timer",
+    "SKIP_TO_CONTENT": "Skip to main content",
+    "COPYRIGHT": "© 2025 Pomode | Developed by Jhon Codari",
+    "VERSION": "v0.1.0"
+  },
+  "NAV": {
+    "WHAT_IS_POMODORO": "What is Pomodoro?",
+    "HOME": "Home",
+    "SETTINGS": "Settings",
+    "GO_HOME": "Go to home page"
+  },
+  "TIMER": {
+    "MODES": {
+      "WORK": "Focus Time",
+      "SHORT_BREAK": "Short Break",
+      "LONG_BREAK": "Long Break"
+    },
+    "CYCLES_COMPLETED": "Cycles completed:",
+    "CONTROLS": {
+      "START": "Start",
+      "CONTINUE": "Continue",
+      "PAUSE": "Pause",
+      "RESET": "Reset",
+      "SKIP": "Skip"
+    }
+  },
+  "STATS": {
+    "TITLE": "Statistics",
+    "TODAY_SESSIONS": "Sessions today",
+    "TOTAL_HOURS": "Total hours",
+    "WEEKLY_SESSIONS": "Sessions (7 days)"
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "SAVED": "Settings saved successfully!",
+    "RESTORED": "Settings restored to default",
+    "TIMES": {
+      "SECTION": "Times",
+      "WORK_TIME": "Focus Time (minutes)",
+      "SHORT_BREAK": "Short Break (minutes)",
+      "LONG_BREAK": "Long Break (minutes)",
+      "CYCLES": "Cycles before long break",
+      "BETWEEN": "Between {{min}} and {{max}}",
+      "BETWEEN_CYCLES": "Between {{min}} and {{max}} cycles"
+    },
+    "SOUND": {
+      "SECTION": "Sound",
+      "ENABLED": "Alert sound",
+      "VOLUME": "Volume",
+      "TEST": "Test"
+    },
+    "NOTIFICATIONS": {
+      "SECTION": "Notifications",
+      "ENABLED": "Browser notifications",
+      "NOT_SUPPORTED": "Your browser does not support notifications",
+      "ENABLED_SUCCESS": "Notifications enabled!",
+      "DENIED": "Notification permission denied"
+    },
+    "LANGUAGE": {
+      "SECTION": "Language",
+      "SELECT": "Select language"
+    },
+    "ACTIONS": {
+      "DEFAULT": "Default",
+      "CANCEL": "Cancel",
+      "SAVE": "Save"
+    }
+  },
+  "NOTIFICATIONS": {
+    "WORK_COMPLETE": {
+      "TITLE": "🍅 Congratulations! Cycle complete!",
+      "BODY": "Time for a break. You deserve it!"
+    },
+    "SHORT_BREAK_COMPLETE": {
+      "TITLE": "☕ Break is over!",
+      "BODY": "Let's get back to work?"
+    },
+    "LONG_BREAK_COMPLETE": {
+      "TITLE": "🌴 Long break is over!",
+      "BODY": "Ready for a new productivity cycle!"
+    }
+  },
+  "TOAST": {
+    "CLOSE": "Close notification"
+  },
+  "ABOUT": {
+    "TITLE": "🍅 What is the Pomodoro Technique?",
+    "SUBTITLE": "Discover how this simple technique can revolutionize your productivity — backed by scientific studies",
+    "WHAT_IS": {
+      "TITLE": "What is it?",
+      "P1": "The <strong>Pomodoro Technique</strong> is a time management method based on clear work and break intervals. You focus for <strong>25 minutes</strong>, take a <strong>5-minute</strong> break, and start the next round. After four rounds, you take a longer break of <strong>15 to 30 minutes</strong>.",
+      "P2": "This way, your brain stays alert even during long work or study sessions — whether reviewing notes, preparing for exams, or working on complex projects."
+    },
+    "HISTORY": {
+      "TITLE": "📜 History",
+      "P1": "The method was created in the late 1980s by Italian student <strong>Francesco Cirillo</strong>, using a tomato-shaped kitchen timer (hence the name: <em>pomodoro</em> = tomato in Italian).",
+      "P2": "Frustrated with distractions and procrastination, Cirillo began dividing his study sessions into timed blocks. What started as a personal experiment became a globally recognized method, adopted by millions of people in various professional fields."
+    },
+    "SCIENCE": {
+      "TITLE": "🔬 What Does Science Say?",
+      "INTRO": "Evidence for the effectiveness of the Pomodoro technique is based on studies in <strong>cognitive neuroscience</strong> and <strong>behavioral psychology</strong> that analyze the impact of structured breaks on the brain.",
+      "BENEFITS": {
+        "FATIGUE": "<strong>20% reduction in mental fatigue:</strong> Studies show that structured intervals result in less fatigue compared to self-directed breaks.",
+        "PRODUCTIVITY": "<strong>25% increase in productivity:</strong> Professionals using the method report significant productivity gains, as the technique helps combat \"attention burnout\".",
+        "GRADES": "<strong>Up to 12% higher grades:</strong> Academic research indicates that students using the technique perform better on exams.",
+        "BALANCE": "<strong>Improved work-life balance:</strong> Individuals who adopted structured breaks reported a 15% increase in satisfaction with work-life balance."
+      },
+      "CONCLUSION": "The technique aligns perfectly with our brain's natural rhythms, improving cognitive function and maximizing output."
+    },
+    "HOW_IT_WORKS": {
+      "TITLE": "✨ How Does It Work?",
+      "STEPS": {
+        "STEP1": "<strong>Write down your goals:</strong> Define 1 to 3 tasks to accomplish",
+        "STEP2": "<strong>Set the timer:</strong> Set it for 25 minutes (1 pomodoro)",
+        "STEP3": "<strong>Work with total focus:</strong> Concentrate on a single task, without interruptions",
+        "STEP4": "<strong>Take a short break:</strong> Rest for 5 minutes — stand up, drink water, rest your eyes",
+        "STEP5": "<strong>Repeat the cycle:</strong> Every 4 pomodoros, take a long break of 15-30 minutes"
+      }
+    },
+    "BENEFITS": {
+      "TITLE": "🎯 Proven Benefits",
+      "ITEMS": {
+        "START": "<strong>Makes starting easier:</strong> \"Just 25 minutes\" seems much less scary than \"study for 3 hours\" — goodbye procrastination!",
+        "MOTIVATION": "<strong>Keeps you motivated:</strong> Visible progress with each cycle keeps you engaged",
+        "STRUCTURE": "<strong>Creates structure:</strong> Organizes your time without being overwhelming",
+        "BURNOUT": "<strong>Prevents burnout:</strong> Regular breaks keep your mind fresh and rested",
+        "CREATIVITY": "<strong>Improves creativity:</strong> Regular breaks enhance creativity and problem-solving skills",
+        "AWARENESS": "<strong>Increases awareness:</strong> You become more aware of how you use your time and learn to better estimate task duration"
+      }
+    },
+    "AUDIENCE": {
+      "TITLE": "👥 Who Is It For?",
+      "INTRO": "The Pomodoro Technique is ideal for:",
+      "ITEMS": {
+        "STUDENTS": "<strong>Students:</strong> Who need to stay focused during long study sessions and exam periods",
+        "DEVELOPERS": "<strong>Developers:</strong> Who work with complex tasks requiring deep concentration",
+        "REMOTE": "<strong>Remote workers:</strong> Who often deal with distractions at home",
+        "CREATIVES": "<strong>Writers and Creatives:</strong> Who seek to keep creativity flowing without burning out",
+        "ADHD": "<strong>People with ADHD:</strong> Studies show the technique significantly reduces stress by providing structure that replaces the difficult task of constant self-regulation",
+        "FREELANCERS": "<strong>Freelancers:</strong> Who need to self-manage their time and productivity",
+        "ANYONE": "<strong>Anyone:</strong> Who seeks to improve their focus, productivity, and well-being at work"
+      }
+    },
+    "MISTAKES": {
+      "TITLE": "⚠️ Common Mistakes (and How to Avoid Them)",
+      "ITEMS": {
+        "BIG_TASK": "<strong>Task too big?</strong> Break it into smaller steps that fit in 1 to 4 Pomodoro cycles",
+        "MULTITASK": "<strong>Multitasking?</strong> Switching between tabs and apps kills concentration — focus on one task at a time",
+        "SOCIAL_MEDIA": "<strong>Breaks = social media?</strong> Scrolling the feed is not rest! Move around, stretch, breathe, drink water — away from screens",
+        "NO_REFLECTION": "<strong>No reflection?</strong> Set aside 1 minute after each session to note what worked — this improves the technique over time"
+      }
+    },
+    "ADVANCED": {
+      "TITLE": "💡 Advanced Tips",
+      "INTRO": "Combine the Pomodoro technique with smart learning strategies:",
+      "ITEMS": {
+        "RECALL": "<strong>Active recall:</strong> After each round, ask yourself 3 to 5 questions about what you learned",
+        "SPACED": "<strong>Spaced repetition:</strong> Revisit the most difficult topics in several rounds over time",
+        "FLEXIBLE": "<strong>Flexible intervals:</strong> Try 20-5 for beginners, 40-10 for deep work — consistency matters more than exact numbers",
+        "DISTRACTIONS": "<strong>Monitor distractions:</strong> Write down interruptions and correct triggers — you'll notice significant improvement week after week"
+      }
+    },
+    "REFERENCES": {
+      "TITLE": "📚 Scientific References",
+      "INTRO": "The data presented in this article is based on research published in reliable sources:",
+      "ITEMS": {
+        "PUBMED": "<strong>PubMed Central (2025):</strong> Meta-analysis on structured intervals and mental fatigue",
+        "NATGEO": "<strong>National Geographic (2024):</strong> Research on attention span and how to regain it",
+        "HARVARD": "<strong>Harvard Business Review (2020):</strong> Analysis on the impact of time management on professional performance",
+        "APA": "<strong>American Psychological Association (2021):</strong> Studies on regular breaks and creativity",
+        "JOURNAL": "<strong>Journal of Management:</strong> Research on productivity with the Pomodoro Technique (Karpicke et al., 2014)"
+      },
+      "ACCESS": "Access study",
+      "ACCESS_ARTICLE": "Access article"
+    },
+    "CTA": {
+      "TITLE": "🚀 Ready to start?",
+      "P1": "Now that you know the Pomodoro Technique and its scientifically proven benefits, why not try it? Use <strong>Pomode</strong> and discover how small focus blocks can generate big results!",
+      "P2": "Start today with just three rounds — observe where you get distracted and adjust the intervals. You'll quickly find the ideal rhythm for your brain.",
+      "BUTTON": "Start now"
+    }
+  },
+  "LANGUAGES": {
+    "EN": "English",
+    "PT": "Portuguese",
+    "ES": "Spanish"
+  }
+}

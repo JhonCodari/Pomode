@@ -1,12 +1,12 @@
-﻿<a class="skip-link" href="#main-content">Pular para o conteúdo principal</a>
+﻿<a class="skip-link" href="#main-content">{{ 'APP.SKIP_TO_CONTENT' | translate }}</a>
 
 <div class="app-container">
   <header class="app-header">
     <app-container [size]="'xl'">
       <div class="header-content">
         <div class="logo">
-          <h1><span aria-hidden="true">🍅</span> Pomode</h1>
-          <p class="subtitle">Timer Pomodoro</p>
+          <h1><span aria-hidden="true">🍅</span> {{ 'APP.TITLE' | translate }}</h1>
+          <p class="subtitle">{{ 'APP.SUBTITLE' | translate }}</p>
         </div>
       </div>
     </app-container>
@@ -14,12 +14,12 @@
     <!-- Botões posicionados absolutamente no canto superior direito -->
     <div class="header-actions">
       <a routerLink="/sobre-pomodoro" routerLinkActive="active" class="nav-link">
-        O que é Pomodoro?
+        {{ 'NAV.WHAT_IS_POMODORO' | translate }}
       </a>
       <app-button
         routerLink="/"
-        aria-label="Voltar para a página inicial"
-        title="Home"
+        [attr.aria-label]="'NAV.GO_HOME' | translate"
+        [title]="'NAV.HOME' | translate"
       >
         <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
@@ -27,11 +27,12 @@
       </app-button>
       <app-button
         (click)="openSettings()"
-        aria-label="Abrir configurações"
-        title="Configurações"
+        [attr.aria-label]="'NAV.SETTINGS' | translate"
+        [title]="'NAV.SETTINGS' | translate"
       >
         <span aria-hidden="true">⚙️</span>
       </app-button>
+      <app-language-selector></app-language-selector>
       <app-theme-toggle></app-theme-toggle>
     </div>
   </header>
@@ -43,8 +44,8 @@
   <footer class="app-footer">
     <app-container [size]="'xl'">
       <div class="footer-content">
-        <p class="copyright">© 2025 Pomode | Desenvolvido por Jhon Codari</p>
-        <p class="version">v0.1.0</p>
+        <p class="copyright">{{ 'APP.COPYRIGHT' | translate }}</p>
+        <p class="version">{{ 'APP.VERSION' | translate }}</p>
       </div>
     </app-container>
   </footer>

@@ -25,9 +25,14 @@
     z-index: 0;
   }
 
-  > * {
+  > .app-main {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
+  }
+
+  > .app-footer {
+    position: relative;
+    z-index: var(--z-base);
   }
 }
 
@@ -38,7 +43,7 @@
   padding: var(--spacing-md) 0;
   position: sticky;
   top: 0;
-  z-index: var(--z-sticky);
+  z-index: var(--z-modal);
   backdrop-filter: blur(var(--blur-sm));
   background-color: rgba(var(--bg-primary-rgb), 0.95);
 
@@ -63,7 +68,7 @@
     flex-direction: row;
     gap: var(--spacing-sm);
     align-items: center;
-    z-index: 100;
+    z-index: var(--z-tooltip);
 
     @include respond-to('md') {
       top: var(--spacing-xl);

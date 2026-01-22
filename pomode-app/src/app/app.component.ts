@@ -5,8 +5,11 @@ import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.com
 import { ButtonComponent } from './components/button/button.component';
 import { SettingsModalComponent } from './components/settings-modal/settings-modal.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { PomodoroService } from './services/pomodoro.service';
+import { LanguageService } from './services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -19,13 +22,16 @@ import { PomodoroService } from './services/pomodoro.service';
     ButtonComponent,
     SettingsModalComponent,
     ToastComponent,
-    CommonModule
+    LanguageSelectorComponent,
+    CommonModule,
+    TranslateModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   private pomodoroService = inject(PomodoroService);
+  private languageService = inject(LanguageService); // Inicializa o serviço de idioma
 
   title = 'Pomode';
   showSettings = signal(false);

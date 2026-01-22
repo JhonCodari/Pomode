@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, OnDestroy, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ContainerComponent } from '../../components/container/container.component';
-import { CardComponent } from '../../components/card/card.component';
 import { TimerComponent } from '../../components/timer/timer.component';
 import { TimerControlsComponent } from '../../components/timer-controls/timer-controls.component';
 import { StatsSidebarComponent, StatItem } from '../../components/stats-sidebar/stats-sidebar.component';
@@ -14,8 +14,8 @@ import { TimerMode } from '../../models';
   selector: 'app-home',
   imports: [
     CommonModule,
+    TranslateModule,
     ContainerComponent,
-    CardComponent,
     TimerComponent,
     TimerControlsComponent,
     StatsSidebarComponent
@@ -26,6 +26,7 @@ import { TimerMode } from '../../models';
 export class HomeComponent implements OnInit, OnDestroy {
   private pomodoroService = inject(PomodoroService);
   private audioService = inject(AudioService);
+  private translate = inject(TranslateService);
   private timerCompleteSubscription?: Subscription;
 
   // Computed signals encapsulados para o template
@@ -55,9 +56,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Stats array para sidebar
   readonly stats = computed<StatItem[]>(() => [
-    { value: this.todaySessions(), label: 'Sessões hoje' },
-    { value: this.totalHours(), label: 'Total de horas' },
-    { value: this.currentStreak(), label: 'Sessões (7 dias)' }
+    { value: this.todaySessions(), label: this.translate.instant('STATS.TODAY_SESSIONS') },
+    { value: this.totalHours(), label: this.translate.instant('STATS.TOTAL_HOURS') },
+    { value: this.currentStreak(), label: this.translate.instant('STATS.WEEKLY_SESSIONS') }
   ]);
 
   ngOnInit(): void {
@@ -106,25 +107,25 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private createNotification(mode: TimerMode): void {
-    const messages: Record<TimerMode, { title: string; body: string }> = {
+    const messages: Record<TimerMode, { titleKey: string; bodyKey: string }> = {
       work: {
-        title: '🍅 Parabéns! Ciclo completo!',
-        body: 'Hora de fazer uma pausa. Você merece!'
+        titleKey: 'NOTIFICATIONS.WORK_COMPLETE.TITLE',
+        bodyKey: 'NOTIFICATIONS.WORK_COMPLETE.BODY'
       },
       shortBreak: {
-        title: '☕ Pausa terminada!',
-        body: 'Vamos voltar ao trabalho?'
+        titleKey: 'NOTIFICATIONS.SHORT_BREAK_COMPLETE.TITLE',
+        bodyKey: 'NOTIFICATIONS.SHORT_BREAK_COMPLETE.BODY'
       },
       longBreak: {
-        title: '🌴 Pausa longa terminada!',
-        body: 'Pronto para um novo ciclo de produtividade!'
+        titleKey: 'NOTIFICATIONS.LONG_BREAK_COMPLETE.TITLE',
+        bodyKey: 'NOTIFICATIONS.LONG_BREAK_COMPLETE.BODY'
       }
     };
 
     const message = messages[mode];
 
-    new Notification(message.title, {
-      body: message.body,
+    new Notification(this.translate.instant(message.titleKey), {
+      body: this.translate.instant(message.bodyKey),
       icon: '/favicon.ico',
       tag: 'pomodoro-timer'
     });

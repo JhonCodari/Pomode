@@ -1,15 +1,17 @@
 import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PomodoroService, TimerMode } from '../../services/pomodoro.service';
 
 @Component({
   selector: 'app-timer',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.scss'
 })
 export class TimerComponent {
   private pomodoroService = inject(PomodoroService);
+  private translate = inject(TranslateService);
 
   // Expor signals do serviço
   minutes = this.pomodoroService.minutes;
@@ -19,16 +21,16 @@ export class TimerComponent {
   progress = this.pomodoroService.progress;
   completedCycles = this.pomodoroService.completedCycles;
 
-  // Computed para textos do modo
-  modeText = computed(() => {
+  // Computed para chave de tradução do modo
+  modeTranslateKey = computed(() => {
     const mode = this.mode();
     switch (mode) {
       case 'work':
-        return 'Tempo de Foco';
+        return 'TIMER.MODES.WORK';
       case 'shortBreak':
-        return 'Pausa Curta';
+        return 'TIMER.MODES.SHORT_BREAK';
       case 'longBreak':
-        return 'Pausa Longa';
+        return 'TIMER.MODES.LONG_BREAK';
     }
   });
 

@@ -6,7 +6,7 @@
     (click)="start()"
     class="control-btn"
   >
-    ▶️ {{ state() === 'paused' ? 'Continuar' : 'Iniciar' }}
+    ▶️ {{ (state() === 'paused' ? 'TIMER.CONTROLS.CONTINUE' : 'TIMER.CONTROLS.START') | translate }}
   </app-button>
 
   <app-button
@@ -15,7 +15,7 @@
     (click)="pause()"
     class="control-btn"
   >
-    ⏸️ Pausar
+    ⏸️ {{ 'TIMER.CONTROLS.PAUSE' | translate }}
   </app-button>
 
   <!-- Botão de Reset -->
@@ -25,7 +25,7 @@
     [disabled]="state() === 'idle'"
     class="control-btn"
   >
-    🔄 Resetar
+    🔄 {{ 'TIMER.CONTROLS.RESET' | translate }}
   </app-button>
 
   <!-- Botão de Pular -->
@@ -34,6 +34,6 @@
     (click)="skip()"
     class="control-btn"
   >
-    ⏭️ Pular
+    ⏭️ {{ 'TIMER.CONTROLS.SKIP' | translate }}
   </app-button>
 </div>

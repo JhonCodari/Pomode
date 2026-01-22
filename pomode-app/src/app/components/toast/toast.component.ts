@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { ToastService, Toast } from '../../services/toast.service';
 
 @Component({
   selector: 'app-toast',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   template: `
     <div class="toast-container" role="alert" aria-live="polite">
       @for (toast of toasts(); track toast.id) {
@@ -19,7 +20,7 @@ import { ToastService, Toast } from '../../services/toast.service';
           <button
             class="toast-close"
             (click)="dismiss(toast.id); $event.stopPropagation()"
-            aria-label="Fechar notificação"
+            [attr.aria-label]="'TOAST.CLOSE' | translate"
           >
             ✕
           </button>
