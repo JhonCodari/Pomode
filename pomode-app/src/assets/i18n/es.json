@@ -193,5 +193,37 @@
     "EN": "Inglés",
     "PT": "Portugués",
     "ES": "Español"
+  },
+  "MUSIC_PLAYER": {
+    "LABEL": "Reproductor de música ambiental",
+    "EXPAND": "Expandir reproductor",
+    "MINIMIZE": "Minimizar reproductor",
+    "PLAY": "Reproducir",
+    "PAUSE": "Pausar",
+    "MUTE": "Silenciar",
+    "UNMUTE": "Activar sonido",
+    "VOLUME": "Volumen",
+    "AUTO_PLAY": "Reproducción automática al iniciar foco",
+    "SELECT_TRACK": "Seleccionar pista",
+    "NO_TRACK": "Sin pista seleccionada",
+    "TRACKLIST": "Lista de pistas",
+    "CATEGORIES": {
+      "LABEL": "Categorías de sonido",
+      "LOFI": "Lofi",
+      "WHITENOISE": "Ruido Blanco",
+      "NATURE": "Naturaleza",
+      "INSTRUMENTAL": "Instrumental",
+      "BINAURAL": "Binaural"
+    },
+    "TRACKS": {
+      "GROOVE_SALAD": "Groove Salad",
+      "DRONE_ZONE": "Drone Zone",
+      "WHITE_NOISE": "Ruido Blanco",
+      "BROWN_NOISE": "Ruido Marrón",
+      "RAIN": "Lluvia",
+      "DIGITALIS": "Digitalis",
+      "BINAURAL_ALPHA": "Ondas Alfa (10 Hz)",
+      "BINAURAL_THETA": "Ondas Theta (6 Hz)"
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, OnDestroy, computed } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -8,6 +8,7 @@ import { TimerControlsComponent } from '../../components/timer-controls/timer-co
 import { StatsSidebarComponent, StatItem } from '../../components/stats-sidebar/stats-sidebar.component';
 import { PomodoroService } from '../../services/pomodoro.service';
 import { AudioService } from '../../services/audio.service';
+import { MusicPlayerService } from '../../services/music-player.service';
 import { TimerMode } from '../../models';
 
 @Component({
@@ -26,8 +27,18 @@ import { TimerMode } from '../../models';
 export class HomeComponent implements OnInit, OnDestroy {
   private pomodoroService = inject(PomodoroService);
   private audioService = inject(AudioService);
+  private musicPlayerService = inject(MusicPlayerService);
   private translate = inject(TranslateService);
   private timerCompleteSubscription?: Subscription;
+
+  constructor() {
+    // Integração automática do music player com o timer
+    effect(() => {
+      const state = this.pomodoroService.state();
+      const mode  = this.pomodoroService.mode();
+      this.musicPlayerService.onTimerChange(state, mode);
+    });
+  }
 
   // Computed signals encapsulados para o template
   readonly completedCycles = computed(() => this.pomodoroService.completedCycles());

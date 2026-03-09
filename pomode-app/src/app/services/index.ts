@@ -7,3 +7,4 @@ export * from './language.service';
 export * from './responsive.service';
 export * from './touch-detection.service';
 export * from './device-capability.service';
+export * from './music-player.service';

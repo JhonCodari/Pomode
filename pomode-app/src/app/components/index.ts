@@ -15,3 +15,4 @@ export * from './logo/logo.component';
 export * from './form-field/form-field.component';
 export * from './list/list.component';
 export * from './section/section.component';
+export * from './music-player/music-player.component';

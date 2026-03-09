@@ -10,3 +10,6 @@ export * from './settings.model';
 
 // Session
 export * from './session.model';
+
+// Music Player
+export * from './music-player.model';

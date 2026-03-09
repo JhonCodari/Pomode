@@ -1,0 +1,155 @@
+<!-- Player minimizado: apenas FAB -->
+@if (isMinimized()) {
+  <button
+    class="player-fab"
+    (click)="toggleMinimize()"
+    [class.player-fab--playing]="isPlaying()"
+    [attr.aria-label]="'MUSIC_PLAYER.EXPAND' | translate"
+    type="button"
+  >
+    <span class="player-fab__icon">{{ currentTrack()?.icon ?? '🎵' }}</span>
+    @if (isPlaying()) {
+      <span class="player-fab__waves" aria-hidden="true">
+        <span class="wave"></span>
+        <span class="wave"></span>
+        <span class="wave"></span>
+      </span>
+    }
+  </button>
+}
+
+<!-- Player expandido: barra na parte inferior -->
+@if (!isMinimized()) {
+  <div class="music-player" [class.music-player--playing]="isPlaying()" role="region" [attr.aria-label]="'MUSIC_PLAYER.LABEL' | translate">
+
+    <!-- Seletor de categorias (chips) -->
+    <div class="player-categories" role="tablist" [attr.aria-label]="'MUSIC_PLAYER.CATEGORIES.LABEL' | translate">
+      @for (cat of categories; track cat.id) {
+        <button
+          class="category-chip"
+          [class.category-chip--active]="selectedCategory() === cat.id"
+          (click)="selectCategory(cat.id)"
+          role="tab"
+          [attr.aria-selected]="selectedCategory() === cat.id"
+          [attr.aria-label]="cat.labelKey | translate"
+          type="button"
+        >
+          <span class="category-chip__icon" aria-hidden="true">{{ cat.icon }}</span>
+          <span class="category-chip__label">{{ cat.labelKey | translate }}</span>
+        </button>
+      }
+    </div>
+
+    <!-- Barra de controle principal -->
+    <div class="player-controls">
+
+      <!-- Info da faixa atual -->
+      <button
+        class="player-track"
+        (click)="toggleTracks()"
+        [attr.aria-expanded]="showTracks()"
+        [attr.aria-label]="'MUSIC_PLAYER.SELECT_TRACK' | translate"
+        type="button"
+        title="{{ 'MUSIC_PLAYER.SELECT_TRACK' | translate }}"
+      >
+        <span class="player-track__icon" aria-hidden="true">{{ currentTrack()?.icon ?? '🎵' }}</span>
+        <span class="player-track__name">{{ (currentTrack()?.nameKey ?? 'MUSIC_PLAYER.NO_TRACK') | translate }}</span>
+        <span class="player-track__chevron" aria-hidden="true">{{ showTracks() ? '▲' : '▼' }}</span>
+      </button>
+
+      <!-- Visualizador de ondas (quando tocando) -->
+      @if (isPlaying()) {
+        <div class="sound-waves" aria-hidden="true">
+          <span class="sound-waves__bar"></span>
+          <span class="sound-waves__bar"></span>
+          <span class="sound-waves__bar"></span>
+          <span class="sound-waves__bar"></span>
+          <span class="sound-waves__bar"></span>
+        </div>
+      }
+
+      <!-- Botão Play/Pause (principal) -->
+      <button
+        class="player-play-btn"
+        (click)="toggle()"
+        [attr.aria-label]="(isPlaying() ? 'MUSIC_PLAYER.PAUSE' : 'MUSIC_PLAYER.PLAY') | translate"
+        type="button"
+      >
+        @if (isPlaying()) {
+          <!-- ícone pausa -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <rect x="6" y="4" width="4" height="16" rx="1"/>
+            <rect x="14" y="4" width="4" height="16" rx="1"/>
+          </svg>
+        } @else {
+          <!-- ícone play -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        }
+      </button>
+
+      <!-- Volume -->
+      <div class="player-volume">
+        <button
+          class="player-volume__icon-btn"
+          (click)="toggleMute()"
+          [attr.aria-label]="(isMuted() ? 'MUSIC_PLAYER.UNMUTE' : 'MUSIC_PLAYER.MUTE') | translate"
+          type="button"
+        >{{ volumeIcon() }}</button>
+        <input
+          class="player-volume__slider"
+          type="range"
+          min="0"
+          max="100"
+          [value]="isMuted() ? 0 : volume()"
+          (input)="onVolumeChange($event)"
+          [attr.aria-label]="'MUSIC_PLAYER.VOLUME' | translate"
+          [attr.aria-valuenow]="isMuted() ? 0 : volume()"
+        />
+      </div>
+
+      <!-- Auto-play toggle + minimizar -->
+      <div class="player-extras">
+        <button
+          class="player-extras__btn"
+          [class.player-extras__btn--active]="autoPlayOnFocus()"
+          (click)="toggleAutoPlay()"
+          [attr.aria-label]="'MUSIC_PLAYER.AUTO_PLAY' | translate"
+          [attr.aria-pressed]="autoPlayOnFocus()"
+          title="{{ 'MUSIC_PLAYER.AUTO_PLAY' | translate }}"
+          type="button"
+        >⏯️</button>
+
+        <button
+          class="player-extras__btn"
+          (click)="toggleMinimize()"
+          [attr.aria-label]="'MUSIC_PLAYER.MINIMIZE' | translate"
+          type="button"
+        >⬇️</button>
+      </div>
+    </div>
+
+    <!-- Lista de faixas da categoria (dropdown) -->
+    @if (showTracks()) {
+      <div class="player-tracklist" role="listbox" [attr.aria-label]="'MUSIC_PLAYER.TRACKLIST' | translate">
+        @for (track of tracksInCategory(); track track.id; let i = $index) {
+          <button
+            class="tracklist-item"
+            [class.tracklist-item--active]="track.id === currentTrack()?.id"
+            (click)="selectTrack(track)"
+            role="option"
+            [attr.aria-selected]="track.id === currentTrack()?.id"
+            type="button"
+          >
+            <span class="tracklist-item__icon" aria-hidden="true">{{ track.icon }}</span>
+            <span class="tracklist-item__name">{{ track.nameKey | translate }}</span>
+            @if (track.id === currentTrack()?.id && isPlaying()) {
+              <span class="tracklist-item__playing" aria-hidden="true">♪</span>
+            }
+          </button>
+        }
+      </div>
+    }
+  </div>
+}

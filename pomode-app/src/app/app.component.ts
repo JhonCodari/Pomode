@@ -9,7 +9,8 @@ import {
   ToastComponent,
   LanguageSelectorComponent,
   LogoComponent,
-  IconComponent
+  IconComponent,
+  MusicPlayerComponent
 } from './components';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -30,6 +31,7 @@ import { PomodoroService, LanguageService, ResponsiveService, TouchDetectionServ
     LanguageSelectorComponent,
     LogoComponent,
     IconComponent,
+    MusicPlayerComponent,
     CommonModule,
     TranslateModule
   ],
