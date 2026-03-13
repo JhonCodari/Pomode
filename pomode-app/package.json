@@ -6,10 +6,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --configuration production --base-href /Pomode/",
+    "build:prod": "ng build --configuration production --base-href /",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng build --configuration production --base-href /Pomode/ && npx angular-cli-ghpages --dir=dist/pomode-app/browser"
+    "deploy": "ng build --configuration production --base-href / && npx angular-cli-ghpages --dir=dist/pomode-app/browser"
   },
   "private": true,
   "dependencies": {
