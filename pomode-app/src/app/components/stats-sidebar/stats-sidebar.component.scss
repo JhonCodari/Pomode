@@ -59,8 +59,8 @@
   }
 
   // Telas médias: ocultar título para economizar espaço horizontal
-  @media (min-width: 550px) and (max-width: 767px) {
-    display: none;
+  @media (min-width: 550px) and (max-width: 1023px) {
+    display: none !important;
   }
 
   @include tablet-up {
