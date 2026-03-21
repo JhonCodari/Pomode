@@ -2,7 +2,7 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <app-card [elevated]="true" [hasHeader]="true">
       <div card-header>
-        <h3 id="settings-title"><span aria-hidden="true">⚙️</span> {{ 'SETTINGS.TITLE' | translate }}</h3>
+        <h3 id="settings-title"><app-icon name="settings" [size]="'sm'" [ariaHidden]="true"></app-icon> {{ 'SETTINGS.TITLE' | translate }}</h3>
       </div>
 
       <div class="settings-form">
@@ -27,7 +27,6 @@
             fieldId="shortBreak"
             [label]="'SETTINGS.TIMES.SHORT_BREAK'"
             type="number"
-            emoji="☕"
             [(ngModel)]="shortBreakTime"
             [min]="limits.shortBreakTime.min"
             [max]="limits.shortBreakTime.max"
@@ -39,7 +38,6 @@
             fieldId="longBreak"
             [label]="'SETTINGS.TIMES.LONG_BREAK'"
             type="number"
-            emoji="🌴"
             [(ngModel)]="longBreakTime"
             [min]="limits.longBreakTime.min"
             [max]="limits.longBreakTime.max"
@@ -51,7 +49,6 @@
             fieldId="cycles"
             [label]="'SETTINGS.TIMES.CYCLES_FOR_LONG_BREAK'"
             type="number"
-            emoji="🔄"
             [(ngModel)]="cyclesBeforeLongBreak"
             [min]="limits.cyclesBeforeLongBreak.min"
             [max]="limits.cyclesBeforeLongBreak.max"
@@ -66,7 +63,7 @@
           <!-- Toggle de Som -->
           <div class="form-group form-group-toggle">
             <label for="soundEnabled">
-              <span aria-hidden="true">🔊</span> {{ 'SETTINGS.SOUND.ENABLED' | translate }}
+              <span aria-hidden="true"><app-icon name="volume-2" [size]="'xs'"></app-icon></span> {{ 'SETTINGS.SOUND.ENABLED' | translate }}
             </label>
             <label class="toggle-switch">
               <input
@@ -82,7 +79,7 @@
           @if (soundEnabled) {
             <div class="form-group">
               <label for="soundVolume">
-                <span aria-hidden="true">🎚️</span> {{ 'SETTINGS.SOUND.VOLUME' | translate }} ({{ soundVolume }}%)
+                <span aria-hidden="true"><app-icon name="sliders" [size]="'xs'"></app-icon></span> {{ 'SETTINGS.SOUND.VOLUME' | translate }} ({{ soundVolume }}%)
               </label>
               <div class="volume-control">
                 <input
@@ -99,7 +96,7 @@
                   (click)="testSound()"
                   [title]="'SETTINGS.SOUND.TEST' | translate"
                 >
-                  <span aria-hidden="true">▶</span> {{ 'SETTINGS.SOUND.TEST' | translate }}
+                  <app-icon name="play" [size]="'xs'" [ariaHidden]="true"></app-icon> {{ 'SETTINGS.SOUND.TEST' | translate }}
                 </app-button>
               </div>
             </div>
@@ -113,7 +110,7 @@
           <!-- Toggle de Notificações -->
           <div class="form-group form-group-toggle">
             <label for="notificationsEnabled">
-              <span aria-hidden="true">🔔</span> {{ 'SETTINGS.NOTIFICATIONS.ENABLED' | translate }}
+              <span aria-hidden="true"><app-icon name="bell" [size]="'xs'"></app-icon></span> {{ 'SETTINGS.NOTIFICATIONS.ENABLED' | translate }}
             </label>
             <label class="toggle-switch">
               <input

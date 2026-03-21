@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { PomodoroService } from '../../services/pomodoro.service';
 import { ButtonComponent } from '../button/button.component';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-timer-controls',
-  imports: [CommonModule, TranslateModule, ButtonComponent],
+  imports: [CommonModule, TranslateModule, ButtonComponent, IconComponent],
   templateUrl: './timer-controls.component.html',
   styleUrl: './timer-controls.component.scss'
 })

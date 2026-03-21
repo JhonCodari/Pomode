@@ -7,7 +7,7 @@
     [attr.aria-label]="'MUSIC_PLAYER.EXPAND' | translate"
     type="button"
   >
-    <span class="player-fab__icon">{{ currentTrack()?.icon ?? '🎵' }}</span>
+    <app-icon name="music" [size]="'sm'" [ariaHidden]="true"></app-icon>
     @if (isPlaying()) {
       <span class="player-fab__waves" aria-hidden="true">
         <span class="wave"></span>
@@ -22,28 +22,21 @@
 @if (!isMinimized()) {
   <div class="music-player" [class.music-player--playing]="isPlaying()" role="region" [attr.aria-label]="'MUSIC_PLAYER.LABEL' | translate">
 
-    <!-- Seletor de categorias (chips) -->
-    <div class="player-categories" role="tablist" [attr.aria-label]="'MUSIC_PLAYER.CATEGORIES.LABEL' | translate">
-      @for (cat of categories; track cat.id) {
-        <button
-          class="category-chip"
-          [class.category-chip--active]="selectedCategory() === cat.id"
-          (click)="selectCategory(cat.id)"
-          role="tab"
-          [attr.aria-selected]="selectedCategory() === cat.id"
-          [attr.aria-label]="cat.labelKey | translate"
-          type="button"
-        >
-          <span class="category-chip__icon" aria-hidden="true">{{ cat.icon }}</span>
-          <span class="category-chip__label">{{ cat.labelKey | translate }}</span>
-        </button>
-      }
-    </div>
-
     <!-- Barra de controle principal -->
     <div class="player-controls">
 
-      <!-- Info da faixa atual -->
+      <!-- Botão próxima faixa -->
+      <button
+        class="player-next-btn"
+        (click)="nextTrack()"
+        [attr.aria-label]="'MUSIC_PLAYER.NEXT_TRACK' | translate"
+        type="button"
+        title="{{ 'MUSIC_PLAYER.NEXT_TRACK' | translate }}"
+      >
+        <app-icon name="skip-forward" [size]="'xs'" [ariaHidden]="true"></app-icon>
+      </button>
+
+      <!-- Info da faixa atual (abre dropdown) -->
       <button
         class="player-track"
         (click)="toggleTracks()"
@@ -52,9 +45,9 @@
         type="button"
         title="{{ 'MUSIC_PLAYER.SELECT_TRACK' | translate }}"
       >
-        <span class="player-track__icon" aria-hidden="true">{{ currentTrack()?.icon ?? '🎵' }}</span>
+        <app-icon name="music" [size]="'xs'" [ariaHidden]="true" class="player-track__icon"></app-icon>
         <span class="player-track__name">{{ (currentTrack()?.nameKey ?? 'MUSIC_PLAYER.NO_TRACK') | translate }}</span>
-        <span class="player-track__chevron" aria-hidden="true">{{ showTracks() ? '▲' : '▼' }}</span>
+        <app-icon [name]="showTracks() ? 'chevron-up' : 'chevron-down'" [size]="'xs'" [ariaHidden]="true" class="player-track__chevron"></app-icon>
       </button>
 
       <!-- Visualizador de ondas (quando tocando) -->
@@ -75,18 +68,7 @@
         [attr.aria-label]="(isPlaying() ? 'MUSIC_PLAYER.PAUSE' : 'MUSIC_PLAYER.PLAY') | translate"
         type="button"
       >
-        @if (isPlaying()) {
-          <!-- ícone pausa -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <rect x="6" y="4" width="4" height="16" rx="1"/>
-            <rect x="14" y="4" width="4" height="16" rx="1"/>
-          </svg>
-        } @else {
-          <!-- ícone play -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-        }
+        <app-icon [name]="isPlaying() ? 'pause' : 'play'" [size]="'sm'" [ariaHidden]="true"></app-icon>
       </button>
 
       <!-- Volume -->
@@ -96,7 +78,9 @@
           (click)="toggleMute()"
           [attr.aria-label]="(isMuted() ? 'MUSIC_PLAYER.UNMUTE' : 'MUSIC_PLAYER.MUTE') | translate"
           type="button"
-        >{{ volumeIcon() }}</button>
+        >
+          <app-icon [name]="volumeIconName()" [size]="'xs'" [ariaHidden]="true"></app-icon>
+        </button>
         <input
           class="player-volume__slider"
           type="range"
@@ -119,34 +103,36 @@
           [attr.aria-pressed]="autoPlayOnFocus()"
           title="{{ 'MUSIC_PLAYER.AUTO_PLAY' | translate }}"
           type="button"
-        >⏯️</button>
+        >
+          <app-icon name="repeat" [size]="'xs'" [ariaHidden]="true"></app-icon>
+        </button>
 
         <button
           class="player-extras__btn"
           (click)="toggleMinimize()"
           [attr.aria-label]="'MUSIC_PLAYER.MINIMIZE' | translate"
           type="button"
-        >⬇️</button>
+        >
+          <app-icon name="minimize" [size]="'xs'" [ariaHidden]="true"></app-icon>
+        </button>
       </div>
     </div>
 
-    <!-- Lista de faixas da categoria (dropdown) -->
+    <!-- Dropdown: seletor de categorias -->
     @if (showTracks()) {
-      <div class="player-tracklist" role="listbox" [attr.aria-label]="'MUSIC_PLAYER.TRACKLIST' | translate">
-        @for (track of tracksInCategory(); track track.id; let i = $index) {
+      <div class="player-dropdown" role="radiogroup" [attr.aria-label]="'MUSIC_PLAYER.CATEGORIES.LABEL' | translate">
+        @for (cat of categories; track cat.id) {
           <button
-            class="tracklist-item"
-            [class.tracklist-item--active]="track.id === currentTrack()?.id"
-            (click)="selectTrack(track)"
-            role="option"
-            [attr.aria-selected]="track.id === currentTrack()?.id"
+            class="category-chip"
+            [class.category-chip--active]="selectedCategory() === cat.id"
+            (click)="selectCategory(cat.id)"
+            role="radio"
+            [attr.aria-checked]="selectedCategory() === cat.id"
+            [attr.aria-label]="cat.labelKey | translate"
             type="button"
           >
-            <span class="tracklist-item__icon" aria-hidden="true">{{ track.icon }}</span>
-            <span class="tracklist-item__name">{{ track.nameKey | translate }}</span>
-            @if (track.id === currentTrack()?.id && isPlaying()) {
-              <span class="tracklist-item__playing" aria-hidden="true">♪</span>
-            }
+            <span class="category-chip__icon" aria-hidden="true">{{ cat.icon }}</span>
+            <span class="category-chip__label">{{ cat.labelKey | translate }}</span>
           </button>
         }
       </div>

@@ -1,17 +1,16 @@
 import { Component, inject, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { PomodoroService, TimerMode } from '../../services/pomodoro.service';
+import { IconComponent, IconName } from '../icon/icon.component';
 
 @Component({
   selector: 'app-timer',
-  imports: [CommonModule, TranslateModule],
+  imports: [TranslateModule, IconComponent],
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.scss'
 })
 export class TimerComponent {
   private pomodoroService = inject(PomodoroService);
-  private translate = inject(TranslateService);
 
   // Expor signals do serviço
   minutes = this.pomodoroService.minutes;
@@ -34,15 +33,15 @@ export class TimerComponent {
     }
   });
 
-  modeEmoji = computed(() => {
+  modeIcon = computed<IconName | null>(() => {
     const mode = this.mode();
     switch (mode) {
       case 'work':
-        return '🍅';
+        return null; // usa emoji 🍅
       case 'shortBreak':
-        return '☕';
+        return 'coffee';
       case 'longBreak':
-        return '🌴';
+        return 'palmtree';
     }
   });
 

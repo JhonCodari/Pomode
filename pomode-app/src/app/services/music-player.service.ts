@@ -1,7 +1,6 @@
 import { Injectable, signal, computed, OnDestroy } from '@angular/core';
 import {
   MusicCategory,
-  WebAudioNoiseType,
   PlayerState,
   PersistedPlayerState,
   Track,
@@ -16,17 +15,10 @@ import { TimerMode, TimerState } from '../models';
 export class MusicPlayerService implements OnDestroy {
   private readonly STORAGE_KEY = 'pomodoro-music-player';
 
-  // ── Audio nodes ──────────────────────────────────────────────────────────
+  // ── Audio element ────────────────────────────────────────────────────────
   private audioElement?: HTMLAudioElement;
-  private audioContext?: AudioContext;
-  private masterGain?: GainNode;
-  /** Nós Web Audio ativos (source + filtros) — guardados para parar */
-  private webAudioSource?: AudioBufferSourceNode | OscillatorNode;
-  private webAudioSource2?: OscillatorNode; // segundo oscilador para binaural
-  private webAudioPanner?: StereoPannerNode;
 
-  /** true quando o usuário pausou manualmente durante uma sessão de trabalho,
-   *  para não retomar automaticamente sem querer */
+  /** true quando o usuário pausou manualmente (não retoma automaticamente) */
   private manuallyPaused = false;
 
   // ── State signal ─────────────────────────────────────────────────────────
@@ -55,7 +47,7 @@ export class MusicPlayerService implements OnDestroy {
   /** Altera a categoria e troca para a primeira faixa dela */
   setCategory(category: MusicCategory): void {
     const wasPlaying = this.isPlaying();
-    if (wasPlaying) this.stopCurrentAudio();
+    if (wasPlaying) this.audioElement?.pause();
 
     const firstTrack = MUSIC_TRACKS.find(t => t.category === category);
     this._state.update(s => ({
@@ -77,7 +69,7 @@ export class MusicPlayerService implements OnDestroy {
     if (!track) return;
 
     const wasPlaying = this.isPlaying();
-    if (wasPlaying) this.stopCurrentAudio();
+    if (wasPlaying) this.audioElement?.pause();
 
     this._state.update(s => ({
       ...s,
@@ -90,17 +82,22 @@ export class MusicPlayerService implements OnDestroy {
     if (wasPlaying) this.play();
   }
 
+  /** Avança para a próxima faixa da categoria atual (circulando) */
+  nextTrack(): void {
+    const tracks = this.tracksInCategory();
+    if (tracks.length <= 1) return;
+    const currentId = this.currentTrackId();
+    const currentIndex = tracks.findIndex(t => t.id === currentId);
+    const nextIndex = (currentIndex + 1) % tracks.length;
+    this.setTrack(tracks[nextIndex].id);
+  }
+
   /** Inicia a reprodução da faixa atual */
   play(): void {
     const track = this.currentTrack();
     if (!track) return;
 
-    if (track.source.type === 'stream') {
-      this.playStream(track.source.url!);
-    } else if (track.source.type === 'webaudio') {
-      this.playWebAudio(track.source.noiseType!);
-    }
-
+    this.playStream(track.source.url);
     this._state.update(s => ({ ...s, isPlaying: true }));
     this.manuallyPaused = false;
     this.saveToStorage();
@@ -108,7 +105,7 @@ export class MusicPlayerService implements OnDestroy {
 
   /** Pausa a reprodução */
   pause(): void {
-    this.pauseCurrentAudio();
+    this.audioElement?.pause();
     this._state.update(s => ({ ...s, isPlaying: false }));
     this.saveToStorage();
   }
@@ -168,208 +165,50 @@ export class MusicPlayerService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.stopCurrentAudio();
-    this.audioContext?.close();
+    this.audioElement?.pause();
   }
 
-  // ── Private: stream audio ─────────────────────────────────────────────────
+  // ── Private ───────────────────────────────────────────────────────────────
 
   private playStream(url: string): void {
-    this.stopCurrentAudio();
-
     if (!this.audioElement) {
       this.audioElement = new Audio();
-      this.audioElement.loop = false;
       this.audioElement.crossOrigin = 'anonymous';
     }
 
-    this.audioElement.src = url;
-    this.applyVolumeToElement();
-    this.audioElement.play().catch(() => {
-      // autoplay policy: apenas registra silenciosamente
-    });
-  }
-
-  private pauseCurrentAudio(): void {
-    this.audioElement?.pause();
-    // Web Audio API: baixar gain para silêncio suave
-    if (this.masterGain && this.audioContext) {
-      this.masterGain.gain.setTargetAtTime(0, this.audioContext.currentTime, 0.1);
-      // Para o source após o fade
-      setTimeout(() => this.stopWebAudioNodes(), 200);
-    }
-  }
-
-  private stopCurrentAudio(): void {
-    this.audioElement?.pause();
-    if (this.audioElement) {
-      this.audioElement.src = '';
-    }
-    this.stopWebAudioNodes();
-  }
-
-  private stopWebAudioNodes(): void {
-    try { this.webAudioSource?.stop(); } catch { /* já parado */ }
-    try { this.webAudioSource2?.stop(); } catch { /* já parado */ }
-    this.webAudioSource  = undefined;
-    this.webAudioSource2 = undefined;
-    this.webAudioPanner  = undefined;
-  }
-
-  // ── Private: Web Audio API ────────────────────────────────────────────────
-
-  private ensureAudioContext(): boolean {
-    if (typeof window === 'undefined') return false;
-    if (!this.audioContext) {
-      this.audioContext = new AudioContext();
-      this.masterGain = this.audioContext.createGain();
-      this.masterGain.connect(this.audioContext.destination);
-    }
-    if (this.audioContext.state === 'suspended') {
-      this.audioContext.resume();
-    }
-    this.applyVolumeToGain();
-    return true;
-  }
-
-  private playWebAudio(noiseType: WebAudioNoiseType): void {
-    if (!this.ensureAudioContext()) return;
-    this.stopWebAudioNodes();
-
-    switch (noiseType) {
-      case 'white':        return this.playWhiteNoise();
-      case 'brown':        return this.playBrownNoise();
-      case 'rain':         return this.playRain();
-      case 'binaural-alpha': return this.playBinaural(10);  // 10 Hz → ondas alpha
-      case 'binaural-theta': return this.playBinaural(6);   // 6 Hz  → ondas theta
-    }
-  }
-
-  private playWhiteNoise(): void {
-    const ctx = this.audioContext!;
-    const bufferSize = ctx.sampleRate * 2; // 2 segundos de buffer
-    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = Math.random() * 2 - 1;
-    }
-    const source = ctx.createBufferSource();
-    source.buffer = buffer;
-    source.loop = true;
-    source.connect(this.masterGain!);
-    source.start();
-    this.webAudioSource = source;
-  }
-
-  private playBrownNoise(): void {
-    const ctx = this.audioContext!;
-    const bufferSize = ctx.sampleRate * 2;
-    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const data = buffer.getChannelData(0);
-    let lastOut = 0;
-    for (let i = 0; i < bufferSize; i++) {
-      const white = Math.random() * 2 - 1;
-      data[i] = (lastOut + 0.02 * white) / 1.02;
-      lastOut = data[i];
-      data[i] *= 3.5; // normaliza o volume
-    }
-    const source = ctx.createBufferSource();
-    source.buffer = buffer;
-    source.loop = true;
-    source.connect(this.masterGain!);
-    source.start();
-    this.webAudioSource = source;
-  }
-
-  private playRain(): void {
-    const ctx = this.audioContext!;
-    const bufferSize = ctx.sampleRate * 2;
-    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = Math.random() * 2 - 1;
+    if (this.audioElement.src !== url) {
+      this.audioElement.pause();
+      this.audioElement.src = url;
     }
 
-    const source = ctx.createBufferSource();
-    source.buffer = buffer;
-    source.loop = true;
-
-    // Filtro passa-banda para textura de chuva
-    const highPass = ctx.createBiquadFilter();
-    highPass.type = 'highpass';
-    highPass.frequency.value = 1200;
-
-    const lowPass = ctx.createBiquadFilter();
-    lowPass.type = 'lowpass';
-    lowPass.frequency.value = 8000;
-
-    source.connect(highPass);
-    highPass.connect(lowPass);
-    lowPass.connect(this.masterGain!);
-    source.start();
-    this.webAudioSource = source;
+    this.applyVolume();
+    this.audioElement.play().catch(() => { /* autoplay policy */ });
   }
-
-  private playBinaural(beatHz: number): void {
-    const ctx = this.audioContext!;
-    const baseFreq = 200; // frequência base (inaudível por si só de forma "óbvia")
-
-    // Oscilador esquerdo
-    const oscLeft = ctx.createOscillator();
-    oscLeft.type = 'sine';
-    oscLeft.frequency.value = baseFreq;
-
-    // Oscilador direito (baseFreq + beatHz)
-    const oscRight = ctx.createOscillator();
-    oscRight.type = 'sine';
-    oscRight.frequency.value = baseFreq + beatHz;
-
-    // Panner para separar os canais
-    const panLeft = ctx.createStereoPanner();
-    panLeft.pan.value = -1;
-    const panRight = ctx.createStereoPanner();
-    panRight.pan.value = 1;
-
-    oscLeft.connect(panLeft);
-    panLeft.connect(this.masterGain!);
-
-    oscRight.connect(panRight);
-    panRight.connect(this.masterGain!);
-
-    oscLeft.start();
-    oscRight.start();
-
-    this.webAudioSource  = oscLeft;
-    this.webAudioSource2 = oscRight;
-  }
-
-  // ── Private: volume ───────────────────────────────────────────────────────
 
   private applyVolume(): void {
-    this.applyVolumeToElement();
-    this.applyVolumeToGain();
-  }
-
-  private applyVolumeToElement(): void {
     if (!this.audioElement) return;
     const isMuted = this._state().isMuted;
-    const volumeFraction = isMuted ? 0 : this._state().volume / 100;
-    this.audioElement.volume = volumeFraction;
+    this.audioElement.volume = isMuted ? 0 : this._state().volume / 100;
     this.audioElement.muted = isMuted;
-  }
-
-  private applyVolumeToGain(): void {
-    if (!this.masterGain || !this.audioContext) return;
-    const isMuted = this._state().isMuted;
-    const gain = isMuted ? 0 : this._state().volume / 100;
-    this.masterGain.gain.setTargetAtTime(gain, this.audioContext.currentTime, 0.05);
   }
 
   // ── Private: persistence ──────────────────────────────────────────────────
 
   private loadInitialState(): PlayerState {
     const saved = this.loadFromStorage();
-    return { ...DEFAULT_PLAYER_STATE, ...saved };
+    const validTrack = saved.currentTrackId
+      ? MUSIC_TRACKS.find(t => t.id === saved.currentTrackId)
+      : undefined;
+    const validCategory = saved.selectedCategory &&
+      MUSIC_TRACKS.some(t => t.category === saved.selectedCategory)
+        ? saved.selectedCategory
+        : DEFAULT_PLAYER_STATE.selectedCategory;
+    return {
+      ...DEFAULT_PLAYER_STATE,
+      ...saved,
+      currentTrackId: validTrack?.id ?? DEFAULT_PLAYER_STATE.currentTrackId,
+      selectedCategory: validCategory,
+    };
   }
 
   private loadFromStorage(): Partial<PersistedPlayerState> {

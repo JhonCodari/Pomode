@@ -1,6 +1,10 @@
 <div class="timer-container">
   <div class="mode-indicator">
-    <span class="mode-emoji">{{ modeEmoji() }}</span>
+    @if (modeIcon()) {
+      <app-icon [name]="modeIcon()!" [size]="'md'" [ariaHidden]="true" class="mode-icon"></app-icon>
+    } @else {
+      <span class="mode-emoji">🍅</span>
+    }
     <span class="mode-text">{{ modeTranslateKey() | translate }}</span>
   </div>
 

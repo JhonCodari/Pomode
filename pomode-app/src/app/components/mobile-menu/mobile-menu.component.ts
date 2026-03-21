@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ButtonComponent } from '../button/button.component';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-mobile-menu',
@@ -14,7 +15,8 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
     TranslateModule,
     ButtonComponent,
     LanguageSelectorComponent,
-    ThemeToggleComponent
+    ThemeToggleComponent,
+    IconComponent
   ],
   template: `
     <!-- Backdrop -->
@@ -45,7 +47,7 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
           variant="ghost"
           class="mobile-menu__close"
         >
-          <span aria-hidden="true">✕</span>
+          <app-icon name="close" [size]="'sm'" [ariaHidden]="true"></app-icon>
         </app-button>
       </header>
 
@@ -59,7 +61,7 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
             (click)="closeMenu()"
             [routerLinkActiveOptions]="{exact: true}"
           >
-            <span class="mobile-menu__icon" aria-hidden="true">🏠</span>
+            <span class="mobile-menu__icon" aria-hidden="true"><app-icon name="home" [size]="'sm'"></app-icon></span>
             {{ 'NAV.HOME' | translate }}
           </a>
         </li>
@@ -70,7 +72,7 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
             class="mobile-menu__link"
             (click)="closeMenu()"
           >
-            <span class="mobile-menu__icon" aria-hidden="true">❓</span>
+            <span class="mobile-menu__icon" aria-hidden="true"><app-icon name="help-circle" [size]="'sm'"></app-icon></span>
             {{ 'NAV.WHAT_IS_POMODORO' | translate }}
           </a>
         </li>
@@ -88,7 +90,7 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
             variant="outline"
             class="mobile-menu__setting-btn"
           >
-            <span aria-hidden="true">⚙️</span>
+            <app-icon name="settings" [size]="'sm'" [ariaHidden]="true"></app-icon>
             {{ 'NAV.APP_SETTINGS' | translate }}
           </app-button>
 

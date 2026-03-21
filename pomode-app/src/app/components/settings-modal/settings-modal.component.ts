@@ -8,11 +8,12 @@ import { AudioService } from '../../services/audio.service';
 import { ButtonComponent } from '../button/button.component';
 import { CardComponent } from '../card/card.component';
 import { FormFieldComponent } from '../form-field/form-field.component';
+import { IconComponent } from '../icon/icon.component';
 import { PomodoroSettings, SETTINGS_LIMITS, DEFAULT_SETTINGS } from '../../models';
 
 @Component({
   selector: 'app-settings-modal',
-  imports: [CommonModule, FormsModule, TranslateModule, ButtonComponent, CardComponent, FormFieldComponent],
+  imports: [CommonModule, FormsModule, TranslateModule, ButtonComponent, CardComponent, FormFieldComponent, IconComponent],
   templateUrl: './settings-modal.component.html',
   styleUrl: './settings-modal.component.scss'
 })

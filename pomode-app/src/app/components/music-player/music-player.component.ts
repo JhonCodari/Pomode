@@ -1,12 +1,12 @@
 import { Component, inject, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MusicPlayerService } from '../../services/music-player.service';
 import { MUSIC_CATEGORIES, MUSIC_TRACKS, Track } from '../../models/music-player.model';
+import { IconComponent, IconName } from '../icon/icon.component';
 
 @Component({
   selector: 'app-music-player',
-  imports: [CommonModule, TranslateModule],
+  imports: [TranslateModule, IconComponent],
   templateUrl: './music-player.component.html',
   styleUrl: './music-player.component.scss',
 })
@@ -30,11 +30,10 @@ export class MusicPlayerComponent {
   readonly categories = MUSIC_CATEGORIES;
 
   // ── Computed ──────────────────────────────────────────────────────────────
-  readonly volumeIcon = computed(() => {
-    if (this.isMuted() || this.volume() === 0) return '🔇';
-    if (this.volume() < 40) return '🔈';
-    if (this.volume() < 70) return '🔉';
-    return '🔊';
+  readonly volumeIconName = computed<IconName>(() => {
+    if (this.isMuted() || this.volume() === 0) return 'volume-x';
+    if (this.volume() < 50) return 'volume-1';
+    return 'volume-2';
   });
 
   // ── Handlers ──────────────────────────────────────────────────────────────
@@ -47,9 +46,8 @@ export class MusicPlayerComponent {
     this.showTracks.set(false);
   }
 
-  selectTrack(track: Track): void {
-    this.musicService.setTrack(track.id);
-    this.showTracks.set(false);
+  nextTrack(): void {
+    this.musicService.nextTrack();
   }
 
   onVolumeChange(event: Event): void {
@@ -71,9 +69,5 @@ export class MusicPlayerComponent {
 
   toggleAutoPlay(): void {
     this.musicService.setAutoPlayOnFocus(!this.autoPlayOnFocus());
-  }
-
-  trackById(_: number, track: Track): string {
-    return track.id;
   }
 }

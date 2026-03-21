@@ -7,7 +7,7 @@
     class="control-btn"
     [attr.aria-label]="(state() === 'paused' ? 'TIMER.CONTROLS.CONTINUE' : 'TIMER.CONTROLS.START') | translate"
   >
-    <span aria-hidden="true">▶️</span>
+    <app-icon name="play" [size]="'xs'" [ariaHidden]="true"></app-icon>
     <span class="btn-text">{{ (state() === 'paused' ? 'TIMER.CONTROLS.CONTINUE' : 'TIMER.CONTROLS.START') | translate }}</span>
   </app-button>
 
@@ -18,7 +18,7 @@
     class="control-btn"
     [attr.aria-label]="'TIMER.CONTROLS.PAUSE' | translate"
   >
-    <span aria-hidden="true">⏸️</span>
+    <app-icon name="pause" [size]="'xs'" [ariaHidden]="true"></app-icon>
     <span class="btn-text">{{ 'TIMER.CONTROLS.PAUSE' | translate }}</span>
   </app-button>
 
@@ -30,7 +30,7 @@
     class="control-btn"
     [attr.aria-label]="'TIMER.CONTROLS.RESET' | translate"
   >
-    <span aria-hidden="true">🔄</span>
+    <app-icon name="rotate-ccw" [size]="'xs'" [ariaHidden]="true"></app-icon>
     <span class="btn-text">{{ 'TIMER.CONTROLS.RESET' | translate }}</span>
   </app-button>
 
@@ -41,7 +41,7 @@
     class="control-btn"
     [attr.aria-label]="'TIMER.CONTROLS.SKIP' | translate"
   >
-    <span aria-hidden="true">⏭️</span>
+    <app-icon name="skip-forward" [size]="'xs'" [ariaHidden]="true"></app-icon>
     <span class="btn-text">{{ 'TIMER.CONTROLS.SKIP' | translate }}</span>
   </app-button>
 </div>

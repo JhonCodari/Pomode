@@ -205,25 +205,18 @@
     "VOLUME": "Volume",
     "AUTO_PLAY": "Auto-play ao iniciar foco",
     "SELECT_TRACK": "Selecionar faixa",
+    "NEXT_TRACK": "Próxima faixa",
     "NO_TRACK": "Nenhuma faixa",
     "TRACKLIST": "Lista de faixas",
     "CATEGORIES": {
       "LABEL": "Categorias de som",
       "LOFI": "Lofi",
-      "WHITENOISE": "Ruído Branco",
-      "NATURE": "Natureza",
-      "INSTRUMENTAL": "Instrumental",
-      "BINAURAL": "Binaural"
+      "INSTRUMENTAL": "Instrumental"
     },
     "TRACKS": {
       "GROOVE_SALAD": "Groove Salad",
       "DRONE_ZONE": "Drone Zone",
-      "WHITE_NOISE": "Ruído Branco",
-      "BROWN_NOISE": "Ruído Marrom",
-      "RAIN": "Chuva",
-      "DIGITALIS": "Digitalis",
-      "BINAURAL_ALPHA": "Ondas Alpha (10 Hz)",
-      "BINAURAL_THETA": "Ondas Theta (6 Hz)"
+      "DIGITALIS": "Digitalis"
     }
   }
 }
