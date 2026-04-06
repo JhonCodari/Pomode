@@ -13,9 +13,14 @@ interface HitsResponse {
 // URL hardcoded — nunca aceitar de fontes externas/dinâmicas
 const HITS_API_URL = 'https://hits.sh/www.pomode.com.br.json';
 
-const TIMEOUT_MS    = 5_000;   // Máximo de espera pela resposta
-const MAX_RETRIES   = 1;        // Apenas 1 retry para não gerar flood na API
-const MAX_COUNT     = 1e8;      // Clamp: 100 milhões de visitas máximo
+const TIMEOUT_MS  = 5_000;  // Máximo de espera pela resposta
+const MAX_RETRIES = 1;       // Apenas 1 retry para não gerar flood na API
+const MAX_COUNT   = 1e8;     // Clamp: 100 milhões de visitas máximo
+
+// Chave de sessionStorage: escopo = aba/sessão do navegador
+// Novo tab ou após fechar o navegador conta como nova visita
+const SESSION_KEY  = 'pomode-visited';
+const CACHE_KEY    = 'pomode-visit-count';
 
 /**
  * Valida e sanitiza a resposta da API externa.
@@ -41,6 +46,15 @@ function validateResponse(response: unknown): number {
   return Math.floor(Math.min(value, MAX_COUNT));
 }
 
+// ─── Helpers de sessionStorage (com try/catch — modo privado pode lançar) ────
+function sessionGet(key: string): string | null {
+  try { return sessionStorage.getItem(key); } catch { return null; }
+}
+
+function sessionSet(key: string, value: string): void {
+  try { sessionStorage.setItem(key, value); } catch { /* modo privado */ }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -57,6 +71,24 @@ export class VisitorService {
   }
 
   private load(): void {
+    // ── Verificação de sessão única ──────────────────────────────────────
+    // Se a sessão já foi contada, usa o valor em cache sem chamar a API.
+    // Isso evita incrementar o contador em cada refresh da mesma aba.
+    const alreadyCounted = sessionGet(SESSION_KEY) === '1';
+
+    if (alreadyCounted) {
+      const cached = sessionGet(CACHE_KEY);
+      const cachedCount = cached ? parseInt(cached, 10) : null;
+
+      if (cachedCount !== null && Number.isFinite(cachedCount) && cachedCount >= 0) {
+        this.visitCount.set(cachedCount);
+        this.isLoading.set(false);
+        return;
+      }
+      // Cache inválido → chama a API para atualizar (sem incrementar novamente
+      // pois hits.sh usa o IP/fingerprint para deduplicar no mesmo período)
+    }
+
     this.http
       .get<HitsResponse>(HITS_API_URL, {
         // Nunca enviar cookies/credenciais para domínio externo
@@ -79,6 +111,9 @@ export class VisitorService {
       .subscribe((count) => {
         this.visitCount.set(count);
         this.isLoading.set(false);
+        // Marca sessão como contada e persiste o valor para refreshes
+        sessionSet(SESSION_KEY, '1');
+        sessionSet(CACHE_KEY, String(count));
       });
   }
 }

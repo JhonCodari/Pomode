@@ -172,8 +172,9 @@ export class MusicPlayerService implements OnDestroy {
 
   private playStream(url: string): void {
     if (!this.audioElement) {
+      // crossOrigin omitido: não usamos Web Audio API, e CORS anônimo
+      // pode bloquear streams que não retornam Access-Control-Allow-Origin
       this.audioElement = new Audio();
-      this.audioElement.crossOrigin = 'anonymous';
     }
 
     if (this.audioElement.src !== url) {
