@@ -174,9 +174,9 @@
   --shadow-xl: var(--shadow-xl);
 }
 
-// Tema escuro (ativado via classe ou preferência do sistema)
+// Tema escuro (ativado via atributo data-theme ou classe no body)
 [data-theme='dark'],
-.dark-theme {
+.dark-mode {
   @include apply-theme(tokens.$dark-theme);
 
   // Gradientes (tema escuro)
