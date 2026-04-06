@@ -1,4 +1,4 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, signal, computed, effect } from '@angular/core';
 
 export type Theme = 'light' | 'dark' | 'auto';
 
@@ -8,29 +8,34 @@ export type Theme = 'light' | 'dark' | 'auto';
 export class ThemeService {
   private readonly THEME_STORAGE_KEY = 'pomode-theme';
 
-  // Signal para o tema atual
-  public theme = signal<Theme>(this.getStoredTheme());
+  // Signal do tema escolhido pelo utilizador ('light' | 'dark' | 'auto')
+  public readonly theme = signal<Theme>(this.getStoredTheme());
 
-  // Signal computado para o tema efetivo (resolve 'auto')
-  public effectiveTheme = signal<'light' | 'dark'>('light');
+  // Signal privado da preferência do sistema (atualizado pelo MediaQuery listener)
+  private readonly _systemTheme = signal<'light' | 'dark'>(this.getSystemTheme());
+
+  // Computed signal: resolve 'auto' consultando _systemTheme
+  // Não escreve em nenhum signal — seguro de ler em efeitos e templates
+  public readonly effectiveTheme = computed<'light' | 'dark'>(() => {
+    const t = this.theme();
+    return t === 'auto' ? this._systemTheme() : t;
+  });
+
+  // Signal booleano derivado — para uso direto em templates sem método wrapper
+  public readonly isDarkSignal = computed(() => this.effectiveTheme() === 'dark');
 
   constructor() {
-    // Inicializa o tema
-    this.applyTheme(this.theme());
-
-    // Effect para aplicar o tema quando mudar
+    // Effect responsável apenas por manipulação de DOM
+    // Não escreve em nenhum signal: sem violação do modelo reativo do Angular
     effect(() => {
-      const currentTheme = this.theme();
-      this.applyTheme(currentTheme);
+      this.applyThemeToDom(this.effectiveTheme());
     });
 
-    // Listener para mudanças na preferência do sistema
-    if (window.matchMedia) {
+    // Listener para mudanças na preferência do sistema operacional
+    if (typeof window !== 'undefined' && window.matchMedia) {
       const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
       darkModeQuery.addEventListener('change', (e) => {
-        if (this.theme() === 'auto') {
-          this.updateEffectiveTheme();
-        }
+        this._systemTheme.set(e.matches ? 'dark' : 'light');
       });
     }
   }
@@ -53,48 +58,30 @@ export class ThemeService {
 
   /**
    * Verifica se o tema atual é escuro
+   * @deprecated Prefira consumir isDarkSignal diretamente no template
    */
   public isDark(): boolean {
     return this.effectiveTheme() === 'dark';
   }
 
   /**
-   * Aplica o tema ao documento
+   * Aplica o tema efetivo ao DOM (chamado apenas pelo effect — sem signal writes)
    */
-  private applyTheme(theme: Theme): void {
+  private applyThemeToDom(effective: 'light' | 'dark'): void {
+    if (typeof document === 'undefined') return;
     const root = document.documentElement;
     const body = document.body;
 
-    // Remove classes antigas
     body.classList.remove('dark-mode', 'light-mode');
     root.removeAttribute('data-theme');
 
-    let effectiveTheme: 'light' | 'dark';
-
-    if (theme === 'auto') {
-      // Usa preferência do sistema
-      effectiveTheme = this.getSystemTheme();
-    } else {
-      effectiveTheme = theme;
-    }
-
-    // Aplica o tema
-    if (effectiveTheme === 'dark') {
+    if (effective === 'dark') {
       body.classList.add('dark-mode');
       root.setAttribute('data-theme', 'dark');
     } else {
       body.classList.add('light-mode');
       root.setAttribute('data-theme', 'light');
     }
-
-    this.effectiveTheme.set(effectiveTheme);
-  }
-
-  /**
-   * Atualiza o tema efetivo (útil quando sistema muda)
-   */
-  private updateEffectiveTheme(): void {
-    this.applyTheme(this.theme());
   }
 
   /**

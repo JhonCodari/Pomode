@@ -1,11 +1,10 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, computed } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-theme-toggle',
-  imports: [CommonModule, IconComponent],
+  imports: [IconComponent],
   template: `
     <button
       class="theme-toggle"
@@ -23,13 +22,12 @@ import { IconComponent } from '../icon/icon.component';
   styleUrl: './theme-toggle.component.scss'
 })
 export class ThemeToggleComponent {
-  private themeService = inject(ThemeService);
+  private readonly themeService = inject(ThemeService);
+
+  // Computed signal — Angular rastreia a dependência no template automaticamente
+  readonly isDark = computed(() => this.themeService.isDarkSignal());
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
-  }
-
-  isDark(): boolean {
-    return this.themeService.isDark();
   }
 }
