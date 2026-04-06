@@ -47,6 +47,20 @@
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍅</text></svg>">
 
+  <!-- Content Security Policy -->
+  <!-- frame-ancestors não funciona via meta CSP (limitação da spec); requer header HTTP -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    connect-src 'self' https://hits.sh;
+    img-src 'self' data: https://hits.sh;
+    script-src 'self';
+    style-src 'self' 'unsafe-inline';
+    font-src 'self' data:;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self'
+  ">
+
   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

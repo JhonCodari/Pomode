@@ -4,7 +4,8 @@
     "SUBTITLE": "Temporizador Pomodoro",
     "SKIP_TO_CONTENT": "Saltar al contenido principal",
     "COPYRIGHT": "© 2025 Pomode | Desarrollado por Jhon Codari",
-    "VERSION": "v0.1.0"
+    "VERSION": "v0.1.0",
+    "VISITORS": "visitas"
   },
   "NAV": {
     "WHAT_IS_POMODORO": "¿Qué es Pomodoro?",

@@ -1,0 +1,87 @@
+@use '../../../styles/mixins' as *;
+@use '../../../styles/breakpoints' as *;
+
+// ============================================================================
+// FOOTER
+// ============================================================================
+
+:host {
+  display: block;
+}
+
+.app-footer {
+  background-color: var(--bg-secondary);
+  border-top: var(--border-thin) solid var(--border-color);
+
+  // Mobile base
+  padding: var(--spacing-md) 0;
+
+  @include tablet-up {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .footer-content {
+    @include flex-center;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    text-align: center;
+
+    @include tablet-up {
+      @include flex-between;
+      flex-direction: row;
+      text-align: left;
+    }
+
+    p {
+      margin: 0;
+      font-size: var(--font-size-xs);
+      color: var(--text-secondary);
+
+      @include tablet-up {
+        font-size: var(--font-size-sm);
+      }
+    }
+
+    .copyright {
+      font-weight: var(--font-weight-medium);
+    }
+
+    .version {
+      font-family: var(--font-family-mono);
+      color: var(--text-tertiary);
+    }
+  }
+}
+
+// ============================================================================
+// VISITOR COUNTER — design discreto usando tokens do projeto
+// ============================================================================
+
+.visitor-counter {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  line-height: 1;
+
+  app-icon {
+    opacity: 0.7;
+  }
+
+  .visitor-placeholder {
+    opacity: 0.5;
+    letter-spacing: 0.05em;
+  }
+
+  span {
+    white-space: nowrap;
+  }
+}
+
+// Fallback badge SVG — discreta, sem borda
+.visitor-badge {
+  display: block;
+  opacity: 0.75;
+  border-radius: var(--radius-sm);
+}

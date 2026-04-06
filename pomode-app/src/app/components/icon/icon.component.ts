@@ -6,7 +6,8 @@ export type IconName =
   | 'volume-x' | 'volume-1' | 'volume-2'
   | 'chevron-up' | 'chevron-down'
   | 'coffee' | 'palmtree' | 'music' | 'piano'
-  | 'minimize' | 'repeat' | 'help-circle' | 'bell' | 'sliders';
+  | 'minimize' | 'repeat' | 'help-circle' | 'bell' | 'sliders'
+  | 'eye';
 
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -157,6 +158,10 @@ export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
           <line x1="2" x2="6" y1="14" y2="14"/>
           <line x1="10" x2="14" y1="8" y2="8"/>
           <line x1="18" x2="22" y1="16" y2="16"/>
+        }
+        @case ('eye') {
+          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+          <circle cx="12" cy="12" r="3"/>
         }
       }
     </svg>

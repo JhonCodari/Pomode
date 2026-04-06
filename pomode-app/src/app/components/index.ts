@@ -1,4 +1,5 @@
 // Barrel file para Components
+export * from './footer/footer.component';
 export * from './button/button.component';
 export * from './card/card.component';
 export * from './container/container.component';

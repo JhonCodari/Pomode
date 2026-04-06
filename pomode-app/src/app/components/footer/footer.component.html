@@ -1,0 +1,33 @@
+<footer class="app-footer">
+  <app-container [size]="'xl'">
+    <div class="footer-content">
+      <p class="copyright">{{ 'APP.COPYRIGHT' | translate }}</p>
+
+      <!-- Contador de visitas: JSON endpoint com fallback para badge SVG -->
+      @if (!hasError()) {
+        <div class="visitor-counter" aria-live="polite" aria-atomic="true">
+          <app-icon name="eye" [size]="'xs'" [ariaHidden]="true"></app-icon>
+          @if (isLoading()) {
+            <span class="visitor-placeholder" aria-label="Carregando visitas">…</span>
+          } @else {
+            <span>{{ visitCount() | number }}</span>
+            <span>{{ 'APP.VISITORS' | translate }}</span>
+          }
+        </div>
+      } @else {
+        <!-- Fallback: badge SVG externa (auto-incrementa a cada load da página) -->
+        <img
+          [src]="badgeSrc"
+          alt="contador de visitas"
+          class="visitor-badge"
+          loading="lazy"
+          width="80"
+          height="20"
+          referrerpolicy="no-referrer"
+        />
+      }
+
+      <p class="version">{{ 'APP.VERSION' | translate }}</p>
+    </div>
+  </app-container>
+</footer>

@@ -10,7 +10,8 @@ import {
   LanguageSelectorComponent,
   LogoComponent,
   IconComponent,
-  MusicPlayerComponent
+  MusicPlayerComponent,
+  FooterComponent
 } from './components';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -32,6 +33,7 @@ import { PomodoroService, LanguageService, ResponsiveService, TouchDetectionServ
     LogoComponent,
     IconComponent,
     MusicPlayerComponent,
+    FooterComponent,
     CommonModule,
     TranslateModule
   ],
