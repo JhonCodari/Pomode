@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ThemeService, Theme } from './theme.service';
+import { ThemeService } from './theme.service';
 
 describe('ThemeService', () => {
   let service: ThemeService;
@@ -21,6 +21,7 @@ describe('ThemeService', () => {
   afterEach(() => {
     localStorage.clear();
     document.documentElement.removeAttribute('data-theme');
+    document.body.classList.remove('dark-mode', 'light-mode');
   });
 
   describe('Inicialização', () => {
@@ -92,6 +93,19 @@ describe('ThemeService', () => {
 
       expect(service.theme()).toBe('light');
     });
+
+    it('deve persistir e atualizar o DOM ao alternar o tema', () => {
+      service.setTheme('light');
+      TestBed.flushEffects();
+
+      service.toggleTheme();
+      TestBed.flushEffects();
+
+      expect(localStorage.getItem('pomode-theme')).toBe('dark');
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+      expect(document.body.classList.contains('dark-mode')).toBe(true);
+      expect(document.body.classList.contains('light-mode')).toBe(false);
+    });
   });
 
   describe('isDark', () => {
@@ -132,9 +146,9 @@ describe('ThemeService', () => {
       service.setTheme('dark');
       TestBed.flushEffects();
 
-      // Verifica se o atributo foi aplicado
-      const dataTheme = document.documentElement.getAttribute('data-theme');
-      expect(dataTheme).toBe('dark');
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+      expect(document.body.classList.contains('dark-mode')).toBe(true);
+      expect(document.body.classList.contains('light-mode')).toBe(false);
     });
 
     it('deve remover classe do body quando tema é light', () => {
@@ -143,8 +157,9 @@ describe('ThemeService', () => {
       service.setTheme('light');
       TestBed.flushEffects();
 
-      const dataTheme = document.documentElement.getAttribute('data-theme');
-      expect(dataTheme).toBe('light');
+      expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+      expect(document.body.classList.contains('light-mode')).toBe(true);
+      expect(document.body.classList.contains('dark-mode')).toBe(false);
     });
   });
 });
