@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   appName: 'Pomode',
-  version: '0.1.0',
+  version: '1.0.0',
   defaultWorkTime: 25, // minutos
   defaultShortBreak: 5, // minutos
   defaultLongBreak: 15, // minutos
