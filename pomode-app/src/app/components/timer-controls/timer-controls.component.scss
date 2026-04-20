@@ -1,6 +1,10 @@
 @use '../../../styles/mixins' as *;
 @use '../../../styles/breakpoints' as *;
 
+:host {
+  display: block;
+}
+
 // ============================================================================
 // TIMER CONTROLS - MOBILE FIRST APPROACH
 // ============================================================================
@@ -26,7 +30,7 @@
   }
 
   @include desktop-up {
-    gap: var(--spacing-lg);
+    gap: var(--spacing-sm);
     padding: 0;
   }
 
@@ -38,7 +42,7 @@
     .control-btn ::ng-deep .btn {
       padding: var(--spacing-xs) var(--spacing-sm);
       font-size: var(--font-size-xs);
-      min-height: 36px; // Reduzir altura em landscape
+      min-height: 2.25rem; // Reduzir altura em landscape
     }
   }
 
@@ -47,7 +51,7 @@
     gap: var(--spacing-xs);
 
     .control-btn ::ng-deep .btn {
-      min-height: 40px; // Altura menor para telas baixas
+      min-height: 2.5rem; // Altura menor para telas baixas
       font-size: var(--font-size-xs);
     }
   }
@@ -55,7 +59,7 @@
   .control-btn {
     flex: 1 1 0;
     min-width: 0;
-    max-width: 200px; // Limita largura máxima em telas grandes
+    max-width: 12.5rem; // Limita largura máxima em telas grandes
 
     ::ng-deep .btn {
       width: 100%;
@@ -82,10 +86,10 @@
       }
 
       @include desktop-up {
-        padding: var(--spacing-md) var(--spacing-lg);
-        font-size: var(--font-size-base);
-        min-height: var(--button-min-height-desktop);
-        border-radius: var(--radius-lg);
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+        min-height: var(--button-min-height-tablet);
+        border-radius: var(--radius-md);
       }
 
       @include mobile-only {

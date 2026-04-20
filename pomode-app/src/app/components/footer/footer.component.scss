@@ -20,6 +20,10 @@
     padding: var(--spacing-lg) 0;
   }
 
+  @include desktop-up {
+    padding: var(--spacing-sm) 0;
+  }
+
   .footer-content {
     @include flex-center;
     flex-direction: column;
@@ -30,6 +34,10 @@
       @include flex-between;
       flex-direction: row;
       text-align: left;
+    }
+
+    @include desktop-up {
+      gap: var(--spacing-sm);
     }
 
     p {

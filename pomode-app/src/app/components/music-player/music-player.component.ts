@@ -1,4 +1,4 @@
-import { Component, inject, computed, signal } from '@angular/core';
+import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { MusicPlayerService } from '../../services/music-player.service';
 import { MUSIC_CATEGORIES, MUSIC_TRACKS, Track } from '../../models/music-player.model';
@@ -9,6 +9,7 @@ import { IconComponent, IconName } from '../icon/icon.component';
   imports: [TranslateModule, IconComponent],
   templateUrl: './music-player.component.html',
   styleUrl: './music-player.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MusicPlayerComponent {
   private musicService = inject(MusicPlayerService);

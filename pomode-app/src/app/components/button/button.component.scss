@@ -1,6 +1,10 @@
 @use '../../../styles/mixins' as *;
 @use '../../../styles/breakpoints' as *;
 
+:host {
+  display: block;
+}
+
 .btn {
   // Reset
   @include reset-button;

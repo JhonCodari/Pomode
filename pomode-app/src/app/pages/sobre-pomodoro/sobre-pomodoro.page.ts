@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { ListComponent } from '../../components/list/list.component';
   standalone: true,
   imports: [CommonModule, ContainerComponent, RouterLink, ButtonComponent, TranslateModule, SectionComponent, ListComponent],
   templateUrl: './sobre-pomodoro.page.html',
-  styleUrl: './sobre-pomodoro.page.scss'
+  styleUrl: './sobre-pomodoro.page.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SobrePomodoroPage {}

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, OnDestroy, computed, effect } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, computed, effect, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -22,7 +22,8 @@ import { TimerMode } from '../../models';
     StatsSidebarComponent
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private pomodoroService = inject(PomodoroService);

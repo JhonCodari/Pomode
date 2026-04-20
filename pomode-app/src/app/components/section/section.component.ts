@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -27,7 +27,8 @@ import { TranslateModule } from '@ngx-translate/core';
       </div>
     </section>
   `,
-  styleUrl: './section.component.scss'
+  styleUrl: './section.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SectionComponent {
   @Input() title?: string;

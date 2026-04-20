@@ -1,6 +1,10 @@
 @use '../../../styles/mixins' as *;
 @use '../../../styles/breakpoints' as *;
 
+:host {
+  display: block;
+}
+
 // ============================================================================
 // MOBILE MENU - Otimizado para dispositivos móveis
 // ============================================================================
@@ -24,8 +28,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: 85vw;
-  max-width: 320px;
+  width: min(85%, 320px);
 
   background: var(--gradient-bg-card);
   backdrop-filter: blur(var(--blur-md));

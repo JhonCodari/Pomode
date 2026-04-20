@@ -145,6 +145,13 @@
   // Valores RGB para transparências (tema claro)
   --bg-primary-rgb: 255, 255, 255;
   --primary-rgb: 0, 192, 192;
+  --error-rgb: 244, 67, 54;
+
+  // Variáveis auxiliares
+  --color-white: #ffffff;
+  --text-muted: #{tokens.$gray-400};
+  --error-alpha: rgba(var(--error-rgb), 0.15);
+  --icon-size-xs: 1rem;
 
   // ============================================================================
   // VARIÁVEIS DE COMPATIBILIDADE (mapeamento do sistema antigo)
@@ -205,6 +212,13 @@
   // Valores RGB para transparências (tema escuro)
   --bg-primary-rgb: 15, 20, 25;
   --primary-rgb: 38, 202, 202;
+  --error-rgb: 239, 83, 80;
+
+  // Variáveis auxiliares (tema escuro)
+  --color-white: #ffffff;
+  --text-muted: #5f6368;
+  --error-alpha: rgba(var(--error-rgb), 0.15);
+  --icon-size-xs: 1rem;
 
   // Variáveis de compatibilidade para tema escuro
   --color-primary: var(--primary);
@@ -232,6 +246,13 @@
     @include apply-theme(tokens.$dark-theme);
     --bg-primary-rgb: 15, 20, 25;
     --primary-rgb: 38, 202, 202;
+    --error-rgb: 239, 83, 80;
+
+    // Variáveis auxiliares (preferência do sistema)
+    --color-white: #ffffff;
+    --text-muted: #5f6368;
+    --error-alpha: rgba(var(--error-rgb), 0.15);
+    --icon-size-xs: 1rem;
 
     // Variáveis de compatibilidade para tema escuro (preferência do sistema)
     --color-primary: var(--primary);

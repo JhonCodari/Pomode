@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export type ContainerSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
@@ -6,6 +6,7 @@ export type ContainerSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 @Component({
   selector: 'app-container',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [class]="containerClasses">
       <ng-content></ng-content>

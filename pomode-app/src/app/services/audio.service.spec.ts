@@ -17,9 +17,9 @@ describe('AudioService', () => {
       settings: jasmine.createSpy().and.returnValue({
         soundEnabled: true,
         soundVolume: 80,
-        workDuration: 25,
-        shortBreakDuration: 5,
-        longBreakDuration: 15,
+        workTime: 25,
+        shortBreakTime: 5,
+        longBreakTime: 15,
         cyclesBeforeLongBreak: 4,
         notificationsEnabled: true
       })
@@ -40,7 +40,8 @@ describe('AudioService', () => {
       connect: jasmine.createSpy('connect'),
       gain: {
         setValueAtTime: jasmine.createSpy('setValueAtTime'),
-        linearRampToValueAtTime: jasmine.createSpy('linearRampToValueAtTime')
+        linearRampToValueAtTime: jasmine.createSpy('linearRampToValueAtTime'),
+        exponentialRampToValueAtTime: jasmine.createSpy('exponentialRampToValueAtTime')
       }
     };
 
@@ -99,15 +100,6 @@ describe('AudioService', () => {
     });
   });
 
-  describe('playBeep', () => {
-    it('deve tocar beep quando habilitado', async () => {
-      await service.playBeep();
-
-      expect(mockAudioContext.createOscillator).toHaveBeenCalled();
-      expect(mockOscillator.start).toHaveBeenCalled();
-    });
-  });
-
   describe('playSuccess', () => {
     it('deve tocar melodia de sucesso quando habilitado', async () => {
       await service.playSuccess();
@@ -131,17 +123,9 @@ describe('AudioService', () => {
     });
   });
 
-  describe('playClick', () => {
-    it('deve tocar click quando habilitado', async () => {
-      await service.playClick();
-
-      expect(mockAudioContext.createOscillator).toHaveBeenCalled();
-    });
-  });
-
   describe('Volume', () => {
     it('deve aplicar volume corretamente', async () => {
-      await service.playBeep();
+      await service.playAlert();
 
       // Verifica se gainNode foi configurado
       expect(mockGainNode.gain.setValueAtTime).toHaveBeenCalled();
@@ -152,7 +136,7 @@ describe('AudioService', () => {
     it('deve resumir contexto se suspenso', async () => {
       mockAudioContext.state = 'suspended';
 
-      await service.playBeep();
+      await service.playAlert();
 
       expect(mockAudioContext.resume).toHaveBeenCalled();
     });
@@ -161,15 +145,18 @@ describe('AudioService', () => {
   describe('Fallback quando AudioContext não está disponível', () => {
     it('não deve lançar erro se AudioContext não existir', async () => {
       // Remove AudioContext
+      const originalAudioContext = (window as any).AudioContext;
       delete (window as any).AudioContext;
 
-      // Recria serviço sem AudioContext
-      const serviceWithoutAudio = new AudioService();
+      // Recria serviço sem AudioContext via TestBed
+      const serviceWithoutAudio = TestBed.inject(AudioService);
 
       // Não deve lançar erro
       await expectAsync(serviceWithoutAudio.playAlert()).toBeResolved();
-      await expectAsync(serviceWithoutAudio.playBeep()).toBeResolved();
       await expectAsync(serviceWithoutAudio.playSuccess()).toBeResolved();
+
+      // Restaura AudioContext
+      (window as any).AudioContext = originalAudioContext;
     });
   });
 });

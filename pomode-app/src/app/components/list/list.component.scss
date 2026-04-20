@@ -1,6 +1,10 @@
 @use '../../../styles/mixins' as *;
 @use '../../../styles/breakpoints' as *;
 
+:host {
+  display: block;
+}
+
 .custom-list {
   list-style: none;
   padding-left: 0;
@@ -60,9 +64,9 @@
       position: absolute;
       left: 0;
       top: 0;
-      width: 32px;
-      height: 32px;
-      min-width: 32px;
+      width: 2rem;
+      height: 2rem;
+      min-width: 2rem;
       background: var(--primary);
       color: var(--bg-primary);
       border-radius: var(--radius-full);
@@ -113,8 +117,8 @@
       padding-left: 3rem; // 48px - espaço reduzido mas suficiente para mobile
 
       &::before {
-        width: 28px;
-        height: 28px;
+        width: 1.75rem;
+        height: 1.75rem;
         font-size: var(--font-size-xs);
       }
     }

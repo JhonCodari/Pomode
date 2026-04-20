@@ -1,6 +1,10 @@
 @use '../../../styles/mixins' as *;
 @use '../../../styles/breakpoints' as *;
 
+:host {
+  display: block;
+}
+
 // ============================================================================
 // STATS SIDEBAR - MOBILE FIRST RESPONSIVE
 // ============================================================================
@@ -36,11 +40,11 @@
   @include desktop-up {
     // Desktop: layout vertical como sidebar
     flex-direction: column;
-    position: sticky;
-    top: calc(var(--spacing-xl) + 80px);
-    max-height: calc(100vh - 160px);
+    position: static;
+    top: auto;
+    max-height: none;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: visible;
     padding: 0;
   }
 }
@@ -99,7 +103,7 @@
   @include desktop-up {
     // Desktop: layout vertical
     @include flex-column;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
   }
 }
 
@@ -132,7 +136,7 @@
     min-width: auto;
 
     &:hover {
-      transform: translateX(-4px);
+      transform: translateX(-2px);
     }
   }
 
@@ -148,6 +152,10 @@
     @include tablet-up {
       gap: var(--spacing-sm);
       padding: var(--spacing-lg);
+    }
+
+    @include desktop-up {
+      padding: var(--spacing-md);
     }
   }
 
@@ -167,7 +175,7 @@
     }
 
     @include desktop-up {
-      font-size: var(--font-size-3xl);
+      font-size: var(--font-size-2xl);
     }
   }
 

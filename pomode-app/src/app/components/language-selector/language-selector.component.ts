@@ -1,4 +1,4 @@
-import { Component, inject, HostListener } from '@angular/core';
+import { Component, inject, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService, SupportedLanguage } from '../../services/language.service';
@@ -7,6 +7,7 @@ import { LanguageService, SupportedLanguage } from '../../services/language.serv
   selector: 'app-language-selector',
   standalone: true,
   imports: [CommonModule, TranslateModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="language-selector">
       <button
@@ -40,6 +41,9 @@ import { LanguageService, SupportedLanguage } from '../../services/language.serv
     </div>
   `,
   styles: [`
+    :host {
+      display: inline-block;
+    }
     .language-selector {
       position: relative;
       z-index: var(--z-tooltip);

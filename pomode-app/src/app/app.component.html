@@ -13,43 +13,43 @@
             {{ 'NAV.WHAT_IS_POMODORO' | translate }}
           </a>
         </nav>
+
+        <!-- Header Actions - Desktop/Tablet -->
+        <div class="header-actions">
+          <app-button
+            routerLink="/"
+            [attr.aria-label]="'NAV.GO_HOME' | translate"
+            [title]="'NAV.HOME' | translate"
+            class="header-action-btn"
+          >
+            <app-icon name="home" [size]="'sm'" [ariaHidden]="true"></app-icon>
+          </app-button>
+          <app-button
+            (click)="openSettings()"
+            [attr.aria-label]="'NAV.SETTINGS' | translate"
+            [title]="'NAV.SETTINGS' | translate"
+            class="header-action-btn"
+          >
+            <app-icon name="settings" [size]="'sm'" [ariaHidden]="true"></app-icon>
+          </app-button>
+          <app-language-selector></app-language-selector>
+          <app-theme-toggle></app-theme-toggle>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          class="mobile-menu-trigger"
+          (click)="toggleMobileMenu()"
+          [attr.aria-label]="'NAV.OPEN_MENU' | translate"
+          [attr.aria-expanded]="showMobileMenu()"
+          type="button"
+        >
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
       </div>
     </app-container>
-
-    <!-- Header Actions - Desktop/Tablet -->
-    <div class="header-actions">
-      <app-button
-        routerLink="/"
-        [attr.aria-label]="'NAV.GO_HOME' | translate"
-        [title]="'NAV.HOME' | translate"
-        class="header-action-btn"
-      >
-        <app-icon name="home" [size]="'sm'" [ariaHidden]="true"></app-icon>
-      </app-button>
-      <app-button
-        (click)="openSettings()"
-        [attr.aria-label]="'NAV.SETTINGS' | translate"
-        [title]="'NAV.SETTINGS' | translate"
-        class="header-action-btn"
-      >
-        <app-icon name="settings" [size]="'sm'" [ariaHidden]="true"></app-icon>
-      </app-button>
-      <app-language-selector></app-language-selector>
-      <app-theme-toggle></app-theme-toggle>
-    </div>
-
-    <!-- Mobile Menu Button -->
-    <button
-      class="mobile-menu-trigger"
-      (click)="toggleMobileMenu()"
-      [attr.aria-label]="'NAV.OPEN_MENU' | translate"
-      [attr.aria-expanded]="showMobileMenu()"
-      type="button"
-    >
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-    </button>
   </header>
 
   <main id="main-content" class="app-main" tabindex="-1">

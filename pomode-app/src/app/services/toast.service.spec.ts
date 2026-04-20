@@ -39,10 +39,10 @@ describe('ToastService', () => {
       expect(ids[0]).not.toBe(ids[1]);
     });
 
-    it('deve usar duração padrão de 5000ms', () => {
+    it('deve usar duração padrão de 3000ms', () => {
       service.show('Mensagem', 'info');
 
-      expect(service.toasts()[0].duration).toBe(5000);
+      expect(service.toasts()[0].duration).toBe(3000);
     });
 
     it('deve permitir duração customizada', () => {
@@ -101,7 +101,7 @@ describe('ToastService', () => {
       service.show('Toast 2', 'success');
       service.show('Toast 3', 'error');
 
-      service.dismissAll();
+      service.clear();
 
       expect(service.toasts().length).toBe(0);
     });

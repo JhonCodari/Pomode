@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { PomodoroService } from '../../services/pomodoro.service';
@@ -9,7 +9,8 @@ import { IconComponent } from '../icon/icon.component';
   selector: 'app-timer-controls',
   imports: [CommonModule, TranslateModule, ButtonComponent, IconComponent],
   templateUrl: './timer-controls.component.html',
-  styleUrl: './timer-controls.component.scss'
+  styleUrl: './timer-controls.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimerControlsComponent {
   private pomodoroService = inject(PomodoroService);

@@ -1,5 +1,9 @@
 @use '../../../styles/mixins' as *;
 
+:host {
+  display: block;
+}
+
 .card {
   background: var(--gradient-bg-card);
   backdrop-filter: blur(var(--blur-sm));

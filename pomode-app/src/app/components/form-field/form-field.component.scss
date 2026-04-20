@@ -1,5 +1,9 @@
 @use '../../../styles/mixins' as *;
 
+:host {
+  display: block;
+}
+
 .form-group {
   margin-bottom: var(--spacing-lg);
 

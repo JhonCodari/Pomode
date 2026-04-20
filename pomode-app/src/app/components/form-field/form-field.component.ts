@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -8,6 +8,7 @@ export type FormFieldType = 'number' | 'text' | 'email' | 'password' | 'search';
 @Component({
   selector: 'app-form-field',
   imports: [CommonModule, FormsModule, TranslateModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

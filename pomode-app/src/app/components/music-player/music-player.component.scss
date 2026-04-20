@@ -1,19 +1,14 @@
 @use '../../../styles/mixins' as *;
 @use '../../../styles/breakpoints' as *;
 
-// ============================================================================
-// MUSIC PLAYER — mini player fixo na parte inferior
-// ============================================================================
+:host {
+  display: block;
+}
 
-// ── Variáveis locais ─────────────────────────────────────────────────────────
-$player-height: 120px;
-$player-height-desktop: 104px;
 $player-z: 900;
 $chip-height: 28px;
 $play-btn-size: 40px;
 $play-btn-size-desktop: 36px;
-
-// ── Player expandido ─────────────────────────────────────────────────────────
 
 .music-player {
   position: sticky;
@@ -91,6 +86,12 @@ $play-btn-size-desktop: 36px;
   gap: var(--spacing-sm);
   padding: var(--spacing-xs) var(--spacing-sm);
   min-height: 56px;
+
+  @include desktop-up {
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs);
+    min-height: 48px;
+  }
 }
 // ── Botão próxima faixa ──────────────────────────────────────────────────────────────
 
@@ -153,7 +154,6 @@ $play-btn-size-desktop: 36px;
 
   &__icon {
     font-size: 18px;
-    flex-shrink: 0;
   }
 
   &__name {
@@ -169,7 +169,6 @@ $play-btn-size-desktop: 36px;
   &__chevron {
     font-size: 10px;
     color: var(--text-muted);
-    flex-shrink: 0;
   }
 
   @include hover-mouse {
@@ -241,14 +240,16 @@ $play-btn-size-desktop: 36px;
     width: 140px;
   }
 
+  @include desktop-up {
+    width: 112px;
+  }
+
   &__icon-btn {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 16px;
     padding: 4px;
     border-radius: var(--radius-sm);
-    line-height: 1;
     transition: transform 0.1s;
 
     &:active { transform: scale(0.88); }
@@ -295,6 +296,10 @@ $play-btn-size-desktop: 36px;
   gap: 2px;
   flex-shrink: 0;
   margin-left: var(--spacing-sm);
+
+  @include desktop-up {
+    margin-left: var(--spacing-xs);
+  }
 
   &__btn {
     display: flex;
@@ -354,7 +359,7 @@ $play-btn-size-desktop: 36px;
     .wave {
       width: 2px;
       border-radius: 1px;
-      background: white;
+      background: var(--color-white);
       animation: sound-wave 0.8s ease-in-out infinite alternate;
 
       &:nth-child(1) { height: 4px;  animation-delay: 0s; }
@@ -373,6 +378,32 @@ $play-btn-size-desktop: 36px;
   }
 
   &:active { transform: scale(0.93); }
+}
+
+@include desktop-up {
+  .player-next-btn,
+  .player-extras__btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .player-play-btn {
+    width: $play-btn-size-desktop;
+    height: $play-btn-size-desktop;
+    min-width: $play-btn-size-desktop;
+  }
+
+  .player-track {
+    padding: 2px var(--spacing-xs);
+
+    &__name {
+      font-size: var(--font-size-xs);
+    }
+  }
+
+  .player-dropdown {
+    padding: 0;
+  }
 }
 
 // ── Animações ────────────────────────────────────────────────────────────────

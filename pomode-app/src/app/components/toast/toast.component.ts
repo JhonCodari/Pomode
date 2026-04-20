@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ToastService, Toast } from '../../services/toast.service';
@@ -7,6 +7,7 @@ import { ToastService, Toast } from '../../services/toast.service';
   selector: 'app-toast',
   standalone: true,
   imports: [CommonModule, TranslateModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="toast-container" role="alert" aria-live="polite">
       @for (toast of toasts(); track toast.id) {

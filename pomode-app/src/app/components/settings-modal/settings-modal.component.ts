@@ -1,4 +1,4 @@
-import { Component, inject, signal, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, inject, signal, Output, EventEmitter, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -15,7 +15,8 @@ import { PomodoroSettings, SETTINGS_LIMITS, DEFAULT_SETTINGS } from '../../model
   selector: 'app-settings-modal',
   imports: [CommonModule, FormsModule, TranslateModule, ButtonComponent, CardComponent, FormFieldComponent, IconComponent],
   templateUrl: './settings-modal.component.html',
-  styleUrl: './settings-modal.component.scss'
+  styleUrl: './settings-modal.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsModalComponent {
   private pomodoroService = inject(PomodoroService);

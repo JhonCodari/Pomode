@@ -1,5 +1,9 @@
 @use '../../../styles/mixins' as *;
 
+:host {
+  display: inline-block;
+}
+
 .theme-toggle {
   @include reset-button;
   @include flex-center;

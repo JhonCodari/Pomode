@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -8,6 +8,7 @@ export type LogoSize = 'sm' | 'md' | 'lg';
 @Component({
   selector: 'app-logo',
   imports: [CommonModule, RouterLink, TranslateModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [class]="logoClasses">
       <a *ngIf="linkToHome; else logoText"

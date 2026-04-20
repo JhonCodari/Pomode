@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContainerComponent } from '../container/container.component';
@@ -10,6 +10,7 @@ import { VisitorService } from '../../services/visitor.service';
   imports: [TranslateModule, ContainerComponent, IconComponent, DecimalPipe],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {
   private readonly visitorService = inject(VisitorService);

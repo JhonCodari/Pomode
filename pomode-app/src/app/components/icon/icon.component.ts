@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 export type IconName =
   | 'home' | 'settings' | 'sun' | 'moon' | 'menu' | 'close' | 'check' | 'info'
@@ -13,6 +13,7 @@ export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 @Component({
   selector: 'app-icon',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <svg
       [class]="iconClasses"

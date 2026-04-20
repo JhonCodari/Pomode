@@ -1,5 +1,9 @@
 @use '../../../styles/design-tokens' as tokens;
 
+:host {
+  display: inline-flex;
+}
+
 .icon {
   display: inline-block;
   flex-shrink: 0;
@@ -8,8 +12,8 @@
 
   // Tamanhos
   &.icon-xs {
-    width: 14px;
-    height: 14px;
+    width: var(--icon-size-xs);
+    height: var(--icon-size-xs);
   }
 
   &.icon-sm {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -17,6 +17,7 @@ export type ListVariant = 'bulleted' | 'numbered' | 'checked' | 'referenced';
 @Component({
   selector: 'app-list',
   imports: [CommonModule, TranslateModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul [class]="listClasses" [attr.aria-label]="ariaLabel | translate">
       <li *ngFor="let item of items; trackBy: trackItem" class="list-item">

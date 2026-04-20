@@ -1,10 +1,11 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, ChangeDetectionStrategy } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-theme-toggle',
   imports: [IconComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
       class="theme-toggle"
