@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TimerMode, TimerState } from '../models';
+import { environment } from '../../environments/environment';
 
 const GA_MEASUREMENT_ID = 'G-YJ23L6T83X';
 
@@ -10,20 +11,45 @@ declare function gtag(...args: unknown[]): void;
   providedIn: 'root'
 })
 export class AnalyticsService {
+  private readonly analyticsEnabled = environment.analyticsEnabled;
+  private readonly debugMode = !environment.production || this.isLocalhost();
+
+  private isLocalhost(): boolean {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    const hostname = window.location.hostname;
+    return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1';
+  }
+
+  private withDebugParams(params?: Record<string, unknown>): Record<string, unknown> {
+    if (!this.debugMode) {
+      return params ?? {};
+    }
+
+    return {
+      ...(params ?? {}),
+      debug_mode: true,
+    };
+  }
 
   private track(eventName: string, params?: Record<string, unknown>): void {
+    if (!this.analyticsEnabled) return;
     if (typeof gtag === 'undefined') return;
-    gtag('event', eventName, params ?? {});
+    gtag('event', eventName, this.withDebugParams(params));
   }
 
   setUserProperty(name: string, value: string): void {
+    if (!this.analyticsEnabled) return;
     if (typeof gtag === 'undefined') return;
     gtag('set', 'user_properties', { [name]: value });
   }
 
   trackPageView(path: string): void {
+    if (!this.analyticsEnabled) return;
     if (typeof gtag === 'undefined') return;
-    gtag('config', GA_MEASUREMENT_ID, { page_path: path });
+    gtag('config', GA_MEASUREMENT_ID, this.withDebugParams({ page_path: path }));
   }
 
   // ── Timer ────────────────────────────────────────────────────────────────
@@ -44,15 +70,32 @@ export class AnalyticsService {
     this.track('timer_skipped', { mode_from: modeFrom, mode_to: modeTo });
   }
 
-  trackCycleCompleted(
-    sessionType: TimerMode,
-    cyclesCompletedTotal: number,
-    sessionDurationMinutes: number
+  trackIntervalCompleted(
+    intervalType: TimerMode,
+    intervalDurationMinutes: number
   ): void {
-    this.track('cycle_completed', {
-      session_type: sessionType,
-      cycles_completed_total: cyclesCompletedTotal,
-      session_duration_minutes: sessionDurationMinutes,
+    this.track('interval_completed', {
+      interval_type: intervalType,
+      interval_duration_minutes: intervalDurationMinutes,
+    });
+  }
+
+  trackPomodoroCompleted(
+    pomodorosCompletedTotal: number,
+    focusDurationMinutes: number,
+    totalWorkSessionsEver: number
+  ): void {
+    this.track('pomodoro_completed', {
+      pomodoros_completed_total: pomodorosCompletedTotal,
+      focus_duration_minutes: focusDurationMinutes,
+      total_work_sessions_ever: totalWorkSessionsEver,
+    });
+  }
+
+  trackPomodoroBlockCompleted(blockNumber: number, totalWorkSessionsEver: number): void {
+    this.track('pomodoro_block_completed', {
+      block_number: blockNumber,
+      total_work_sessions_ever: totalWorkSessionsEver,
     });
   }
 

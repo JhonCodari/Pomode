@@ -24,7 +24,7 @@
       "SHORT_BREAK": "Descanso Corto",
       "LONG_BREAK": "Descanso Largo"
     },
-    "CYCLES_COMPLETED": "Ciclos completados:",
+    "POMODOROS_COMPLETED": "Pomodoros completados:",
     "CONTROLS": {
       "TITLE": "Controles del temporizador",
       "START": "Iniciar",
@@ -36,9 +36,9 @@
   },
   "STATS": {
     "TITLE": "Estadísticas",
-    "TODAY_SESSIONS": "Sesiones hoy",
+    "TODAY_INTERVALS": "Intervalos hoy",
     "TOTAL_HOURS": "Total de horas",
-    "WEEKLY_SESSIONS": "Sesiones (7 días)"
+    "WEEKLY_INTERVALS": "Intervalos (7 días)"
   },
   "SETTINGS": {
     "TITLE": "Configuración",
@@ -49,9 +49,9 @@
       "WORK_TIME": "Tiempo de Enfoque (minutos)",
       "SHORT_BREAK": "Descanso Corto (minutos)",
       "LONG_BREAK": "Descanso Largo (minutos)",
-      "CYCLES": "Ciclos antes del descanso largo",
+      "CYCLES": "Pomodoros antes del descanso largo",
       "BETWEEN": "Entre {{min}} y {{max}}",
-      "BETWEEN_CYCLES": "Entre {{min}} y {{max}} ciclos"
+      "BETWEEN_CYCLES": "Entre {{min}} y {{max}} pomodoros"
     },
     "SOUND": {
       "SECTION": "Sonido",
@@ -78,7 +78,7 @@
   },
   "NOTIFICATIONS": {
     "WORK_COMPLETE": {
-      "TITLE": "🍅 ¡Felicitaciones! ¡Ciclo completado!",
+      "TITLE": "🍅 ¡Felicitaciones! ¡Pomodoro completado!",
       "BODY": "Hora de tomar un descanso. ¡Te lo mereces!"
     },
     "SHORT_BREAK_COMPLETE": {
@@ -87,7 +87,7 @@
     },
     "LONG_BREAK_COMPLETE": {
       "TITLE": "🌴 ¡Descanso largo terminado!",
-      "BODY": "¡Listo para un nuevo ciclo de productividad!"
+      "BODY": "¡Listo para un nuevo bloque de productividad!"
     }
   },
   "TOAST": {
@@ -124,14 +124,14 @@
         "STEP2": "<strong>Configura el temporizador:</strong> Establécelo en 25 minutos (1 pomodoro)",
         "STEP3": "<strong>Trabaja con enfoque total:</strong> Concéntrate en una sola tarea, sin interrupciones",
         "STEP4": "<strong>Toma un descanso corto:</strong> Descansa 5 minutos — levántate, bebe agua, descansa los ojos",
-        "STEP5": "<strong>Repite el ciclo:</strong> Cada 4 pomodoros, toma un descanso largo de 15-30 minutos"
+        "STEP5": "<strong>Repite el bloque:</strong> Cada 4 pomodoros, toma un descanso largo de 15-30 minutos"
       }
     },
     "BENEFITS": {
       "TITLE": "🎯 Beneficios Comprobados",
       "ITEMS": {
         "START": "<strong>Facilita el inicio:</strong> \"Solo 25 minutos\" parece mucho menos aterrador que \"estudiar por 3 horas\" — ¡adiós procrastinación!",
-        "MOTIVATION": "<strong>Mantiene la motivación:</strong> El progreso visible en cada ciclo te mantiene comprometido",
+        "MOTIVATION": "<strong>Mantiene la motivación:</strong> El progreso visible en cada pomodoro te mantiene comprometido",
         "STRUCTURE": "<strong>Crea estructura:</strong> Organiza tu tiempo sin ser abrumador",
         "BURNOUT": "<strong>Previene el burnout:</strong> Los descansos regulares mantienen la mente fresca y descansada",
         "CREATIVITY": "<strong>Mejora la creatividad:</strong> Los descansos regulares mejoran la creatividad y las habilidades de resolución de problemas",
@@ -154,10 +154,10 @@
     "MISTAKES": {
       "TITLE": "⚠️ Errores Comunes (y Cómo Evitarlos)",
       "ITEMS": {
-        "BIG_TASK": "<strong>¿Tarea muy grande?</strong> Divídela en pasos más pequeños que quepan en 1 a 4 ciclos Pomodoro",
+        "BIG_TASK": "<strong>¿Tarea muy grande?</strong> Divídela en pasos más pequeños que quepan en 1 a 4 pomodoros",
         "MULTITASK": "<strong>¿Multitarea?</strong> Alternar entre pestañas y aplicaciones acaba con la concentración — enfócate en una tarea a la vez",
         "SOCIAL_MEDIA": "<strong>¿Descansos = redes sociales?</strong> ¡Hacer scroll no es descanso! Muévete, estírate, respira, bebe agua — lejos de las pantallas",
-        "NO_REFLECTION": "<strong>¿Sin reflexión?</strong> Reserva 1 minuto después de cada sesión para anotar lo que funcionó — esto mejora la técnica con el tiempo"
+        "NO_REFLECTION": "<strong>¿Sin reflexión?</strong> Reserva 1 minuto después de cada pomodoro para anotar lo que funcionó — esto mejora la técnica con el tiempo"
       }
     },
     "ADVANCED": {

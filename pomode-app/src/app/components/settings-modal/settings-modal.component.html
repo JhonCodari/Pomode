@@ -44,10 +44,10 @@
             [hint]="'SETTINGS.TIMES.BETWEEN' | translate: { min: limits.longBreakTime.min, max: limits.longBreakTime.max }"
           ></app-form-field>
 
-          <!-- Ciclos -->
+          <!-- Pomodoros antes da pausa longa -->
           <app-form-field
             fieldId="cycles"
-            [label]="'SETTINGS.TIMES.CYCLES_FOR_LONG_BREAK'"
+            [label]="'SETTINGS.TIMES.CYCLES'"
             type="number"
             [(ngModel)]="cyclesBeforeLongBreak"
             [min]="limits.cyclesBeforeLongBreak.min"

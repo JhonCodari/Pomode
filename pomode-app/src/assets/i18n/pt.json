@@ -24,7 +24,7 @@
       "SHORT_BREAK": "Pausa Curta",
       "LONG_BREAK": "Pausa Longa"
     },
-    "CYCLES_COMPLETED": "Ciclos completados:",
+    "POMODOROS_COMPLETED": "Pomodoros concluídos:",
     "CONTROLS": {
       "TITLE": "Controles do timer",
       "START": "Iniciar",
@@ -36,9 +36,9 @@
   },
   "STATS": {
     "TITLE": "Estatísticas",
-    "TODAY_SESSIONS": "Sessões hoje",
+    "TODAY_INTERVALS": "Intervalos hoje",
     "TOTAL_HOURS": "Total de horas",
-    "WEEKLY_SESSIONS": "Sessões (7 dias)"
+    "WEEKLY_INTERVALS": "Intervalos (7 dias)"
   },
   "SETTINGS": {
     "TITLE": "Configurações",
@@ -49,9 +49,9 @@
       "WORK_TIME": "Tempo de Foco (minutos)",
       "SHORT_BREAK": "Pausa Curta (minutos)",
       "LONG_BREAK": "Pausa Longa (minutos)",
-      "CYCLES": "Ciclos antes da pausa longa",
+      "CYCLES": "Pomodoros antes da pausa longa",
       "BETWEEN": "Entre {{min}} e {{max}}",
-      "BETWEEN_CYCLES": "Entre {{min}} e {{max}} ciclos"
+      "BETWEEN_CYCLES": "Entre {{min}} e {{max}} pomodoros"
     },
     "SOUND": {
       "SECTION": "Som",
@@ -78,7 +78,7 @@
   },
   "NOTIFICATIONS": {
     "WORK_COMPLETE": {
-      "TITLE": "🍅 Parabéns! Ciclo completo!",
+      "TITLE": "🍅 Parabéns! Pomodoro concluído!",
       "BODY": "Hora de fazer uma pausa. Você merece!"
     },
     "SHORT_BREAK_COMPLETE": {
@@ -87,7 +87,7 @@
     },
     "LONG_BREAK_COMPLETE": {
       "TITLE": "🌴 Pausa longa terminada!",
-      "BODY": "Pronto para um novo ciclo de produtividade!"
+      "BODY": "Pronto para um novo bloco Pomodoro de produtividade!"
     }
   },
   "TOAST": {
@@ -124,14 +124,14 @@
         "STEP2": "<strong>Configure o timer:</strong> Defina para 25 minutos (1 pomodoro)",
         "STEP3": "<strong>Trabalhe com foco total:</strong> Concentre-se em uma única tarefa, sem interrupções",
         "STEP4": "<strong>Faça uma pausa curta:</strong> Descanse 5 minutos — levante-se, beba água, descanse os olhos",
-        "STEP5": "<strong>Repita o ciclo:</strong> A cada 4 pomodoros, faça uma pausa longa de 15-30 minutos"
+        "STEP5": "<strong>Repita o bloco:</strong> A cada 4 pomodoros, faça uma pausa longa de 15-30 minutos"
       }
     },
     "BENEFITS": {
       "TITLE": "🎯 Benefícios Comprovados",
       "ITEMS": {
         "START": "<strong>Facilita o início:</strong> \"Só 25 minutos\" parece muito menos assustador do que \"estudar por 3 horas\" — adeus, procrastinação!",
-        "MOTIVATION": "<strong>Mantém a motivação:</strong> O progresso visível a cada ciclo mantém você engajado",
+        "MOTIVATION": "<strong>Mantém a motivação:</strong> O progresso visível a cada pomodoro mantém você engajado",
         "STRUCTURE": "<strong>Cria estrutura:</strong> Organiza seu tempo sem ser opressor",
         "BURNOUT": "<strong>Previne burnout:</strong> Pausas regulares mantêm a mente fresca e descansada",
         "CREATIVITY": "<strong>Melhora a criatividade:</strong> Pausas regulares aprimoram a criatividade e as habilidades de resolução de problemas",
@@ -154,10 +154,10 @@
     "MISTAKES": {
       "TITLE": "⚠️ Erros Comuns (e Como Evitá-los)",
       "ITEMS": {
-        "BIG_TASK": "<strong>Tarefa muito grande?</strong> Divida em etapas menores que caibam em 1 a 4 ciclos Pomodoro",
+        "BIG_TASK": "<strong>Tarefa muito grande?</strong> Divida em etapas menores que caibam em 1 a 4 pomodoros",
         "MULTITASK": "<strong>Multitarefa?</strong> Alternar entre abas e aplicativos acaba com a concentração — foque em uma tarefa por vez",
         "SOCIAL_MEDIA": "<strong>Pausas = redes sociais?</strong> Rolar o feed não é descanso! Mexa-se, alongue-se, respire, beba água — longe das telas",
-        "NO_REFLECTION": "<strong>Sem reflexão?</strong> Reserve 1 minuto após cada sessão para anotar o que funcionou — isso melhora a técnica com o tempo"
+        "NO_REFLECTION": "<strong>Sem reflexão?</strong> Reserve 1 minuto após cada pomodoro para anotar o que funcionou — isso melhora a técnica com o tempo"
       }
     },
     "ADVANCED": {

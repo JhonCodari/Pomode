@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ContainerComponent } from '../container/container.component';
 import { IconComponent } from '../icon/icon.component';
 import { VisitorService } from '../../services/visitor.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-footer',
@@ -15,6 +16,7 @@ import { VisitorService } from '../../services/visitor.service';
 export class FooterComponent {
   private readonly visitorService = inject(VisitorService);
 
+  readonly showVisitorCounter = environment.production;
   readonly visitCount = this.visitorService.visitCount;
   readonly isLoading  = this.visitorService.isLoading;
   readonly hasError   = this.visitorService.hasError;

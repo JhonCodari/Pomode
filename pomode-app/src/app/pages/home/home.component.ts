@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private analyticsService = inject(AnalyticsService);
   private translate = inject(TranslateService);
   private timerCompleteSubscription?: Subscription;
+  private pendingPomodoroCompletion = false;
 
   constructor() {
     // Integração automática do music player com o timer.
@@ -47,7 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // Computed signals encapsulados para o template
-  readonly completedCycles = computed(() => this.pomodoroService.completedCycles());
+  readonly completedPomodoros = computed(() => this.pomodoroService.completedCycles());
   readonly sessions = computed(() => this.pomodoroService.sessions());
 
   // Stats computadas como signals
@@ -73,9 +74,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Stats array para sidebar
   readonly stats = computed<StatItem[]>(() => [
-    { value: this.todaySessions(), labelKey: 'STATS.TODAY_SESSIONS' },
+    { value: this.todaySessions(), labelKey: 'STATS.TODAY_INTERVALS' },
     { value: this.totalHours(), labelKey: 'STATS.TOTAL_HOURS' },
-    { value: this.currentStreak(), labelKey: 'STATS.WEEKLY_SESSIONS' }
+    { value: this.currentStreak(), labelKey: 'STATS.WEEKLY_INTERVALS' }
   ]);
 
   ngOnInit(): void {
@@ -108,17 +109,51 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.showNotification(mode);
     }
 
-    // Analytics: ciclo concluído
+    // Analytics: duração base por modo
     const durationMap: Record<TimerMode, number> = {
       work: this.pomodoroService.settings().workTime,
       shortBreak: this.pomodoroService.settings().shortBreakTime,
       longBreak: this.pomodoroService.settings().longBreakTime,
     };
-    this.analyticsService.trackCycleCompleted(
-      mode,
-      this.pomodoroService.completedCycles(),
-      durationMap[mode]
-    );
+
+    // Analytics: intervalo concluído (apenas pausas)
+    if (mode !== 'work') {
+      this.analyticsService.trackIntervalCompleted(
+        mode,
+        durationMap[mode]
+      );
+    }
+
+    const totalWorkSessionsEver = this.pomodoroService.sessions()
+      .filter(s => s.mode === 'work').length;
+
+    // Marca que um foco terminou e aguarda conclusão da pausa para fechar 1 pomodoro completo.
+    if (mode === 'work') {
+      this.pendingPomodoroCompletion = true;
+      return;
+    }
+
+    // Analytics: pomodoro concluído (foco + pausa finalizada)
+    if (this.pendingPomodoroCompletion) {
+      const pomodoros = this.pomodoroService.completedCycles();
+
+      this.analyticsService.trackPomodoroCompleted(
+        pomodoros,
+        durationMap.work,
+        totalWorkSessionsEver
+      );
+
+      // Analytics: ciclo Pomodoro completo (N pomodoros concluídos)
+      const cyclesBeforeLong = this.pomodoroService.settings().cyclesBeforeLongBreak;
+      if (pomodoros > 0 && pomodoros % cyclesBeforeLong === 0) {
+        this.analyticsService.trackPomodoroBlockCompleted(
+          Math.floor(pomodoros / cyclesBeforeLong),
+          totalWorkSessionsEver
+        );
+      }
+
+      this.pendingPomodoroCompletion = false;
+    }
   }
 
   private showNotification(mode: TimerMode): void {

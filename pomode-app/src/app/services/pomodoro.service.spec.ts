@@ -254,6 +254,44 @@ describe('PomodoroService', () => {
     }));
   });
 
+  describe('Conclusão de intervalos e pomodoros', () => {
+    it('não deve incrementar completedCycles ao concluir uma pausa', () => {
+      service.mode.set('shortBreak');
+
+      (service as any).onTimerComplete();
+
+      expect(service.completedCycles()).toBe(0);
+      expect(service.mode()).toBe('work');
+      expect(service.sessions().at(0)?.mode).toBe('shortBreak');
+    });
+
+    it('deve incrementar completedCycles apenas ao concluir trabalho', () => {
+      service.mode.set('work');
+
+      (service as any).onTimerComplete();
+
+      expect(service.completedCycles()).toBe(1);
+      expect(service.sessions().at(0)?.mode).toBe('work');
+      expect(service.mode()).toBe('shortBreak');
+    });
+
+    it('deve avançar para longBreak após o número configurado de pomodoros', () => {
+      service.updateSettings({ cyclesBeforeLongBreak: 3 });
+
+      for (let i = 0; i < 2; i++) {
+        service.mode.set('work');
+        (service as any).onTimerComplete();
+        expect(service.mode()).toBe('shortBreak');
+      }
+
+      service.mode.set('work');
+      (service as any).onTimerComplete();
+
+      expect(service.completedCycles()).toBe(3);
+      expect(service.mode()).toBe('longBreak');
+    });
+  });
+
   describe('Limpeza de Recursos', () => {
     it('deve limpar subscription ao destruir', fakeAsync(() => {
       service.start();

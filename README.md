@@ -85,11 +85,17 @@ O script `prebuild` é executado automaticamente antes de qualquer build, sincro
 
 ### Deploy no GitHub Pages
 
-O deploy é feito automaticamente via GitHub Actions a cada push na branch `main`. Para deploy manual:
+O deploy de produção é feito automaticamente via GitHub Actions a cada push na branch `main`.
+
+Também é possível disparar manualmente a mesma esteira no GitHub pela opção `workflow_dispatch` do workflow `Deploy to GitHub Pages`.
+
+Para gerar apenas o build local de validação (sem publicar):
 
 ```bash
-npm run deploy
+npm run deploy:preview
 ```
+
+O comando `npm run deploy` local foi bloqueado para evitar publicação acidental fora da esteira oficial.
 
 ## 🤖 CI/CD
 

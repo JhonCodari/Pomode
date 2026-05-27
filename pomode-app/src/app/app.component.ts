@@ -94,8 +94,9 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // Definir preferência de tema inicial como user property
+    // Definir preferências iniciais como user properties
     this.analyticsService.setUserProperty('preferred_theme', this.themeService.effectiveTheme());
+    this.analyticsService.setUserProperty('preferred_language', this.languageService.currentLanguage());
   }
 
   // Atalhos de teclado globais

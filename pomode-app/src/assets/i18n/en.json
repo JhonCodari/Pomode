@@ -24,7 +24,7 @@
       "SHORT_BREAK": "Short Break",
       "LONG_BREAK": "Long Break"
     },
-    "CYCLES_COMPLETED": "Cycles completed:",
+    "POMODOROS_COMPLETED": "Pomodoros completed:",
     "CONTROLS": {
       "TITLE": "Timer controls",
       "START": "Start",
@@ -36,9 +36,9 @@
   },
   "STATS": {
     "TITLE": "Statistics",
-    "TODAY_SESSIONS": "Sessions today",
+    "TODAY_INTERVALS": "Intervals today",
     "TOTAL_HOURS": "Total hours",
-    "WEEKLY_SESSIONS": "Sessions (7 days)"
+    "WEEKLY_INTERVALS": "Intervals (7 days)"
   },
   "SETTINGS": {
     "TITLE": "Settings",
@@ -49,9 +49,9 @@
       "WORK_TIME": "Focus Time (minutes)",
       "SHORT_BREAK": "Short Break (minutes)",
       "LONG_BREAK": "Long Break (minutes)",
-      "CYCLES": "Cycles before long break",
+      "CYCLES": "Pomodoros before long break",
       "BETWEEN": "Between {{min}} and {{max}}",
-      "BETWEEN_CYCLES": "Between {{min}} and {{max}} cycles"
+      "BETWEEN_CYCLES": "Between {{min}} and {{max}} pomodoros"
     },
     "SOUND": {
       "SECTION": "Sound",
@@ -78,7 +78,7 @@
   },
   "NOTIFICATIONS": {
     "WORK_COMPLETE": {
-      "TITLE": "🍅 Congratulations! Cycle complete!",
+      "TITLE": "🍅 Congratulations! Pomodoro complete!",
       "BODY": "Time for a break. You deserve it!"
     },
     "SHORT_BREAK_COMPLETE": {
@@ -87,7 +87,7 @@
     },
     "LONG_BREAK_COMPLETE": {
       "TITLE": "🌴 Long break is over!",
-      "BODY": "Ready for a new productivity cycle!"
+      "BODY": "Ready for a new productivity block!"
     }
   },
   "TOAST": {
@@ -99,7 +99,7 @@
     "WHAT_IS": {
       "TITLE": "What is it?",
       "P1": "The <strong>Pomodoro Technique</strong> is a time management method based on clear work and break intervals. You focus for <strong>25 minutes</strong>, take a <strong>5-minute</strong> break, and start the next round. After four rounds, you take a longer break of <strong>15 to 30 minutes</strong>.",
-      "P2": "This way, your brain stays alert even during long work or study sessions — whether reviewing notes, preparing for exams, or working on complex projects."
+      "P2": "This way, your brain stays alert even during long work or study blocks — whether reviewing notes, preparing for exams, or working on complex projects."
     },
     "HISTORY": {
       "TITLE": "📜 History",
@@ -124,14 +124,14 @@
         "STEP2": "<strong>Set the timer:</strong> Set it for 25 minutes (1 pomodoro)",
         "STEP3": "<strong>Work with total focus:</strong> Concentrate on a single task, without interruptions",
         "STEP4": "<strong>Take a short break:</strong> Rest for 5 minutes — stand up, drink water, rest your eyes",
-        "STEP5": "<strong>Repeat the cycle:</strong> Every 4 pomodoros, take a long break of 15-30 minutes"
+        "STEP5": "<strong>Repeat the block:</strong> Every 4 pomodoros, take a long break of 15-30 minutes"
       }
     },
     "BENEFITS": {
       "TITLE": "🎯 Proven Benefits",
       "ITEMS": {
         "START": "<strong>Makes starting easier:</strong> \"Just 25 minutes\" seems much less scary than \"study for 3 hours\" — goodbye procrastination!",
-        "MOTIVATION": "<strong>Keeps you motivated:</strong> Visible progress with each cycle keeps you engaged",
+        "MOTIVATION": "<strong>Keeps you motivated:</strong> Visible progress with each pomodoro keeps you engaged",
         "STRUCTURE": "<strong>Creates structure:</strong> Organizes your time without being overwhelming",
         "BURNOUT": "<strong>Prevents burnout:</strong> Regular breaks keep your mind fresh and rested",
         "CREATIVITY": "<strong>Improves creativity:</strong> Regular breaks enhance creativity and problem-solving skills",
@@ -142,7 +142,7 @@
       "TITLE": "👥 Who Is It For?",
       "INTRO": "The Pomodoro Technique is ideal for:",
       "ITEMS": {
-        "STUDENTS": "<strong>Students:</strong> Who need to stay focused during long study sessions and exam periods",
+        "STUDENTS": "<strong>Students:</strong> Who need to stay focused during long study blocks and exam periods",
         "DEVELOPERS": "<strong>Developers:</strong> Who work with complex tasks requiring deep concentration",
         "REMOTE": "<strong>Remote workers:</strong> Who often deal with distractions at home",
         "CREATIVES": "<strong>Writers and Creatives:</strong> Who seek to keep creativity flowing without burning out",
@@ -154,10 +154,10 @@
     "MISTAKES": {
       "TITLE": "⚠️ Common Mistakes (and How to Avoid Them)",
       "ITEMS": {
-        "BIG_TASK": "<strong>Task too big?</strong> Break it into smaller steps that fit in 1 to 4 Pomodoro cycles",
+        "BIG_TASK": "<strong>Task too big?</strong> Break it into smaller steps that fit in 1 to 4 pomodoros",
         "MULTITASK": "<strong>Multitasking?</strong> Switching between tabs and apps kills concentration — focus on one task at a time",
         "SOCIAL_MEDIA": "<strong>Breaks = social media?</strong> Scrolling the feed is not rest! Move around, stretch, breathe, drink water — away from screens",
-        "NO_REFLECTION": "<strong>No reflection?</strong> Set aside 1 minute after each session to note what worked — this improves the technique over time"
+        "NO_REFLECTION": "<strong>No reflection?</strong> Set aside 1 minute after each pomodoro to note what worked — this improves the technique over time"
       }
     },
     "ADVANCED": {
