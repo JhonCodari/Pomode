@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   analyticsEnabled: false,
+  analyticsAllowLocalhost: false,
   appName: 'Pomode',
   version: '1.0.0',
   defaultWorkTime: 25, // minutos
