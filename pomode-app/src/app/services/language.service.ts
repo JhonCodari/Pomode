@@ -28,15 +28,14 @@ export class LanguageService {
     this.translate.addLangs(['en', 'pt', 'es']);
     this.translate.setDefaultLang('en');
 
-    // Aplica o idioma salvo ou detecta do navegador
-    const savedLang = this.loadLanguage();
-    this.translate.use(savedLang);
-
     // Efeito para persistir mudanças de idioma
     effect(() => {
       const lang = this.currentLanguage();
       this.saveLanguage(lang);
       this.translate.use(lang);
+      if (typeof document !== 'undefined') {
+        document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+      }
     });
   }
 

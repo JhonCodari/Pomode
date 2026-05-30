@@ -5,7 +5,9 @@
     "SKIP_TO_CONTENT": "Skip to main content",
     "COPYRIGHT": "© 2025 Pomode | Developed by Jhon Codari",
     "VERSION": "v1.0.1",
-    "VISITORS": "visits"
+    "VISITORS": "visits",
+    "LOADING_VISITS": "Loading visits",
+    "VISITOR_BADGE_ALT": "Visitor counter"
   },
   "NAV": {
     "WHAT_IS_POMODORO": "What is Pomodoro?",
@@ -24,7 +26,6 @@
       "SHORT_BREAK": "Short Break",
       "LONG_BREAK": "Long Break"
     },
-    "POMODOROS_COMPLETED": "Pomodoros completed:",
     "CONTROLS": {
       "TITLE": "Timer controls",
       "START": "Start",
@@ -50,8 +51,7 @@
       "SHORT_BREAK": "Short Break (minutes)",
       "LONG_BREAK": "Long Break (minutes)",
       "CYCLES": "Pomodoros before long break",
-      "BETWEEN": "Between {{min}} and {{max}}",
-      "BETWEEN_CYCLES": "Between {{min}} and {{max}} pomodoros"
+      "BETWEEN": "Between {{min}} and {{max}}"
     },
     "SOUND": {
       "SECTION": "Sound",
@@ -92,6 +92,17 @@
   },
   "TOAST": {
     "CLOSE": "Close notification"
+  },
+  "INTENTION": {
+    "PLACEHOLDER": "What will you focus on? (optional)",
+    "LABEL": "Session intention",
+    "CLEAR": "Clear intention",
+    "ACTIVE_LABEL": "Focus for this session",
+    "TOAST_COMPLETED": "✓ You made progress on: {{intention}}",
+    "LOG_TITLE": "Tasks completed today",
+    "LOG_ARIA": "List of today's completed tasks",
+    "LOG_SHOW_MORE": "earlier",
+    "LOG_SHOW_LESS": "Show less"
   },
   "ABOUT": {
     "TITLE": "🍅 What is the Pomodoro Technique?",
@@ -190,10 +201,11 @@
       "BUTTON": "Start now"
     }
   },
-  "LANGUAGES": {
-    "EN": "English",
-    "PT": "Portuguese",
-    "ES": "Spanish"
+  "THEME": {
+    "TOGGLE_TO_LIGHT": "Switch to light theme",
+    "TOGGLE_TO_DARK": "Switch to dark theme",
+    "LABEL_LIGHT": "Light theme",
+    "LABEL_DARK": "Dark theme"
   },
   "MUSIC_PLAYER": {
     "LABEL": "Ambient music player",

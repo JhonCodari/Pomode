@@ -2,17 +2,18 @@ import { Component, inject, computed, ChangeDetectionStrategy } from '@angular/c
 import { ThemeService } from '../../services/theme.service';
 import { AnalyticsService } from '../../services';
 import { IconComponent } from '../icon/icon.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-theme-toggle',
-  imports: [IconComponent],
+  imports: [IconComponent, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
       class="theme-toggle"
       (click)="toggleTheme()"
-      [attr.aria-label]="isDark() ? 'Mudar para tema claro' : 'Mudar para tema escuro'"
-      [title]="isDark() ? 'Tema escuro' : 'Tema claro'"
+      [attr.aria-label]="(isDark() ? 'THEME.TOGGLE_TO_LIGHT' : 'THEME.TOGGLE_TO_DARK') | translate"
+      [title]="(isDark() ? 'THEME.LABEL_DARK' : 'THEME.LABEL_LIGHT') | translate"
     >
       <app-icon
         [name]="isDark() ? 'moon' : 'sun'"

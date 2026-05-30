@@ -11,8 +11,10 @@ declare function gtag(...args: unknown[]): void;
   providedIn: 'root'
 })
 export class AnalyticsService {
-  private readonly analyticsEnabled = environment.analyticsEnabled;
-  private readonly debugMode = !environment.production || this.isLocalhost();
+  private readonly isLocalExecution = this.isLocalhost();
+  private readonly analyticsEnabled = environment.analyticsEnabled && (environment.analyticsAllowLocalhost || !this.isLocalExecution);
+  private readonly debugMode = !environment.production;
+  private isConfigured = false;
 
   private isLocalhost(): boolean {
     if (typeof window === 'undefined') {
@@ -20,7 +22,26 @@ export class AnalyticsService {
     }
 
     const hostname = window.location.hostname;
-    return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1';
+    return (
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1' ||
+      hostname === '0.0.0.0' ||
+      hostname === '::1' ||
+      hostname.endsWith('.local') ||
+      window.location.protocol === 'file:'
+    );
+  }
+
+  private ensureConfigured(): boolean {
+    if (!this.analyticsEnabled) return false;
+    if (typeof gtag === 'undefined') return false;
+
+    if (!this.isConfigured) {
+      gtag('config', GA_MEASUREMENT_ID, this.withDebugParams({ send_page_view: false }));
+      this.isConfigured = true;
+    }
+
+    return true;
   }
 
   private withDebugParams(params?: Record<string, unknown>): Record<string, unknown> {
@@ -35,21 +56,18 @@ export class AnalyticsService {
   }
 
   private track(eventName: string, params?: Record<string, unknown>): void {
-    if (!this.analyticsEnabled) return;
-    if (typeof gtag === 'undefined') return;
+    if (!this.ensureConfigured()) return;
     gtag('event', eventName, this.withDebugParams(params));
   }
 
   setUserProperty(name: string, value: string): void {
-    if (!this.analyticsEnabled) return;
-    if (typeof gtag === 'undefined') return;
+    if (!this.ensureConfigured()) return;
     gtag('set', 'user_properties', { [name]: value });
   }
 
   trackPageView(path: string): void {
-    if (!this.analyticsEnabled) return;
-    if (typeof gtag === 'undefined') return;
-    gtag('config', GA_MEASUREMENT_ID, this.withDebugParams({ page_path: path }));
+    if (!this.ensureConfigured()) return;
+    gtag('event', 'page_view', this.withDebugParams({ page_path: path }));
   }
 
   // ── Timer ────────────────────────────────────────────────────────────────

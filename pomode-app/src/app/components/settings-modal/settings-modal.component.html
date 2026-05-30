@@ -1,5 +1,11 @@
-<div class="modal-overlay" (click)="cancel()" role="dialog" aria-modal="true" aria-labelledby="settings-title">
-  <div class="modal-content" (click)="$event.stopPropagation()">
+<div class="modal-overlay" (click)="cancel()">
+  <div class="modal-content"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="settings-title"
+       tabindex="-1"
+       #modalContent
+       (click)="$event.stopPropagation()">
     <app-card [elevated]="true" [hasHeader]="true">
       <div card-header>
         <h3 id="settings-title"><app-icon name="settings" [size]="'sm'" [ariaHidden]="true"></app-icon> {{ 'SETTINGS.TITLE' | translate }}</h3>
@@ -123,6 +129,7 @@
             </label>
           </div>
         </div>
+
       </div>
 
       <div class="modal-actions">

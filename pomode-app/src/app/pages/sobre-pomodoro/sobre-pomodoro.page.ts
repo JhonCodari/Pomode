@@ -6,11 +6,12 @@ import { ContainerComponent } from '../../components/container/container.compone
 import { ButtonComponent } from '../../components/button/button.component';
 import { SectionComponent } from '../../components/section/section.component';
 import { ListComponent } from '../../components/list/list.component';
+import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-sobre-pomodoro',
   standalone: true,
-  imports: [CommonModule, ContainerComponent, RouterLink, ButtonComponent, TranslateModule, SectionComponent, ListComponent],
+  imports: [CommonModule, ContainerComponent, RouterLink, ButtonComponent, TranslateModule, SectionComponent, ListComponent, SafeHtmlPipe],
   templateUrl: './sobre-pomodoro.page.html',
   styleUrl: './sobre-pomodoro.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

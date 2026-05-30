@@ -1,0 +1,150 @@
+@use '../../../styles/breakpoints' as *;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.intention-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 2rem;
+  width: 100%;
+
+  @include tablet-up {
+    min-height: 2.25rem;
+  }
+}
+
+// ============================================================================
+// INPUT FANTASMA — estado vazio / idle
+// ============================================================================
+
+.intention-input {
+  width: 100%;
+  max-width: 280px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  border-radius: 0;
+  padding: var(--spacing-xs) 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  text-align: center;
+  transition: border-color var(--transition-fast) ease;
+
+  @include tablet-up {
+    max-width: 340px;
+    font-size: var(--font-size-base);
+  }
+
+  &::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  &:focus {
+    outline: none;
+    border-bottom-color: var(--color-primary);
+  }
+}
+
+// ============================================================================
+// CHIP — estado preenchido / idle
+// ============================================================================
+
+.intention-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--bg-secondary);
+  border: var(--border-thin) solid var(--border-color);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  max-width: 320px;
+  animation: chip-in var(--transition-fast) ease;
+
+  @include tablet-up {
+    font-size: var(--font-size-base);
+    max-width: 380px;
+  }
+}
+
+.intention-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.intention-clear {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: var(--text-tertiary);
+  font-size: 0.875rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-fast) ease, background-color var(--transition-fast) ease;
+
+  &:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-hover, rgba(0, 0, 0, 0.08));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+  }
+}
+
+// ============================================================================
+// ATIVO — durante sessão em execução (readonly)
+// ============================================================================
+
+.intention-active {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  max-width: 320px;
+
+  @include tablet-up {
+    max-width: 380px;
+  }
+}
+
+// ============================================================================
+// ANIMAÇÕES
+// ============================================================================
+
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intention-chip {
+    animation: none;
+  }
+
+  .intention-input {
+    transition: none;
+  }
+}

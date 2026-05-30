@@ -1,4 +1,5 @@
-import { Component, signal, inject, HostListener, effect, OnInit } from '@angular/core';
+import { Component, signal, inject, HostListener, effect, OnInit, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import {
   ContainerComponent,
@@ -39,7 +40,8 @@ import { ThemeService } from './services/theme.service';
     TranslateModule
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
   private pomodoroService = inject(PomodoroService);
@@ -49,6 +51,7 @@ export class AppComponent implements OnInit {
   private themeService = inject(ThemeService);
   private analyticsService = inject(AnalyticsService);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
 
   title = 'Pomode';
   showSettings = signal(false);
@@ -88,7 +91,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // Rastrear mudanças de rota no Google Analytics
-    this.router.events.subscribe((event: any) => {
+    this.router.events.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((event: any) => {
       if (event.urlAfterRedirects) {
         this.analyticsService.trackPageView(event.urlAfterRedirects);
       }

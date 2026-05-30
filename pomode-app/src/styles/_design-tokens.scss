@@ -95,11 +95,12 @@ $light-theme: (
 
   // Textos
   'text-primary': $gray-900,
-  'text-secondary': $gray-600,
-  'text-tertiary': $gray-500,
+  'text-secondary': $gray-700,        // era gray-600 — melhor contraste no fundo teal claro
+  'text-tertiary': $gray-600,        // era gray-500 — agora passa WCAG AA
   'text-disabled': $gray-400,
   'text-inverse': #ffffff,
   'text-on-primary': #ffffff,
+  'primary-text': $teal-800,         // teal escuro para texto sobre fundos claros (≥4.5:1)
 
   // Borders
   'border-primary': $gray-300,
@@ -162,6 +163,7 @@ $dark-theme: (
   'text-disabled': #5f6368,
   'text-inverse': #0f1419,
   'text-on-primary': #0f1419,
+  'primary-text': $teal-300,         // teal claro para texto sobre fundos escuros (já tem contraste ok)
 
   // Borders (coloridas com Teal)
   'border-primary': $teal-700,      // Borda com cor Teal

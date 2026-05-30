@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, signal, ChangeDetectionStrategy, HostListener, effect, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -31,6 +31,8 @@ import { IconComponent } from '../icon/icon.component';
 
     <!-- Menu Drawer -->
     <nav
+      #menuDrawer
+      tabindex="-1"
       class="mobile-menu"
       [class.mobile-menu--open]="isOpen()"
       [attr.aria-hidden]="!isOpen()"
@@ -44,7 +46,7 @@ import { IconComponent } from '../icon/icon.component';
         </h2>
         <app-button
           (click)="closeMenu()"
-          [attr.aria-label]="'NAV.CLOSE_MENU' | translate"
+          [ariaLabel]="'NAV.CLOSE_MENU' | translate"
           variant="ghost"
           class="mobile-menu__close"
         >
@@ -110,11 +112,53 @@ export class MobileMenuComponent {
   @Output() close = new EventEmitter<void>();
   @Output() settingsOpen = new EventEmitter<void>();
 
-  closeMenu() {
+  @ViewChild('menuDrawer') private menuDrawerRef!: ElementRef<HTMLElement>;
+  private previousFocus: HTMLElement | null = null;
+
+  constructor() {
+    effect(() => {
+      if (this.isOpen()) {
+        this.previousFocus = document.activeElement as HTMLElement;
+        setTimeout(() => this.menuDrawerRef?.nativeElement.focus(), 0);
+      }
+    });
+  }
+
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    if (!this.isOpen()) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.closeMenu();
+      return;
+    }
+    if (event.key === 'Tab') {
+      const drawer = this.menuDrawerRef?.nativeElement;
+      if (!drawer) return;
+      const focusable = Array.from(
+        drawer.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  closeMenu(): void {
+    this.previousFocus?.focus();
     this.close.emit();
   }
 
-  openSettings() {
+  openSettings(): void {
     this.settingsOpen.emit();
     this.closeMenu();
   }

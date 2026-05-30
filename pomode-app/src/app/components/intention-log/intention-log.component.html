@@ -1,0 +1,33 @@
+@if (hasItems()) {
+  <div class="focus-log" role="region" [attr.aria-label]="'INTENTION.LOG_ARIA' | translate">
+    <p class="focus-log__title">{{ 'INTENTION.LOG_TITLE' | translate }}</p>
+
+    <ul
+      class="focus-log__list"
+      [class.focus-log__list--expanded]="isExpanded()"
+      role="list"
+    >
+      @for (item of visibleItems(); track item) {
+        <li class="focus-log__item">
+          <span class="focus-log__check" aria-hidden="true">✓</span>
+          {{ item }}
+        </li>
+      }
+    </ul>
+
+    @if (hasMore()) {
+      <button
+        class="focus-log__toggle"
+        type="button"
+        (click)="toggle()"
+        [attr.aria-expanded]="isExpanded()"
+      >
+        @if (isExpanded()) {
+          {{ 'INTENTION.LOG_SHOW_LESS' | translate }}
+        } @else {
+          +{{ extraCount() }} {{ 'INTENTION.LOG_SHOW_MORE' | translate }}
+        }
+      </button>
+    }
+  </div>
+}

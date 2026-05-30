@@ -10,3 +10,4 @@ export * from './touch-detection.service';
 export * from './device-capability.service';
 export * from './music-player.service';
 export * from './visitor.service';
+export * from './intention.service';

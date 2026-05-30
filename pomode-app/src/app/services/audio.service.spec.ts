@@ -95,8 +95,8 @@ describe('AudioService', () => {
       // Recria o serviço com nova configuração
       await service.playAlert();
 
-      // Como o som está desabilitado, não deve criar oscilador
-      // Nota: O comportamento depende da ordem de verificação no serviço
+      // Como o som está desabilitado, playAlert retorna antes de criar oscilador
+      expect(mockAudioContext.createOscillator).not.toHaveBeenCalled();
     });
   });
 

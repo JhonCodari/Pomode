@@ -5,7 +5,9 @@
     "SKIP_TO_CONTENT": "Pular para o conteúdo principal",
     "COPYRIGHT": "© 2025 Pomode | Desenvolvido por Jhon Codari",
     "VERSION": "v1.0.1",
-    "VISITORS": "visitas"
+    "VISITORS": "visitas",
+    "LOADING_VISITS": "Carregando visitas",
+    "VISITOR_BADGE_ALT": "Contador de visitas"
   },
   "NAV": {
     "WHAT_IS_POMODORO": "O que é Pomodoro?",
@@ -24,7 +26,6 @@
       "SHORT_BREAK": "Pausa Curta",
       "LONG_BREAK": "Pausa Longa"
     },
-    "POMODOROS_COMPLETED": "Pomodoros concluídos:",
     "CONTROLS": {
       "TITLE": "Controles do timer",
       "START": "Iniciar",
@@ -50,8 +51,7 @@
       "SHORT_BREAK": "Pausa Curta (minutos)",
       "LONG_BREAK": "Pausa Longa (minutos)",
       "CYCLES": "Pomodoros antes da pausa longa",
-      "BETWEEN": "Entre {{min}} e {{max}}",
-      "BETWEEN_CYCLES": "Entre {{min}} e {{max}} pomodoros"
+      "BETWEEN": "Entre {{min}} e {{max}}"
     },
     "SOUND": {
       "SECTION": "Som",
@@ -92,6 +92,17 @@
   },
   "TOAST": {
     "CLOSE": "Fechar notificação"
+  },
+  "INTENTION": {
+    "PLACEHOLDER": "Em que você vai focar? (opcional)",
+    "LABEL": "Intenção da sessão",
+    "CLEAR": "Limpar intenção",
+    "ACTIVE_LABEL": "Foco desta sessão",
+    "TOAST_COMPLETED": "✓ Você avançou em: {{intention}}",
+    "LOG_TITLE": "Tarefas concluídas hoje",
+    "LOG_ARIA": "Lista de tarefas concluídas hoje",
+    "LOG_SHOW_MORE": "anteriores",
+    "LOG_SHOW_LESS": "Recolher"
   },
   "ABOUT": {
     "TITLE": "🍅 O que é a Técnica Pomodoro?",
@@ -190,10 +201,11 @@
       "BUTTON": "Começar agora"
     }
   },
-  "LANGUAGES": {
-    "EN": "Inglês",
-    "PT": "Português",
-    "ES": "Espanhol"
+  "THEME": {
+    "TOGGLE_TO_LIGHT": "Mudar para tema claro",
+    "TOGGLE_TO_DARK": "Mudar para tema escuro",
+    "LABEL_LIGHT": "Tema claro",
+    "LABEL_DARK": "Tema escuro"
   },
   "MUSIC_PLAYER": {
     "LABEL": "Player de música ambiente",

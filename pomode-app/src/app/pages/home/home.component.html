@@ -1,19 +1,19 @@
 <app-container [size]="'xl'">
   <div class="home-layout">
-    <main class="home-main">
+    <div class="home-main">
       <!-- Timer Section -->
       <section class="timer-section">
         <app-timer></app-timer>
+        <app-intention-input></app-intention-input>
         <app-timer-controls></app-timer-controls>
 
-        <!-- Cycles Info -->
-        <div class="cycles-info">
-          <span class="cycles-text">{{ 'TIMER.POMODOROS_COMPLETED' | translate }} {{ completedPomodoros() }}</span>
-        </div>
+        <!-- Log de focos concluídos hoje -->
+        <app-intention-log></app-intention-log>
       </section>
-    </main>
+    </div>
 
-    <!-- Sidebar com estatísticas -->
-    <app-stats-sidebar [stats]="stats()"></app-stats-sidebar>
   </div>
 </app-container>
+
+<!-- Sidebar de estatísticas: fixed no desktop, fluxo normal no mobile -->
+<app-stats-sidebar [stats]="stats()"></app-stats-sidebar>

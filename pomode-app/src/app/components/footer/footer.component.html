@@ -9,7 +9,7 @@
           <div class="visitor-counter" aria-live="polite" aria-atomic="true">
             <app-icon name="eye" [size]="'xs'" [ariaHidden]="true"></app-icon>
             @if (isLoading()) {
-              <span class="visitor-placeholder" aria-label="Carregando visitas">…</span>
+              <span class="visitor-placeholder" [attr.aria-label]="'APP.LOADING_VISITS' | translate">…</span>
             } @else {
               <span>{{ visitCount() | number }}</span>
               <span>{{ 'APP.VISITORS' | translate }}</span>
@@ -19,7 +19,7 @@
           <!-- Fallback: badge SVG externa (auto-incrementa a cada load da página) -->
           <img
             [src]="badgeSrc"
-            alt="contador de visitas"
+            [attr.alt]="'APP.VISITOR_BADGE_ALT' | translate"
             class="visitor-badge"
             loading="lazy"
             width="80"

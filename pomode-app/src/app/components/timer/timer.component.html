@@ -1,4 +1,13 @@
 <div class="timer-container">
+  <!-- Live region: anuncia mudanças de modo ao leitor de tela -->
+  <div
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">
+    {{ modeTranslateKey() | translate }}
+  </div>
+
   <div class="mode-indicator">
     @if (modeIcon()) {
       <app-icon [name]="modeIcon()!" [size]="'md'" [ariaHidden]="true" class="mode-icon"></app-icon>
@@ -14,7 +23,12 @@
     <span class="time-number">{{ formatNumber(seconds()) }}</span>
   </div>
 
-  <div class="progress-bar">
+  <div class="progress-bar"
+       role="progressbar"
+       [attr.aria-valuenow]="progress()"
+       aria-valuemin="0"
+       aria-valuemax="100"
+       [attr.aria-label]="modeTranslateKey() | translate">
     <div class="progress-fill" [style.width.%]="progress()"></div>
   </div>
 </div>

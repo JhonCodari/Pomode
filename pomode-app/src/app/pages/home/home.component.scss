@@ -19,11 +19,9 @@
   padding: 0;
 
   @include desktop-up {
-    // Desktop: CSS Grid para centralizar timer no viewport independente do sidebar
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--spacing-xxl);
-    align-items: start;
+    // Desktop: timer centralizado na página inteira, sem grid
+    justify-content: center;
+    align-items: flex-start;
   }
 }
 
@@ -62,38 +60,6 @@
   @include desktop-up {
     gap: var(--spacing-lg);
   }
-
-  .cycles-info {
-    margin-top: 0;
-    background-color: var(--bg-secondary);
-    border-radius: var(--radius-md);
-    border: var(--border-thin) solid var(--border-color);
-
-    // Mobile first padding
-    padding: var(--spacing-sm) var(--spacing-md);
-
-    @include tablet-up {
-      padding: var(--spacing-md) var(--spacing-lg);
-      border-radius: var(--radius-lg);
-    }
-
-    .cycles-text {
-      font-weight: var(--font-weight-medium);
-      color: var(--text-secondary);
-      text-align: center;
-
-      // Mobile first font size
-      font-size: var(--font-size-sm);
-
-      @include tablet-up {
-        font-size: var(--font-size-base);
-      }
-
-      @include desktop-up {
-        font-size: var(--font-size-lg);
-      }
-    }
-  }
 }
 
 // ============================================================================
@@ -122,14 +88,6 @@
 
   .timer-section {
     gap: var(--spacing-xs);
-
-    .cycles-info {
-      padding: var(--spacing-xs) var(--spacing-sm);
-
-      .cycles-text {
-        font-size: var(--font-size-xs);
-      }
-    }
   }
 }
 
@@ -155,12 +113,5 @@
 
 // Alto contraste
 @media (prefers-contrast: high) {
-  .timer-section .cycles-info {
-    border-width: 2px;
-
-    .cycles-text {
-      color: var(--text-primary);
-      font-weight: var(--font-weight-semibold);
-    }
-  }
+  // reservado para futuras customizações de alto contraste
 }

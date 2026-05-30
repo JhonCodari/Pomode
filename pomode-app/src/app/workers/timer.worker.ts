@@ -24,7 +24,7 @@ self.onmessage = (e: MessageEvent) => {
 function startTimer() {
   stopTimer(); // Limpa qualquer timer anterior
 
-  // Verifica a cada 100ms
+  // Verifica a cada 500ms (suficiente para exibição de segundos inteiros)
   intervalId = setInterval(() => {
     const now = Date.now();
     const remaining = Math.max(0, Math.ceil((targetEndTime - now) / 1000));
@@ -43,7 +43,7 @@ function startTimer() {
       });
       stopTimer();
     }
-  }, 100);
+  }, 500);
 }
 
 function stopTimer() {
