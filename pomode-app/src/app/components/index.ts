@@ -17,3 +17,5 @@ export * from './form-field/form-field.component';
 export * from './list/list.component';
 export * from './section/section.component';
 export * from './music-player/music-player.component';
+export * from './intention-input/intention-input.component';
+export * from './intention-log/intention-log.component';

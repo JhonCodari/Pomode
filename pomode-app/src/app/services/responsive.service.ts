@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { signal, computed } from '@angular/core';
+import { signal, computed, DestroyRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export interface BreakpointState {
   isMobile: boolean;
@@ -20,6 +21,8 @@ export class ResponsiveService {
     mobile: 767,
     tablet: 1023
   };
+
+  private readonly destroyRef = inject(DestroyRef);
 
   // Signals para estado responsivo
   private _width = signal(typeof window !== 'undefined' ? window.innerWidth : 1024);
@@ -56,7 +59,8 @@ export class ResponsiveService {
       fromEvent(window, 'resize').pipe(
         debounceTime(150), // Debounce para performance
         distinctUntilChanged(),
-        startWith(null)
+        startWith(null),
+        takeUntilDestroyed(this.destroyRef)
       ).subscribe(() => {
         this._width.set(window.innerWidth);
         this._height.set(window.innerHeight);
@@ -64,7 +68,8 @@ export class ResponsiveService {
 
       // Observar mudanças na orientação
       fromEvent(window, 'orientationchange').pipe(
-        debounceTime(100)
+        debounceTime(100),
+        takeUntilDestroyed(this.destroyRef)
       ).subscribe(() => {
         // Timeout para dar tempo da orientação ser aplicada
         setTimeout(() => {

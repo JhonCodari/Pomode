@@ -52,7 +52,7 @@ export type FormFieldType = 'number' | 'text' | 'email' | 'password' | 'search';
         class="form-hint"
         [class.error-hint]="hasError"
       >
-        {{ hint | translate }}
+        {{ hint }}
       </span>
 
       <div *ngIf="errorMessage" class="form-error" role="alert">

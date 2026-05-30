@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, isDevMode } from '@angular/core';
 import { PomodoroService } from './pomodoro.service';
 
 /** Configuração de som */
@@ -111,7 +111,7 @@ export class AudioService {
       setTimeout(() => this.playBeep(), 200);
       setTimeout(() => this.playBeep(), 400);
     } catch (error) {
-      console.error('Erro ao tocar som:', error);
+      if (isDevMode()) { console.error('Erro ao tocar som:', error); }
     }
   }
 
@@ -136,7 +136,7 @@ export class AudioService {
       oscillator.start(currentTime);
       oscillator.stop(currentTime + 0.3);
     } catch (error) {
-      console.error('Erro ao tocar beep:', error);
+      if (isDevMode()) { console.error('Erro ao tocar beep:', error); }
     }
   }
 
@@ -153,7 +153,7 @@ export class AudioService {
         this.playNote(note.frequency, note.delay, note.duration);
       }
     } catch (error) {
-      console.error('Erro ao tocar som de sucesso:', error);
+      if (isDevMode()) { console.error('Erro ao tocar som de sucesso:', error); }
     }
   }
 
@@ -197,7 +197,7 @@ export class AudioService {
       await this.resumeContext();
       this.playNote(600, 0, 0.2);
     } catch (error) {
-      console.error('Erro ao tocar som de teste:', error);
+      if (isDevMode()) { console.error('Erro ao tocar som de teste:', error); }
     }
   }
 }

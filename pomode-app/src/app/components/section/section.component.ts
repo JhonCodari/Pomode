@@ -1,10 +1,11 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-section',
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, SafeHtmlPipe],
   template: `
     <section
       [class]="sectionClasses"
@@ -15,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
         <h2
           [id]="titleId"
           class="section-title"
-          [innerHTML]="title | translate"
+          [innerHTML]="title | translate | safeHtml"
         ></h2>
         <p *ngIf="subtitle" class="section-subtitle">
           {{ subtitle | translate }}
@@ -31,6 +32,13 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SectionComponent {
+  private static instanceCounter = 0;
+  private readonly instanceId: number;
+
+  constructor() {
+    this.instanceId = ++SectionComponent.instanceCounter;
+  }
+
   @Input() title?: string;
   @Input() subtitle?: string;
   @Input() sectionId?: string;
@@ -47,6 +55,6 @@ export class SectionComponent {
   }
 
   get titleId(): string {
-    return this.sectionId ? `${this.sectionId}-title` : 'section-title';
+    return this.sectionId ? `${this.sectionId}-title` : `section-title-${this.instanceId}`;
   }
 }

@@ -13,6 +13,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
       [type]="type"
       [disabled]="disabled"
       [class]="buttonClasses"
+      [attr.aria-label]="ariaLabel || null"
       (click)="handleClick($event)"
     >
       <ng-content></ng-content>
@@ -27,6 +28,7 @@ export class ButtonComponent {
   @Input() disabled: boolean = false;
   @Input() fullWidth: boolean = false;
   @Input() icon: boolean = false;
+  @Input() ariaLabel?: string;
 
   get buttonClasses(): string {
     const classes = ['btn'];

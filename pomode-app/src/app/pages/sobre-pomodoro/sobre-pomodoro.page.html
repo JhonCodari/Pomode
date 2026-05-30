@@ -1,7 +1,7 @@
 ﻿<app-container [size]="'lg'">
   <article class="sobre-pomodoro" itemscope itemtype="https://schema.org/Article">
     <header class="page-header">
-      <h1 itemprop="headline" [innerHTML]="'ABOUT.TITLE' | translate"></h1>
+      <h1 itemprop="headline" [innerHTML]="'ABOUT.TITLE' | translate | safeHtml"></h1>
       <p class="subtitle" itemprop="description">
         {{ 'ABOUT.SUBTITLE' | translate }}
       </p>
@@ -11,21 +11,21 @@
       <app-section
         [title]="'ABOUT.WHAT_IS.TITLE' | translate"
         id="o-que-e">
-        <p [innerHTML]="'ABOUT.WHAT_IS.P1' | translate"></p>
-        <p [innerHTML]="'ABOUT.WHAT_IS.P2' | translate"></p>
+        <p [innerHTML]="'ABOUT.WHAT_IS.P1' | translate | safeHtml"></p>
+        <p [innerHTML]="'ABOUT.WHAT_IS.P2' | translate | safeHtml"></p>
       </app-section>
 
       <app-section
         [title]="'ABOUT.HISTORY.TITLE' | translate"
         id="historia">
-        <p [innerHTML]="'ABOUT.HISTORY.P1' | translate"></p>
-        <p [innerHTML]="'ABOUT.HISTORY.P2' | translate"></p>
+        <p [innerHTML]="'ABOUT.HISTORY.P1' | translate | safeHtml"></p>
+        <p [innerHTML]="'ABOUT.HISTORY.P2' | translate | safeHtml"></p>
       </app-section>
 
       <app-section
         [title]="'ABOUT.SCIENCE.TITLE' | translate"
         id="ciencia">
-        <p [innerHTML]="'ABOUT.SCIENCE.INTRO' | translate"></p>
+        <p [innerHTML]="'ABOUT.SCIENCE.INTRO' | translate | safeHtml"></p>
         <app-list
           [variant]="'bulleted'"
           [items]="[
@@ -35,7 +35,7 @@
             { text: 'ABOUT.SCIENCE.BENEFITS.BALANCE' }
           ]">
         </app-list>
-        <p [innerHTML]="'ABOUT.SCIENCE.CONCLUSION' | translate"></p>
+        <p [innerHTML]="'ABOUT.SCIENCE.CONCLUSION' | translate | safeHtml"></p>
       </app-section>
 
       <app-section
@@ -150,8 +150,8 @@
         [title]="'ABOUT.CTA.TITLE' | translate"
         [variant]="'cta'"
         id="comece-agora">
-        <p [innerHTML]="'ABOUT.CTA.P1' | translate"></p>
-        <p [innerHTML]="'ABOUT.CTA.P2' | translate"></p>
+        <p [innerHTML]="'ABOUT.CTA.P1' | translate | safeHtml"></p>
+        <p [innerHTML]="'ABOUT.CTA.P2' | translate | safeHtml"></p>
         <app-button
           [variant]="'primary'"
           [size]="'lg'"

@@ -15,20 +15,20 @@ export type LogoSize = 'sm' | 'md' | 'lg';
          routerLink="/"
          class="logo-link"
          [attr.aria-label]="'NAV.GO_HOME' | translate">
-        <h1 class="logo-title">
+        <span class="logo-title">
           <span aria-hidden="true" class="logo-emoji">🍅</span>
           {{ titleKey | translate }}
-        </h1>
+        </span>
         <p *ngIf="showSubtitle" class="logo-subtitle">
           {{ subtitleKey | translate }}
         </p>
       </a>
 
       <ng-template #logoText>
-        <h1 class="logo-title">
+        <span class="logo-title">
           <span aria-hidden="true" class="logo-emoji">🍅</span>
           {{ titleKey | translate }}
-        </h1>
+        </span>
         <p *ngIf="showSubtitle" class="logo-subtitle">
           {{ subtitleKey | translate }}
         </p>

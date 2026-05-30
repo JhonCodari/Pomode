@@ -1,4 +1,4 @@
-import { Component, inject, signal, Output, EventEmitter, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal, Output, EventEmitter, HostListener, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -19,7 +19,7 @@ import { PomodoroSettings, SETTINGS_LIMITS, DEFAULT_SETTINGS } from '../../model
   styleUrl: './settings-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsModalComponent {
+export class SettingsModalComponent implements AfterViewInit {
   private pomodoroService = inject(PomodoroService);
   private toastService = inject(ToastService);
   private audioService = inject(AudioService);
@@ -27,6 +27,14 @@ export class SettingsModalComponent {
   private translate = inject(TranslateService);
 
   @Output() close = new EventEmitter<void>();
+
+  @ViewChild('modalContent') private modalContentRef!: ElementRef<HTMLElement>;
+  private previousFocus: HTMLElement | null = null;
+
+  ngAfterViewInit(): void {
+    this.previousFocus = document.activeElement as HTMLElement;
+    this.modalContentRef.nativeElement.focus();
+  }
 
   // Limites para validação (exposto para o template)
   readonly limits = SETTINGS_LIMITS;
@@ -62,10 +70,32 @@ export class SettingsModalComponent {
   get notificationsEnabled(): boolean { return this._notificationsEnabled(); }
   set notificationsEnabled(value: boolean) { this._notificationsEnabled.set(value); }
 
-  // Atalho de teclado para fechar modal
-  @HostListener('document:keydown.escape')
-  onEscapeKey(): void {
-    this.cancel();
+  // Focus trap e Escape para fechar modal
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.cancel();
+      return;
+    }
+    if (event.key === 'Tab') {
+      const modal = this.modalContentRef.nativeElement;
+      const focusable = Array.from(
+        modal.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
   }
 
   saveSettings(): void {
@@ -90,10 +120,12 @@ export class SettingsModalComponent {
       notificationsEnabled: settings.notificationsEnabled!,
     });
     this.toastService.success(this.translate.instant('SETTINGS.SAVED'));
+    this.previousFocus?.focus();
     this.close.emit();
   }
 
   cancel(): void {
+    this.previousFocus?.focus();
     this.close.emit();
   }
 

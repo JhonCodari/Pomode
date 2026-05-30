@@ -218,40 +218,31 @@ describe('PomodoroService', () => {
   });
 
   describe('Timer Complete Observable', () => {
-    it('deve emitir quando o timer termina', fakeAsync(() => {
+    it('deve emitir o modo atual quando o timer termina', () => {
       let emittedMode: any = null;
 
       service.timerComplete$.subscribe(mode => {
         emittedMode = mode;
       });
 
-      // Configura tempo mínimo para teste rápido (1 segundo)
-      service.updateSettings({
-        ...DEFAULT_SETTINGS,
-        workTime: 1 / 60 // ~1 segundo
+      service.mode.set('work');
+      (service as any).onTimerComplete();
+
+      expect(emittedMode).toBe('work');
+    });
+
+    it('deve emitir shortBreak quando o timer de pausa termina', () => {
+      let emittedMode: any = null;
+
+      service.timerComplete$.subscribe(mode => {
+        emittedMode = mode;
       });
-      service.reset();
 
-      // Instala jasmine clock para controlar Date.now()
-      jasmine.clock().install();
-      const baseTime = new Date();
-      jasmine.clock().mockDate(baseTime);
+      service.mode.set('shortBreak');
+      (service as any).onTimerComplete();
 
-      service.start();
-
-      // Avança o relógio real e os timers do zone em 2 segundos
-      jasmine.clock().mockDate(new Date(baseTime.getTime() + 2000));
-      tick(2000);
-
-      jasmine.clock().uninstall();
-
-      // Se o timer emitiu (depende da implementação com fallback/Worker)
-      // O timer pode não emitir em testes headless sem Worker real
-      if (emittedMode !== null) {
-        expect(emittedMode).toBe('work');
-      }
-      discardPeriodicTasks();
-    }));
+      expect(emittedMode).toBe('shortBreak');
+    });
   });
 
   describe('Conclusão de intervalos e pomodoros', () => {

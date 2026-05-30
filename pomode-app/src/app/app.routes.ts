@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { SobrePomodoroPage } from './pages/sobre-pomodoro/sobre-pomodoro.page';
 
 export const routes: Routes = [
   {
@@ -10,7 +9,7 @@ export const routes: Routes = [
   },
   {
     path: 'sobre-pomodoro',
-    component: SobrePomodoroPage,
+    loadComponent: () => import('./pages/sobre-pomodoro/sobre-pomodoro.page').then(m => m.SobrePomodoroPage),
     title: 'O que é Pomodoro? - Pomode'
   },
   {

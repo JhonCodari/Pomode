@@ -1,6 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
 
 export interface ListItem {
   text: string;
@@ -16,12 +17,12 @@ export type ListVariant = 'bulleted' | 'numbered' | 'checked' | 'referenced';
 
 @Component({
   selector: 'app-list',
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, SafeHtmlPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul [class]="listClasses" [attr.aria-label]="ariaLabel | translate">
       <li *ngFor="let item of items; trackBy: trackItem" class="list-item">
-        <span class="list-content" [innerHTML]="item.text | translate"></span>
+        <span class="list-content" [innerHTML]="item.text | translate | safeHtml"></span>
         <ng-container *ngIf="item.link">
           —
           <a

@@ -6,10 +6,13 @@ import { ContainerComponent } from '../../components/container/container.compone
 import { TimerComponent } from '../../components/timer/timer.component';
 import { TimerControlsComponent } from '../../components/timer-controls/timer-controls.component';
 import { StatsSidebarComponent, StatItem } from '../../components/stats-sidebar/stats-sidebar.component';
+import { IntentionInputComponent } from '../../components/intention-input/intention-input.component';
+import { IntentionLogComponent } from '../../components/intention-log/intention-log.component';
 import { PomodoroService } from '../../services/pomodoro.service';
 import { AudioService } from '../../services/audio.service';
 import { MusicPlayerService } from '../../services/music-player.service';
-import { AnalyticsService } from '../../services';
+import { AnalyticsService, ToastService } from '../../services';
+import { IntentionService } from '../../services/intention.service';
 import { TimerMode } from '../../models';
 
 @Component({
@@ -20,7 +23,9 @@ import { TimerMode } from '../../models';
     ContainerComponent,
     TimerComponent,
     TimerControlsComponent,
-    StatsSidebarComponent
+    StatsSidebarComponent,
+    IntentionInputComponent,
+    IntentionLogComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -31,6 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   private audioService = inject(AudioService);
   private musicPlayerService = inject(MusicPlayerService);
   private analyticsService = inject(AnalyticsService);
+  private toastService = inject(ToastService);
+  private intentionService = inject(IntentionService);
   private translate = inject(TranslateService);
   private timerCompleteSubscription?: Subscription;
   private pendingPomodoroCompletion = false;
@@ -48,7 +55,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // Computed signals encapsulados para o template
-  readonly completedPomodoros = computed(() => this.pomodoroService.completedCycles());
   readonly sessions = computed(() => this.pomodoroService.sessions());
 
   // Stats computadas como signals
@@ -130,6 +136,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     // Marca que um foco terminou e aguarda conclusão da pausa para fechar 1 pomodoro completo.
     if (mode === 'work') {
       this.pendingPomodoroCompletion = true;
+
+      const intention = this.intentionService.intention();
+      if (intention) {
+        this.intentionService.addAccomplished(intention);
+        const message = this.translate.instant('INTENTION.TOAST_COMPLETED', { intention });
+        this.toastService.success(message, 4000);
+        this.intentionService.clear();
+      }
+
       return;
     }
 

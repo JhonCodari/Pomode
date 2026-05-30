@@ -1,0 +1,33 @@
+<div class="intention-wrapper" [class.intention-wrapper--running]="isRunning()">
+  @if (isRunning()) {
+    @if (hasIntention()) {
+      <div class="intention-active" role="status" [attr.aria-label]="'INTENTION.ACTIVE_LABEL' | translate">
+        <span class="intention-icon" aria-hidden="true">🎯</span>
+        <span class="intention-text">{{ intention() }}</span>
+      </div>
+    }
+  } @else {
+    @if (hasIntention()) {
+      <div class="intention-chip">
+        <span class="intention-icon" aria-hidden="true">🎯</span>
+        <span class="intention-text">{{ intention() }}</span>
+        <button
+          class="intention-clear"
+          type="button"
+          (click)="clear()"
+          [attr.aria-label]="'INTENTION.CLEAR' | translate"
+        >×</button>
+      </div>
+    } @else {
+      <input
+        class="intention-input"
+        type="text"
+        maxlength="80"
+        [placeholder]="'INTENTION.PLACEHOLDER' | translate"
+        [attr.aria-label]="'INTENTION.LABEL' | translate"
+        (keydown)="onKeyDown($event)"
+        (blur)="onBlur($event)"
+      />
+    }
+  }
+</div>

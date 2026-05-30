@@ -1,4 +1,4 @@
-import { Injectable, signal, computed, effect, OnDestroy } from '@angular/core';
+import { Injectable, signal, computed, effect, OnDestroy, isDevMode } from '@angular/core';
 import { Subject } from 'rxjs';
 import {
   TimerMode,
@@ -84,7 +84,7 @@ export class PomodoroService implements OnDestroy {
    */
   private initializeTimerWorker(): void {
     if (typeof Worker === 'undefined') {
-      console.warn('Web Workers não suportados. Usando fallback.');
+      if (isDevMode()) { console.warn('Web Workers não suportados. Usando fallback.'); }
       return;
     }
 
@@ -118,11 +118,11 @@ export class PomodoroService implements OnDestroy {
       };
 
       this.timerWorker.onerror = (error) => {
-        console.error('Timer Worker error:', error);
+        if (isDevMode()) { console.error('Timer Worker error:', error); }
         this.terminateWorker();
       };
     } catch (error) {
-      console.error('Erro ao criar Worker:', error);
+      if (isDevMode()) { console.error('Erro ao criar Worker:', error); }
     }
   }
 
@@ -431,7 +431,7 @@ export class PomodoroService implements OnDestroy {
         return { ...DEFAULT_SETTINGS, ...JSON.parse(stored) };
       }
     } catch (error) {
-      console.error('Erro ao carregar configurações:', error);
+      if (isDevMode()) { console.error('Erro ao carregar configurações:', error); }
     }
 
     return DEFAULT_SETTINGS;
@@ -446,7 +446,7 @@ export class PomodoroService implements OnDestroy {
     try {
       localStorage.setItem(this.SETTINGS_KEY, JSON.stringify(settings));
     } catch (error) {
-      console.error('Erro ao salvar configurações:', error);
+      if (isDevMode()) { console.error('Erro ao salvar configurações:', error); }
     }
   }
 
@@ -467,7 +467,7 @@ export class PomodoroService implements OnDestroy {
         }));
       }
     } catch (error) {
-      console.error('Erro ao carregar sessões:', error);
+      if (isDevMode()) { console.error('Erro ao carregar sessões:', error); }
     }
 
     return [];
@@ -484,7 +484,7 @@ export class PomodoroService implements OnDestroy {
       const limitedSessions = sessions.slice(0, 100);
       localStorage.setItem(this.SESSIONS_KEY, JSON.stringify(limitedSessions));
     } catch (error) {
-      console.error('Erro ao salvar sessões:', error);
+      if (isDevMode()) { console.error('Erro ao salvar sessões:', error); }
     }
   }
 }

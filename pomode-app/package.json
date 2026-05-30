@@ -1,6 +1,6 @@
 {
   "name": "pomode-app",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Aplicativo web de Pomodoro para aumentar sua produtividade",
   "scripts": {
     "ng": "ng",
