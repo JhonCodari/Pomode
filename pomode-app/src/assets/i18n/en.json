@@ -4,7 +4,6 @@
     "SUBTITLE": "Pomodoro Timer",
     "SKIP_TO_CONTENT": "Skip to main content",
     "COPYRIGHT": "© 2025 Pomode | Developed by Jhon Codari",
-    "VERSION": "v1.0.1",
     "VISITORS": "visits",
     "LOADING_VISITS": "Loading visits",
     "VISITOR_BADGE_ALT": "Visitor counter"
@@ -37,9 +36,9 @@
   },
   "STATS": {
     "TITLE": "Statistics",
-    "TODAY_INTERVALS": "Intervals today",
-    "TOTAL_HOURS": "Total hours",
-    "WEEKLY_INTERVALS": "Intervals (7 days)"
+    "TODAY_POMODOROS": "Pomodoros today",
+    "TOTAL_HOURS": "Total focus hours",
+    "WEEKLY_POMODOROS": "Pomodoros (7 days)"
   },
   "SETTINGS": {
     "TITLE": "Settings",
@@ -94,7 +93,7 @@
     "CLOSE": "Close notification"
   },
   "INTENTION": {
-    "PLACEHOLDER": "What will you focus on? (optional)",
+    "PLACEHOLDER": "What will you focus on?",
     "LABEL": "Session intention",
     "CLEAR": "Clear intention",
     "ACTIVE_LABEL": "Focus for this session",

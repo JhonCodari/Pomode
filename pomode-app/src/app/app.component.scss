@@ -65,8 +65,8 @@
   }
 
   @include desktop-up {
-    padding: var(--spacing-md) 0;
-    padding-top: max(var(--spacing-md), var(--safe-area-inset-top));
+    padding: var(--spacing-xs) 0;
+    padding-top: max(var(--spacing-xs), var(--safe-area-inset-top));
   }
 }
 

@@ -98,6 +98,10 @@
   }
 
   .time-number {
+    // Fonte com zeros limpos e largura tabular — evita ornamentos e saltos visuais
+    font-family: 'Roboto Mono', 'DM Mono', 'Courier New', monospace;
+    font-variant-numeric: tabular-nums;
+
     // Aplicar gradiente apenas nos números
     background: var(--gradient-primary);
     -webkit-background-clip: text;

@@ -23,4 +23,5 @@ export class FooterComponent {
 
   // URL hardcoded — nunca vem de binding dinâmico para evitar injeção
   readonly badgeSrc = 'https://hits.sh/www.pomode.com.br.svg';
+  readonly version = `v${environment.version}`;
 }

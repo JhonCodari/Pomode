@@ -61,28 +61,34 @@ export class HomeComponent implements OnInit, OnDestroy {
   readonly todaySessions = computed(() => {
     const today = new Date().toDateString();
     return this.sessions().filter(s =>
-      new Date(s.completedAt).toDateString() === today
+      s.mode !== 'work' && new Date(s.completedAt).toDateString() === today
     ).length;
   });
 
   readonly totalHours = computed(() => {
-    const totalMinutes = this.sessions().reduce((acc, s) => acc + (s.duration / 60), 0);
-    return Math.floor(totalMinutes / 60);
+    const totalMinutes = this.sessions()
+      .filter(s => s.mode === 'work')
+      .reduce((acc, s) => acc + (s.duration / 60), 0);
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = Math.round(totalMinutes % 60);
+    if (hours === 0) return `${minutes}min`;
+    if (minutes === 0) return `${hours}h`;
+    return `${hours}h ${minutes}min`;
   });
 
   readonly currentStreak = computed(() => {
     const weekAgo = new Date();
     weekAgo.setDate(weekAgo.getDate() - 7);
     return this.sessions().filter(s =>
-      new Date(s.completedAt) >= weekAgo
+      s.mode !== 'work' && new Date(s.completedAt) >= weekAgo
     ).length;
   });
 
   // Stats array para sidebar
   readonly stats = computed<StatItem[]>(() => [
-    { value: this.todaySessions(), labelKey: 'STATS.TODAY_INTERVALS' },
+    { value: this.todaySessions(), labelKey: 'STATS.TODAY_POMODOROS' },
     { value: this.totalHours(), labelKey: 'STATS.TOTAL_HOURS' },
-    { value: this.currentStreak(), labelKey: 'STATS.WEEKLY_INTERVALS' }
+    { value: this.currentStreak(), labelKey: 'STATS.WEEKLY_POMODOROS' }
   ]);
 
   ngOnInit(): void {

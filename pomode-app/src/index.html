@@ -62,8 +62,8 @@
     img-src 'self' data: https://hits.sh https://*.google-analytics.com https://*.analytics.google.com;
     media-src 'self' https://ice1.somafm.com https://ice2.somafm.com https://ice3.somafm.com;
     script-src 'self' 'unsafe-inline' https://*.googletagmanager.com;
-    style-src 'self' 'unsafe-inline';
-    font-src 'self' data:;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src 'self' data: https://fonts.gstatic.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
@@ -72,6 +72,9 @@
   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Fonte do timer: zeros limpos, largura tabular -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap">
 </head>
 <body>
   <app-root></app-root>

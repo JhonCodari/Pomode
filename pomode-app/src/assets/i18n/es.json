@@ -4,7 +4,6 @@
     "SUBTITLE": "Temporizador Pomodoro",
     "SKIP_TO_CONTENT": "Saltar al contenido principal",
     "COPYRIGHT": "© 2025 Pomode | Desarrollado por Jhon Codari",
-    "VERSION": "v1.0.1",
     "VISITORS": "visitas",
     "LOADING_VISITS": "Cargando visitas",
     "VISITOR_BADGE_ALT": "Contador de visitas"
@@ -37,9 +36,9 @@
   },
   "STATS": {
     "TITLE": "Estadísticas",
-    "TODAY_INTERVALS": "Intervalos hoy",
-    "TOTAL_HOURS": "Total de horas",
-    "WEEKLY_INTERVALS": "Intervalos (7 días)"
+    "TODAY_POMODOROS": "Pomodoros hoy",
+    "TOTAL_HOURS": "Total de horas de enfoque",
+    "WEEKLY_POMODOROS": "Pomodoros (7 días)"
   },
   "SETTINGS": {
     "TITLE": "Configuración",
@@ -94,7 +93,7 @@
     "CLOSE": "Cerrar notificación"
   },
   "INTENTION": {
-    "PLACEHOLDER": "¿En qué vas a enfocarte? (opcional)",
+    "PLACEHOLDER": "¿En qué vas a enfocarte?",
     "LABEL": "Intención de la sesión",
     "CLEAR": "Limpiar intención",
     "ACTIVE_LABEL": "Enfoque de esta sesión",
